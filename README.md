@@ -1,4 +1,4 @@
 # DRAM-group
-
-* We can have all the project files in the project code folder
-* In the design folder we can upload prototypes and images we might use for the development of the app.
+ 
+* In the "Design and prototypes" folder we can upload prototypes and images we might use for the development of the app.
+* All HTML, CSS and JavaScript files can be located in the "Code" folder . 
