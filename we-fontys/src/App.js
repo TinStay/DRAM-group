@@ -9,6 +9,7 @@ import { Container } from "react-bootstrap";
 import Signup from "./components/AuthForms/Signup";
 import Login from "./components/AuthForms/Login";
 import ForgotPassword from "./components/AuthForms/ForgotPassword";
+import UpdateProfile from "./components/AuthForms/UpdateProfile";
 import { AuthProvider } from "./Context/AuthContext";
 
 // React Router
@@ -26,6 +27,7 @@ function App() {
             <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />
             <Route path="/forgot-password" component={ForgotPassword} />
+            <PrivateRoute path="/update-profile" component={UpdateProfile} />
           </Switch>
         </Container>
       </AuthProvider>

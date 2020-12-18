@@ -48,6 +48,16 @@ export const AuthProvider = ({ children }) => {
     return auth.sendPasswordResetEmail(email);
   };
 
+  // Update email
+  const updateEmail = (email) => {
+    return currentUser.updateEmail(email);
+  };
+
+  // Update password
+  const updatePassword = (password) => {
+    return currentUser.updatePassword(password);
+  };
+
   // Context provider value
   const value = {
     currentUser,
@@ -55,6 +65,8 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     resetPassword,
+    updateEmail,
+    updatePassword,
   };
 
   return (
