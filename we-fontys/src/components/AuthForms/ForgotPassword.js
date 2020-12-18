@@ -7,39 +7,37 @@ import classes from "./AuthForms.module.scss";
 import { useAuth } from "../../Context/AuthContext";
 
 // React Router
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Login = () => {
+const ForgotPassword = () => {
   // State
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  // React router history
-  const history = useHistory();
 
   // Form fields references
   const emailRef = useRef();
-  const passwordRef = useRef();
 
-  //  Signup function from context
-  const { login } = useAuth();
+  //  Reset password function from context
+  const { resetPassword } = useAuth();
 
   async function handleSubmit(e) {
     // Prevent page from refreshing
     e.preventDefault();
 
     try {
-      // Reset error message if it exists before signing up
+      // Reset error and message if it exists before signing up
       setError("");
+      setMessage("")
+
       setIsLoading(true);
 
-      await login(emailRef.current.value, passwordRef.current.value);
+      await resetPassword(emailRef.current.value);
+      setMessage("Check your inbox for further instructions")
 
-      // Redirect to home page
-      history.push("/");
     } catch (error) {
-      console.log("Login error: ", error);
-      setError("Failed to log in");
+      console.log("Reset password error: ", error);
+      setError("Failed to reset password");
     }
 
     setIsLoading(false);
@@ -49,9 +47,10 @@ const Login = () => {
     <div className={classes.form_container}>
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Log in</h2>
+          <h2 className="text-center mb-4">Reset password</h2>
 
           {error && <Alert variant="danger">{error}</Alert>}
+          {message && <Alert variant="success">{message}</Alert>}
 
           <Form onSubmit={(e) => handleSubmit(e)}>
             <Form.Group id="email">
@@ -59,16 +58,11 @@ const Login = () => {
               <Form.Control type="email" ref={emailRef} required />
             </Form.Group>
 
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
-            </Form.Group>
-
             <Button disabled={isLoading} className="w-100" type="submit">
-              Log In
+              Submit 
             </Button>
             <div className="w-100 text-center mt-3">
-              <Link to="/forgot-password">Forgot password?</Link>
+              <Link to="/login">Login</Link>
             </div>
           </Form>
         </Card.Body>
@@ -80,4 +74,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;

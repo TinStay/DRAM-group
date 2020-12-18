@@ -12,20 +12,20 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   // State
   const [currentUser, setCurrentUser] = useState();
-  const [isLoading, setIsLoading] = useState(true)
- 
+  const [isLoading, setIsLoading] = useState(true);
+
   // On component mount
   useEffect(() => {
     // Update current user state when auth state changes
-    // onAuthStateChanged returns a function which can be used to unsubscribe 
+    // onAuthStateChanged returns a function which can be used to unsubscribe
     // to the onAuthStateChanged listener when component unmounts
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
-      
-      setIsLoading(false)
+
+      setIsLoading(false);
     });
 
-    return unsubscribe
+    return unsubscribe;
   }, []);
 
   // Sign up with firebase
@@ -43,15 +43,23 @@ export const AuthProvider = ({ children }) => {
     return auth.signOut();
   };
 
+  // Reset password
+  const resetPassword = (email) => {
+    return auth.sendPasswordResetEmail(email);
+  };
+
   // Context provider value
   const value = {
     currentUser,
     signup,
     login,
-    logout
+    logout,
+    resetPassword,
   };
 
-  return <AuthContext.Provider value={value}>
+  return (
+    <AuthContext.Provider value={value}>
       {!isLoading && children}
-      </AuthContext.Provider>;
+    </AuthContext.Provider>
+  );
 };
