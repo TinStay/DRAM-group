@@ -12,7 +12,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   // State
   const [currentUser, setCurrentUser] = useState();
-
+  const [isLoading, setIsLoading] = useState(true)
  
   // On component mount
   useEffect(() => {
@@ -21,21 +21,37 @@ export const AuthProvider = ({ children }) => {
     // to the onAuthStateChanged listener when component unmounts
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
+      
+      setIsLoading(false)
     });
 
     return unsubscribe
   }, []);
 
-  // Signup with firebase
+  // Sign up with firebase
   const signup = (email, password) => {
     return auth.createUserWithEmailAndPassword(email, password);
+  };
+
+  // Sign in with firebase
+  const login = (email, password) => {
+    return auth.signInWithEmailAndPassword(email, password);
+  };
+
+  // Log out
+  const logout = (email, password) => {
+    return auth.signOut();
   };
 
   // Context provider value
   const value = {
     currentUser,
-    signup
+    signup,
+    login,
+    logout
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>
+      {!isLoading && children}
+      </AuthContext.Provider>;
 };

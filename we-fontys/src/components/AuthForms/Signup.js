@@ -1,15 +1,21 @@
 import React, { useRef, useState } from "react";
 // Style
 import { Card, Button, Form, Alert } from "react-bootstrap";
-import classes from "./Signup.module.scss";
+import classes from "./AuthForms.module.scss";
 
 // Auth
 import { useAuth } from "../../Context/AuthContext";
+
+// React Router
+import { Link, useHistory } from 'react-router-dom'
 
 const Signup = () => {
   // State
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  // React router history
+  const history = useHistory();
 
   // Form fields references
   const emailRef = useRef();
@@ -17,7 +23,7 @@ const Signup = () => {
   const passwordConfirmRef = useRef();
 
   // Signup function from context
-  const { signup } = useAuth;
+  const { signup, currentUser } = useAuth();
 
   async function handleSubmit(e){
     // Prevent page from refreshing
@@ -35,15 +41,21 @@ const Signup = () => {
       setIsLoading(true)
 
       await signup(emailRef.current.value, passwordRef.current.value);
-    } catch{
+
+      // Redirect to home page
+      history.push('/')
+      
+    } catch(error){
+      console.log("Auth error: ",error)
       setError("Failed to sign up")
     }
-
+    
     setIsLoading(false)
   }
+  console.log(currentUser)
 
   return (
-    <div className={classes.Signup_container}>
+    <div className={classes.form_container}>
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Sign Up</h2>
@@ -73,7 +85,7 @@ const Signup = () => {
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        Already have an account? Log In
+        Already have an account? <Link to="/login">Log In</Link>
       </div>
     </div>
   );
