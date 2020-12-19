@@ -12,5 +12,10 @@
 }
 
 .dropdown-toggle{
-    padding: 0;
+    padding: 10px;
+
+    @media screen and (min-width: 992px	){
+        padding: 0px;
+    }
 }
+

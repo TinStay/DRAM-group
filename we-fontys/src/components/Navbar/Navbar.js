@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 //React Router
 import { Link } from "react-router-dom";
@@ -13,20 +13,24 @@ import {
   Button,
 } from "react-bootstrap";
 import classes from "./Navbar.module.scss";
-import account_icon from "../../assets/account/account_icon.png";
+import account_icon from "../../assets/account/account_icon_purple.png";
 
 // Auth
 import { useAuth } from "../../Context/AuthContext";
 
 const Navigationbar = () => {
   const { currentUser, logout } = useAuth();
+  const [expanded, setExpanded] = useState(false);
+
+  let togglerClasses = [];
+  let collapseClasses = [];
 
   let navItems = (
     <Nav className="ml-auto">
-      <Link className={classes.btn_login} to="/login">
+      <Link onClick={() => setExpanded(false)} className={classes.btn_login} to="/login">
         Login
       </Link>
-      <Link className={classes.btn_signup} to="/signup">
+      <Link onClick={() => setExpanded(false)} className={classes.btn_signup} to="/signup">
         Sign up
       </Link>
     </Nav>
@@ -37,7 +41,7 @@ const Navigationbar = () => {
       <Nav className="ml-auto ">
         <NavDropdown
           title={
-            <div className="d-inline">
+            <div className="d-inline ">
               <img
                 className={classes.account_icon}
                 src={account_icon}
@@ -48,8 +52,20 @@ const Navigationbar = () => {
           }
           id="basic-nav-dropdown"
         >
-          <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.2">Help</NavDropdown.Item>
+          <Link
+            onClick={() => setExpanded(false)}
+            className="dropdown-item"
+            to="/profile"
+          >
+            Profile
+          </Link>
+          <Link
+            onClick={() => setExpanded(false)}
+            className="dropdown-item"
+            to="/"
+          >
+            Help
+          </Link>
           <NavDropdown.Divider />
           <NavDropdown.Item onClick={() => logout()}>Log out</NavDropdown.Item>
         </NavDropdown>
@@ -58,10 +74,21 @@ const Navigationbar = () => {
   }
 
   return (
-    <Navbar className="" bg="light" expand="lg">
-      <Navbar.Brand href="#home">WeFontys</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">{navItems}</Navbar.Collapse>
+    <Navbar expanded={expanded} className="" bg="light" expand="lg">
+      <Link className={classes.logo} to="/">
+        WeFontys
+      </Link>
+      <Navbar.Toggle
+        onClick={() => setExpanded(expanded ? false : "expanded")}
+        className={togglerClasses.join(" ")}
+        aria-controls="basic-navbar-nav"
+      />
+      <Navbar.Collapse
+        className={collapseClasses.join(" ")}
+        id="basic-navbar-nav"
+      >
+        {navItems}
+      </Navbar.Collapse>
     </Navbar>
   );
 };
