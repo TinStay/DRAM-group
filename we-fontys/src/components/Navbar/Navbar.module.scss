@@ -1,4 +1,4 @@
-.Btn_login{
+.btn_login{
     margin: 0;
     padding: 5px 15px;
     color: rgb(116, 116, 116);
@@ -11,7 +11,7 @@
     }
 }
 
-.Btn_signup{
+.btn_signup{
     margin: 0;
     padding: 5px 15px;
     color: white;
@@ -25,4 +25,11 @@
         text-decoration: none;
     }
 
+}
+
+.account_icon{
+    margin: 0 5px;
+    
+    width: 32px;
+    height: 32px;
 }
