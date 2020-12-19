@@ -106,7 +106,7 @@ const UpdateProfile = () => {
 
             <Button
               disabled={isLoading}
-              className="btn btn-primary w-100 mb-3"
+              className="btn-purple-rounded w-100 mb-3"
               type="submit"
             >
               Update

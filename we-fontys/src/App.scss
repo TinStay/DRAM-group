@@ -1,3 +1,5 @@
+$fontys-purple: #663366;
+$fontys-purple-hover: #703970;
 
 .white{
     color: white;
@@ -16,6 +18,20 @@
 
     @media screen and (min-width: 992px	){
         padding: 0px;
+    }
+}
+
+.btn-purple-rounded{
+    padding: 8px 10px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    background-color: $fontys-purple;
+    color: white;
+
+    &:hover{
+        color: white;
+        background-color: $fontys-purple-hover;
     }
 }
 

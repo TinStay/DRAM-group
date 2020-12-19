@@ -27,10 +27,18 @@ const Navigationbar = () => {
 
   let navItems = (
     <Nav className="ml-auto">
-      <Link onClick={() => setExpanded(false)} className={classes.btn_login} to="/login">
+      <Link
+        onClick={() => setExpanded(false)}
+        className={classes.btn_login}
+        to="/login"
+      >
         Login
       </Link>
-      <Link onClick={() => setExpanded(false)} className={classes.btn_signup} to="/signup">
+      <Link
+        onClick={() => setExpanded(false)}
+        className={classes.btn_signup}
+        to="/signup"
+      >
         Sign up
       </Link>
     </Nav>

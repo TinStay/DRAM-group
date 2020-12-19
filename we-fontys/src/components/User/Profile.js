@@ -42,7 +42,7 @@ const Profile = () => {
             {currentUser.email}
 
             <div className="text-center">
-              <Link to="update-profile" className="btn btn-primary mr-5">
+              <Link to="update-profile" className="btn-purple-rounded text-decoration-none white mr-5">
                 Update profile
               </Link>
               <Button
