@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../../Context/AuthContext";
 
 // Style
@@ -7,12 +7,24 @@ import { Card, Form, Button, Alert } from "react-bootstrap";
 // React Router
 import { Link, useHistory } from "react-router-dom";
 
+import axios from 'axios'
+
 const Profile = () => {
   //State
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
 
   const history = useHistory();
+
+  useEffect(() => {
+    axios.get("https://wefontys-default-rtdb.europe-west1.firebasedatabase.app/").then(
+      (response) => {
+        console.log("response",response)
+      }
+    ).catch((err) => {
+      console.log("err", err)
+    })
+  }, [])
 
   async function handleLogout() {
     // Clear existing error
