@@ -7,7 +7,7 @@ import { Card, Form, Button, Alert } from "react-bootstrap";
 // React Router
 import { Link, useHistory } from "react-router-dom";
 
-import axios from 'axios'
+import axios from "../../axios";
 
 const Profile = () => {
   //State
@@ -17,14 +17,14 @@ const Profile = () => {
   const history = useHistory();
 
   useEffect(() => {
-    axios.get("https://wefontys-default-rtdb.europe-west1.firebasedatabase.app/").then(
-      (response) => {
-        console.log("response",response)
-      }
-    ).catch((err) => {
-      console.log("err", err)
-    })
-  }, [])
+    // axios.get("/users.json")
+    //   .then((response) => {
+    //     console.log("response", response);
+    //   })
+    //   .catch((err) => {
+    //     console.log("err", err);
+    //   });
+  }, []);
 
   async function handleLogout() {
     // Clear existing error
@@ -35,7 +35,6 @@ const Profile = () => {
 
       // Redirect to home page
       history.push("/");
-      
     } catch (error) {
       setError(error);
     }
@@ -54,7 +53,10 @@ const Profile = () => {
             {currentUser.email}
 
             <div className="text-center">
-              <Link to="update-profile" className="btn-purple-rounded text-decoration-none white mr-5">
+              <Link
+                to="update-profile"
+                className="btn-purple-rounded text-decoration-none white mr-5"
+              >
                 Update profile
               </Link>
               <Button
