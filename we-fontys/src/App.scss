@@ -1,36 +1,52 @@
 @import "./variables";
 
-.white{
+.white {
+  color: white;
+}
+
+.black {
+  color: rgb(39, 39, 39);
+}
+
+.text-decoration-none {
+  text-decoration: none;
+}
+
+.dropdown-toggle {
+  padding: 10px;
+
+  @media screen and (min-width: 992px) {
+    padding: 0px;
+  }
+}
+
+.btn-purple-rounded {
+  padding: 8px 10px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  background-color: $fontys-purple;
+  color: white;
+
+  &:hover {
     color: white;
+    background-color: $fontys-purple-hover;
+  }
 }
 
-.black{
-    color: rgb(39, 39, 39);
-}
+.interest-box {
+  padding: 5px 7px;
+//   margin: 10px 5px 10px 0;
+  text-align: center;
+  background-color: #ade8f4;
+  border: 1px solid #a2e5f3;
+  border-radius: 5px;
+  transition: all 0.1s ease-in;
 
-.text-decoration-none{
-    text-decoration: none;
-}
-
-.dropdown-toggle{
-    padding: 10px;
-
-    @media screen and (min-width: 992px	){
-        padding: 0px;
-    }
-}
-
-.btn-purple-rounded{
-    padding: 8px 10px;
-    border: none;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    background-color: $fontys-purple;
+  &:hover{
+    cursor: pointer;
     color: white;
-
-    &:hover{
-        color: white;
-        background-color: $fontys-purple-hover;
-    }
+    background-color: #f04141;
+    border: 1px solid #f03131;
+  }
 }
-

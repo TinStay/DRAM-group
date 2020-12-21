@@ -3,7 +3,7 @@ import { useAuth } from "../../Context/AuthContext";
 
 // Style
 import { Card, Form, Button, Alert } from "react-bootstrap";
-import classes from './Profile.module.scss';
+import classes from "./Profile.module.scss";
 
 // React Router
 import { Link, useHistory } from "react-router-dom";
@@ -19,18 +19,18 @@ const Profile = () => {
 
   const history = useHistory();
 
+  // Request user data from Firebase Realtime Database
   useEffect(() => {
-    axios.get(`/users/${currentUser.uid}.json`)
+    axios
+      .get(`/users/${currentUser.uid}.json`)
       .then((userData) => {
-        
-        setUserData(userData.data)
+        // Set user data state
+        setUserData(userData.data);
       })
       .catch((err) => {
         console.log("err", err);
       });
   }, []);
-
-  console.log("userData", userData);
 
   async function handleLogout() {
     // Clear existing error
@@ -56,16 +56,20 @@ const Profile = () => {
 
           <div>
             <div className="my-3">
+              <strong>Email: </strong>
+              {userData && userData.email}
+            </div>
+            <div className="my-3">
               <strong>Name: </strong>
               {userData && userData.firstName + " " + userData.lastName}
             </div>
             <div className="my-3">
-              <strong>Nationality: </strong>
-              {userData && userData.nationality}
+              <strong>Userame: </strong>
+              {userData && userData.username}
             </div>
             <div className="my-3">
-              <strong>Email: </strong>
-              {userData && userData.email}
+              <strong>Nationality: </strong>
+              {userData && userData.nationality}
             </div>
             <div className="my-3">
               <strong>City: </strong>
@@ -73,13 +77,24 @@ const Profile = () => {
             </div>
             <div className="my-3">
               <strong>Study program: </strong>
-              {userData && userData.study}
+              {userData && userData.studyProgram}
             </div>
             <div className="my-3">
               <strong>Interests: </strong>
-              {userData && userData.interests.map(interest => (
-                <span key={interest} className={classes.interest_box}>{interest}</span>
-              ))}
+              <div className="w-100 mx-auto my-3 row text-center">
+                {(userData && userData.interests )
+                  ? userData.interests.map((interest) => (
+                      <div
+                        key={interest}
+                        className="interest-container col-3 px-1"
+                      >
+                        <p key={interest} className={classes.interest_box}>
+                          {interest}
+                        </p>
+                      </div>
+                    ))
+                  : <p className="text-muted">You haven't selected any interests yet.</p> }
+              </div>
             </div>
             <div className="d-flex justify-content-between mt-4">
               <Link

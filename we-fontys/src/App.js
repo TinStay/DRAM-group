@@ -9,7 +9,7 @@ import { Container } from "react-bootstrap";
 import Signup from "./components/AuthForms/Signup";
 import Login from "./components/AuthForms/Login";
 import ForgotPassword from "./components/AuthForms/ForgotPassword";
-import UpdateProfile from "./components/AuthForms/UpdateProfile";
+import UpdateProfile from "./components/User/UpdateProfile";
 import { AuthProvider } from "./Context/AuthContext";
 
 // React Router

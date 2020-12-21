@@ -20,9 +20,10 @@ const Signup = () => {
   const history = useHistory();
 
   // Form fields references
+  const emailRef = useRef();
   const lastNameRef = useRef();
   const firstNameRef = useRef();
-  const emailRef = useRef();
+  const usernameRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
 
@@ -52,11 +53,12 @@ const Signup = () => {
             userID: registeredUser.user.uid,
             firstName: firstNameRef.current.value,
             lastName: lastNameRef.current.value,
+            username: usernameRef.current.value,
             email: emailRef.current.value,
-            study: "",
+            studyProgram: "",
             city: "",
             nationality: "",
-            interests: ["none"],
+            interests: "",
             photoURL: "",
           };
 
@@ -67,6 +69,7 @@ const Signup = () => {
 
       // Redirect to home page
       history.push("/");
+
     } catch (error) {
       console.log("Auth error: ", error);
       setError("Failed to sign up");
@@ -84,6 +87,11 @@ const Signup = () => {
           {error && <Alert variant="danger">{error}</Alert>}
 
           <Form onSubmit={(e) => handleSubmit(e)}>
+            <Form.Group id="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" ref={emailRef} required />
+            </Form.Group>
+
             <Form.Group id="firstName">
               <Form.Label>First name</Form.Label>
               <Form.Control type="text" ref={firstNameRef} required />
@@ -94,10 +102,11 @@ const Signup = () => {
               <Form.Control type="text" ref={lastNameRef} required />
             </Form.Group>
 
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
+            <Form.Group id="username">
+              <Form.Label>Username</Form.Label>
+              <Form.Control type="text" ref={usernameRef} required />
             </Form.Group>
+
 
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
