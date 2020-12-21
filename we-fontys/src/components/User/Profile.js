@@ -3,6 +3,7 @@ import { useAuth } from "../../Context/AuthContext";
 
 // Style
 import { Card, Form, Button, Alert } from "react-bootstrap";
+import classes from './Profile.module.scss';
 
 // React Router
 import { Link, useHistory } from "react-router-dom";
@@ -41,7 +42,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="">
+    <div className={classes.profile_container}>
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Profile</h2>
@@ -53,7 +54,7 @@ const Profile = () => {
               <strong>Email: </strong>
               {currentUser.email}
             </div>
-            <div className="text-center">
+            <div className="d-flex justify-content-between">
               <Link
                 to="update-profile"
                 className="btn-purple-rounded text-decoration-none white mr-5"

@@ -1,4 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { db } from '../../firebase'
+import axios from "../../axios";
 // Style
 import { Card, Button, Form, Alert } from "react-bootstrap";
 import classes from "./AuthForms.module.scss";
@@ -7,7 +9,7 @@ import classes from "./AuthForms.module.scss";
 import { useAuth } from "../../Context/AuthContext";
 
 // React Router
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory } from "react-router-dom";
 
 const Signup = () => {
   // State
@@ -18,6 +20,8 @@ const Signup = () => {
   const history = useHistory();
 
   // Form fields references
+  const lastNameRef = useRef();
+  const firstNameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
@@ -25,34 +29,54 @@ const Signup = () => {
   // Signup function from context
   const { signup, currentUser } = useAuth();
 
-  async function handleSubmit(e){
+  async function handleSubmit(e) {
     // Prevent page from refreshing
     e.preventDefault();
 
     // Validate form
-    if(passwordRef.current.value !== passwordConfirmRef.current.value){
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       // Set an error and exit out of function
-      return setError("Passwords do not match")
+      return setError("Passwords do not match");
     }
 
-    try{
-      // Reset error message if it exists before signing up 
-      setError("")
-      setIsLoading(true)
+    try {
+      // Reset error message if it exists before signing up
+      setError("");
+      setIsLoading(true);
 
-      await signup(emailRef.current.value, passwordRef.current.value);
+      await signup(emailRef.current.value, passwordRef.current.value).then(
+        (registeredUser) => {
+          // console.log("user",registeredUser)
+
+          const userData = {
+            userID: registeredUser.user.uid,
+            firstName: firstNameRef.current.value,
+            lastName: lastNameRef.current.value,
+            email: emailRef.current.value,
+            study: "",
+            city: "",
+            nationality: "",
+            interests: [],
+            photoURL: "",
+          };
+
+          // Create an user entry in Firebase Realtime Database
+          db.ref(`/users/${registeredUser.user.uid}`).set(userData)
+
+        }
+      );
+
+     
 
       // Redirect to home page
-      history.push('/')
-      
-    } catch(error){
-      console.log("Auth error: ",error)
-      setError("Failed to sign up")
+      history.push("/");
+    } catch (error) {
+      console.log("Auth error: ", error);
+      setError("Failed to sign up");
     }
-    
-    setIsLoading(false)
+
+    setIsLoading(false);
   }
-  console.log(currentUser)
 
   return (
     <div className={classes.form_container}>
@@ -60,9 +84,19 @@ const Signup = () => {
         <Card.Body>
           <h2 className="text-center mb-4">Sign Up</h2>
 
-          {error && <Alert variant="danger">{error}</Alert> }
+          {error && <Alert variant="danger">{error}</Alert>}
 
           <Form onSubmit={(e) => handleSubmit(e)}>
+            <Form.Group id="firstName">
+              <Form.Label>First name</Form.Label>
+              <Form.Control type="text" ref={firstNameRef} required />
+            </Form.Group>
+
+            <Form.Group id="lastName">
+              <Form.Label>Last name</Form.Label>
+              <Form.Control type="text" ref={lastNameRef} required />
+            </Form.Group>
+
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />
@@ -78,7 +112,11 @@ const Signup = () => {
               <Form.Control type="password" ref={passwordConfirmRef} required />
             </Form.Group>
 
-            <Button disabled={isLoading} className="w-100 btn-purple-rounded" type="submit">
+            <Button
+              disabled={isLoading}
+              className="w-100 btn-purple-rounded"
+              type="submit"
+            >
               Sign Up
             </Button>
           </Form>

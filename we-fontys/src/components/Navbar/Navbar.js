@@ -47,6 +47,13 @@ const Navigationbar = () => {
   if (currentUser) {
     navItems = (
       <Nav className="ml-auto ">
+        <Link
+            onClick={() => setExpanded(false)}
+            className="nav-link"
+            to="/"
+          >
+            Discuss
+          </Link>
         <NavDropdown
           title={
             <div className="d-inline ">
