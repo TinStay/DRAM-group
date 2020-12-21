@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { db } from '../../firebase'
+import { db } from "../../firebase";
 import axios from "../../axios";
 // Style
 import { Card, Button, Form, Alert } from "react-bootstrap";
@@ -56,17 +56,14 @@ const Signup = () => {
             study: "",
             city: "",
             nationality: "",
-            interests: [],
+            interests: ["none"],
             photoURL: "",
           };
 
           // Create an user entry in Firebase Realtime Database
-          db.ref(`/users/${registeredUser.user.uid}`).set(userData)
-
+          db.ref(`/users/${registeredUser.user.uid}`).set(userData);
         }
       );
-
-     
 
       // Redirect to home page
       history.push("/");

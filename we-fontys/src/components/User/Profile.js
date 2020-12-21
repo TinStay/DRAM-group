@@ -15,17 +15,22 @@ const Profile = () => {
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
 
+  const [userData, setUserData] = useState();
+
   const history = useHistory();
 
   useEffect(() => {
-    // axios.get("/users.json")
-    //   .then((response) => {
-    //     console.log("response", response);
-    //   })
-    //   .catch((err) => {
-    //     console.log("err", err);
-    //   });
+    axios.get(`/users/${currentUser.uid}.json`)
+      .then((userData) => {
+        
+        setUserData(userData.data)
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
   }, []);
+
+  console.log("userData", userData);
 
   async function handleLogout() {
     // Clear existing error
@@ -51,10 +56,32 @@ const Profile = () => {
 
           <div>
             <div className="my-3">
-              <strong>Email: </strong>
-              {currentUser.email}
+              <strong>Name: </strong>
+              {userData && userData.firstName + " " + userData.lastName}
             </div>
-            <div className="d-flex justify-content-between">
+            <div className="my-3">
+              <strong>Nationality: </strong>
+              {userData && userData.nationality}
+            </div>
+            <div className="my-3">
+              <strong>Email: </strong>
+              {userData && userData.email}
+            </div>
+            <div className="my-3">
+              <strong>City: </strong>
+              {userData && userData.city}
+            </div>
+            <div className="my-3">
+              <strong>Study program: </strong>
+              {userData && userData.study}
+            </div>
+            <div className="my-3">
+              <strong>Interests: </strong>
+              {userData && userData.interests.map(interest => (
+                <span key={interest} className={classes.interest_box}>{interest}</span>
+              ))}
+            </div>
+            <div className="d-flex justify-content-between mt-4">
               <Link
                 to="update-profile"
                 className="btn-purple-rounded text-decoration-none white mr-5"
