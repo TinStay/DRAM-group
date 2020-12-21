@@ -49,9 +49,10 @@ const Profile = () => {
           {error && <Alert variant="danger">{error}</Alert>}
 
           <div>
-            <strong>Email: </strong>
-            {currentUser.email}
-
+            <div className="my-3">
+              <strong>Email: </strong>
+              {currentUser.email}
+            </div>
             <div className="text-center">
               <Link
                 to="update-profile"

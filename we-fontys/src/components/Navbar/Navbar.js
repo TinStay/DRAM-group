@@ -55,7 +55,7 @@ const Navigationbar = () => {
                 src={account_icon}
                 alt="account icon"
               />
-              <span class="mr-1">{currentUser.email}</span>
+              <span className="mr-1">{currentUser.email}</span>
             </div>
           }
           id="basic-nav-dropdown"
