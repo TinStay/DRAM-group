@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../Context/AuthContext";
-
+import axios from "../../axios";
+import account_icon from '../../assets/account/account_icon_purple.png';
 // Style
 import { Card, Form, Button, Alert } from "react-bootstrap";
 import classes from "./Profile.module.scss";
@@ -8,7 +9,7 @@ import classes from "./Profile.module.scss";
 // React Router
 import { Link, useHistory } from "react-router-dom";
 
-import axios from "../../axios";
+
 
 const Profile = () => {
   //State
@@ -50,11 +51,14 @@ const Profile = () => {
     <div className={classes.profile_container}>
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Profile</h2>
+          {/* <h2 className="text-center mb-4">Profile</h2> */}
 
           {error && <Alert variant="danger">{error}</Alert>}
 
-          <div>
+          <div className="w-100">
+            <div className="my-3 text-center">
+              <img className={classes.account_image_main} src={account_icon}></img>
+            </div>
             <div className="my-3">
               <strong>Email: </strong>
               {userData && userData.email}
@@ -101,7 +105,7 @@ const Profile = () => {
                 to="update-profile"
                 className="btn-purple-rounded text-decoration-none white mr-5"
               >
-                Update profile
+                Update profile 
               </Link>
               <Button
                 variant="danger"

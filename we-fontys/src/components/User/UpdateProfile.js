@@ -1,5 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import axios from "../../axios";
+import account_image from "../../assets/account/account_icon_purple.png";
+import { storage } from "../../firebase";
+
 // Style
 import {
   Card,
@@ -19,6 +22,9 @@ import { Link, useHistory } from "react-router-dom";
 
 const UpdateProfile = () => {
   // State
+  const [userData, setUserData] = useState();
+  const [profileImagePreview, setProfileImagePreview] = useState();
+  const [profileImageFile, setProfileImageFile] = useState();
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,8 +44,6 @@ const UpdateProfile = () => {
   // Signup function from context
   const { currentUser, updateEmail, updatePassword } = useAuth();
 
-  const [userData, setUserData] = useState();
-
   // Request user data from Firebase Realtime Database
   useEffect(() => {
     axios
@@ -56,7 +60,8 @@ const UpdateProfile = () => {
   const addInterest = (e) => {
     const newInterest = interestRef.current.value;
     // Copy array from firebase or create an empty one if there isnt one in firebase
-    let newInterestsArray = userData.interests !== "" ? [...userData.interests] : [];
+    let newInterestsArray =
+      userData.interests !== "" ? [...userData.interests] : [];
 
     if (newInterest !== "") {
       if (!newInterestsArray.includes(newInterest)) {
@@ -66,13 +71,13 @@ const UpdateProfile = () => {
         newInterestsArray.push(newInterest);
 
         // Update interests in userData
-        newUserData.interests = newInterestsArray
+        newUserData.interests = newInterestsArray;
 
         // Update state with new interests
         setUserData(newUserData);
 
         // Reset form
-        interestRef.current.value = ""
+        interestRef.current.value = "";
       } else {
         setError("Interest already exists in your interest list");
         console.log("Interest already exists in your interest list");
@@ -83,36 +88,48 @@ const UpdateProfile = () => {
     }
   };
 
-
-  const removeInterest = (e, index) =>{
-    let newUserData = {...userData}
+  const removeInterest = (e, index) => {
+    let newUserData = { ...userData };
 
     // Remove interest from array
     newUserData.interests.splice(index, 1);
 
     // Change interest array to string so Firebase doesn't remove field from Realtime Database
-    // When a field is null or [] Firebase removes it 
-    if(newUserData.interests.length === 0){
+    // When a field is null or [] Firebase removes it
+    if (newUserData.interests.length === 0) {
       newUserData.interests = "";
     }
 
-    // Update user data 
+    // Update user data
     setUserData(newUserData);
-  }
+  };
+
+  // Profile image file
+  let fileInput = null;
+
+  const uploadNewImage = (event) => {
+    // Save image file as a URL in order to preview the image
+    const imagePreviewURL = URL.createObjectURL(event.target.files[0]);
+
+    // Update state with preview image file URL
+    setProfileImagePreview(imagePreviewURL);
+
+    // Update profile image file state
+    setProfileImageFile(event.target.files[0]);
+  };
 
   const handleSubmit = (e) => {
     // Prevent page from refreshing
     e.preventDefault();
 
     // Updated user data
-    let newUserData = {...userData};
-    newUserData.username = usernameRef.current.value
-    newUserData.nationality = nationalityRef.current.value
-    newUserData.city = cityRef.current.value
-    newUserData.studyProgram = studyProgramRef.current.value
-    // Don't need to add interests because they are added and 
+    let newUserData = { ...userData };
+    newUserData.username = usernameRef.current.value;
+    newUserData.nationality = nationalityRef.current.value;
+    newUserData.city = cityRef.current.value;
+    newUserData.studyProgram = studyProgramRef.current.value;
+    // Don't need to add interests because they are added and
     // removed to userData on form change
-
 
     // Validate form
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
@@ -131,12 +148,17 @@ const UpdateProfile = () => {
     //   promises.push(updateEmail(emailRef.current.value));
     // }
 
+    // Handle profile image file upload to Firebase Storage
+    
+
+
+
     if (passwordRef.current.value) {
       promises.push(updatePassword(passwordRef.current.value));
     }
 
-    // Update other user data 
-    promises.push(axios.put(`users/${currentUser.uid}.json`, newUserData))
+    // Update other user data
+    promises.push(axios.put(`users/${currentUser.uid}.json`, newUserData));
 
     if (promises.length > 0) {
       Promise.all(promises)
@@ -158,6 +180,10 @@ const UpdateProfile = () => {
     }
   };
 
+  // console.log("profile image",profileImagePreview)
+
+  let accountImageClasses = ["rounded-circle", classes.account_image_main];
+
   return (
     <div className={classes.form_container}>
       <Card>
@@ -165,7 +191,29 @@ const UpdateProfile = () => {
           <h2 className="text-center mb-4">Update profile</h2>
 
           {error && <Alert variant="danger">{error}</Alert>}
-
+          <div className="my-3 text-center">
+            <img
+              className={accountImageClasses.join(" ")}
+              src={profileImagePreview ? profileImagePreview : account_image}
+              alt="account image"
+            ></img>
+            <input
+              name="image"
+              style={{ display: "none" }}
+              type="file"
+              onChange={uploadNewImage}
+              ref={(input) => {
+                fileInput = input;
+              }}
+            />
+            <Button
+              onClick={() => fileInput.click()}
+              className="my-4"
+              variant="primary"
+            >
+              Select new image
+            </Button>
+          </div>
           <p className="text-muted">
             Leave blank the fields which you don't want to change
           </p>
@@ -226,23 +274,25 @@ const UpdateProfile = () => {
                   ref={interestRef}
                 />
                 <InputGroup.Append>
-                  <Button onClick={(e) => addInterest(e)} variant="success">
+                  <Button onClick={(e) => addInterest(e)} variant="primary">
                     Add
                   </Button>
                 </InputGroup.Append>
               </InputGroup>
               <div className="w-100 mx-auto row text-center">
-                {(userData && userData.interests !== "")
+                {userData && userData.interests !== ""
                   ? userData.interests.map((interest, index) => {
                       return (
-                        <div key={interest} onClick={(e) => removeInterest(e, index)} className="interest-container col-4 px-1">
-                          <p className="interest-box">
-                            {interest}
-                          </p>
+                        <div
+                          key={interest}
+                          onClick={(e) => removeInterest(e, index)}
+                          className="interest-container col-4 px-1"
+                        >
+                          <p className="interest-box">{interest}</p>
                         </div>
                       );
                     })
-                  :null }
+                  : null}
               </div>
             </Form.Group>
 

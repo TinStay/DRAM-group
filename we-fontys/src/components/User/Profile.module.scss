@@ -14,3 +14,13 @@
   background-color: #ade8f4;
   border: 1px solid #a2e5f3;
 }
+
+.account_image_main{
+  display: block;
+  margin: 0 auto;
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+  object-position:50% 50%;
+  // border-radius: 60%;
+}
