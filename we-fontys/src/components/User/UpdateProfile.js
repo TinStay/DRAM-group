@@ -23,8 +23,8 @@ import { Link, useHistory } from "react-router-dom";
 const UpdateProfile = () => {
   // State
   const [userData, setUserData] = useState();
-  const [profileImagePreview, setProfileImagePreview] = useState();
   const [profileImageFile, setProfileImageFile] = useState();
+  const [profileImagePreview, setProfileImagePreview] = useState();
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -118,18 +118,18 @@ const UpdateProfile = () => {
     setProfileImageFile(event.target.files[0]);
   };
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e){
     // Prevent page from refreshing
     e.preventDefault();
 
-    // Updated user data
+    // Duplicate userData
     let newUserData = { ...userData };
-    newUserData.username = usernameRef.current.value;
-    newUserData.nationality = nationalityRef.current.value;
-    newUserData.city = cityRef.current.value;
-    newUserData.studyProgram = studyProgramRef.current.value;
-    // Don't need to add interests because they are added and
-    // removed to userData on form change
+
+    // New form values
+    const newUsername = usernameRef.current.value;
+    const newNationality = nationalityRef.current.value;
+    const newCity = cityRef.current.value;
+    const newStudyProgram = studyProgramRef.current.value;
 
     // Validate form
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
@@ -141,17 +141,50 @@ const UpdateProfile = () => {
     setError("");
     setIsLoading(true);
 
+    // Handle profile image file upload to Firebase Storage
+    const uploadImageTask = storage
+      .ref(`${currentUser.email}/profile-image/${profileImageFile.name}`)
+      .put(profileImageFile);
+
+    await uploadImageTask.on(
+      "state_changed",
+      (snapshot) => {
+        console.log("Uploading image...");
+      },
+      (error) => {
+        // Error function ...
+        console.log("Uploading image error: ", error);
+      },
+      await function(){
+        // Complete function ...
+        storage
+          .ref(currentUser.email)
+          .child(`profile-image/${profileImageFile.name}`)
+          .getDownloadURL()
+          .then((url) => {
+            // Set image URL which is going to be uploaded to Firebase Reatime Database
+            newUserData.photoURL = url;
+          });
+      }
+    );
+
+    // Add new values to object
+    newUserData.username = newUsername;
+    newUserData.nationality = newNationality;
+    newUserData.city = newCity;
+    newUserData.studyProgram = newStudyProgram;
+    // Don't need to add interests because they are added and
+    // removed to userData on form change
+    
+    console.log("newUserData", newUserData)
+
+    // Promises list that will be executed
     const promises = [];
 
     // Update email
     // if (emailRef.current.value !== currentUser.email) {
     //   promises.push(updateEmail(emailRef.current.value));
     // }
-
-    // Handle profile image file upload to Firebase Storage
-    
-
-
 
     if (passwordRef.current.value) {
       promises.push(updatePassword(passwordRef.current.value));

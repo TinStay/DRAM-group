@@ -18,7 +18,6 @@ export const auth = app.auth();
 // Firebase Realtime database
 export const db = firebase.database();
 
-
 // Firebase Storage
 export const storage = firebase.storage()
 
