@@ -57,7 +57,7 @@ const Profile = () => {
 
           <div className="w-100">
             <div className="my-3 text-center">
-              <img className={classes.account_image_main} src={account_icon}></img>
+              <img className={classes.account_image_main} src={userData ? userData.photoURL : account_icon}></img>
             </div>
             <div className="my-3">
               <strong>Email: </strong>

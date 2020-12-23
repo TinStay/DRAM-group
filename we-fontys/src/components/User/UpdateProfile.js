@@ -24,6 +24,7 @@ const UpdateProfile = () => {
   // State
   const [userData, setUserData] = useState();
   const [profileImageFile, setProfileImageFile] = useState();
+  const [profileImageURL, setProfileImageURL] = useState("");
   const [profileImagePreview, setProfileImagePreview] = useState();
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -118,12 +119,12 @@ const UpdateProfile = () => {
     setProfileImageFile(event.target.files[0]);
   };
 
-  async function handleSubmit(e){
+
+  async function handleSubmit(e) {
     // Prevent page from refreshing
     e.preventDefault();
 
-    // Duplicate userData
-    let newUserData = { ...userData };
+    
 
     // New form values
     const newUsername = usernameRef.current.value;
@@ -141,45 +142,64 @@ const UpdateProfile = () => {
     setError("");
     setIsLoading(true);
 
-    // Handle profile image file upload to Firebase Storage
-    const uploadImageTask = storage
-      .ref(`${currentUser.email}/profile-image/${profileImageFile.name}`)
-      .put(profileImageFile);
+    // Promises list that will be executed
+    const promises = [];
 
-    await uploadImageTask.on(
-      "state_changed",
-      (snapshot) => {
-        console.log("Uploading image...");
-      },
-      (error) => {
-        // Error function ...
-        console.log("Uploading image error: ", error);
-      },
-      await function(){
-        // Complete function ...
-        storage
-          .ref(currentUser.email)
-          .child(`profile-image/${profileImageFile.name}`)
-          .getDownloadURL()
-          .then((url) => {
-            // Set image URL which is going to be uploaded to Firebase Reatime Database
-            newUserData.photoURL = url;
-          });
-      }
-    );
+    // await handleFirebaseImageUpload();
+    if (profileImageFile) {
+      // Handle profile image file upload to Firebase Storage
+      const uploadTask = storage
+        .ref(
+          `users/${currentUser.email}/profile-image/${profileImageFile.name}`
+        )
+        .put(profileImageFile);
+
+        // Push upload of image to promises list
+      // promises.push(uploadTask)
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          console.log("Uploading image...");
+        },
+        (error) => {
+          // Error function ...
+          console.log("Uploading image error: ", error);
+        },
+        async function () {
+          // Complete function ...
+          await storage
+            .ref(`users/${currentUser.email}`)
+            .child(`/profile-image/${profileImageFile.name}`)
+            .getDownloadURL()
+            .then((url) => {
+              // Set new data with image URL which is going to be uploaded to Firebase Reatime Database
+              let newUserProfileData = {...userData}
+              newUserProfileData.photoURL = url
+
+              promises.push(axios.put(`users/${currentUser.uid}.json`, newUserProfileData))
+
+            });
+
+          console.log("Uploaded image");
+        }
+      );
+    }
+
+    
+    // Duplicate userData
+    let newUserData = { ...userData };
 
     // Add new values to object
     newUserData.username = newUsername;
     newUserData.nationality = newNationality;
     newUserData.city = newCity;
     newUserData.studyProgram = newStudyProgram;
+    // newUserData.photoURL = profileImageURL;
     // Don't need to add interests because they are added and
     // removed to userData on form change
     
-    console.log("newUserData", newUserData)
-
-    // Promises list that will be executed
-    const promises = [];
+    
 
     // Update email
     // if (emailRef.current.value !== currentUser.email) {
@@ -197,7 +217,6 @@ const UpdateProfile = () => {
       Promise.all(promises)
         .then(() => {
           // Redirect to home page if all promises are successful
-
           history.push("/profile");
         })
         .catch((error) => {
@@ -211,7 +230,7 @@ const UpdateProfile = () => {
       setError("No changes we detected");
       setIsLoading(false);
     }
-  };
+  }
 
   // console.log("profile image",profileImagePreview)
 
@@ -227,7 +246,7 @@ const UpdateProfile = () => {
           <div className="my-3 text-center">
             <img
               className={accountImageClasses.join(" ")}
-              src={profileImagePreview ? profileImagePreview : account_image}
+              src={profileImagePreview ? profileImagePreview : userData.photoURL !== "" ? userData.photoURL : account_image}
               alt="account image"
             ></img>
             <input
