@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import axios from "../../axios";
 import account_image from "../../assets/account/account_icon_purple.png";
+import { objectsAreTheSame } from "../../shared/sharedFunctions";
 import { storage } from "../../firebase";
 
 // Style
@@ -26,6 +27,7 @@ const UpdateProfile = () => {
   const [profileImageFile, setProfileImageFile] = useState();
   const [profileImageURL, setProfileImageURL] = useState("");
   const [profileImagePreview, setProfileImagePreview] = useState();
+  const [interests, setInterests] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -52,6 +54,8 @@ const UpdateProfile = () => {
       .then((userData) => {
         // Set user data state
         setUserData(userData.data);
+
+        setInterests(userData.data.interests);
       })
       .catch((err) => {
         console.log("err", err);
@@ -61,21 +65,15 @@ const UpdateProfile = () => {
   const addInterest = (e) => {
     const newInterest = interestRef.current.value;
     // Copy array from firebase or create an empty one if there isnt one in firebase
-    let newInterestsArray =
-      userData.interests !== "" ? [...userData.interests] : [];
+    let newInterestsArray = interests !== "" ? [...interests] : [];
 
-    if (newInterest !== "") {
+    if (newInterest.length > 1) {
       if (!newInterestsArray.includes(newInterest)) {
-        let newUserData = { ...userData };
-
         // Add interest to all interests
         newInterestsArray.push(newInterest);
 
-        // Update interests in userData
-        newUserData.interests = newInterestsArray;
-
         // Update state with new interests
-        setUserData(newUserData);
+        setInterests(newInterestsArray);
 
         // Reset form
         interestRef.current.value = "";
@@ -90,19 +88,19 @@ const UpdateProfile = () => {
   };
 
   const removeInterest = (e, index) => {
-    let newUserData = { ...userData };
+    let updatedInterests = [...interests];
 
     // Remove interest from array
-    newUserData.interests.splice(index, 1);
+    updatedInterests.splice(index, 1);
 
-    // Change interest array to string so Firebase doesn't remove field from Realtime Database
+    // Change interest array to string if there are no interests so Firebase doesn't remove field from Realtime Database
     // When a field is null or [] Firebase removes it
-    if (newUserData.interests.length === 0) {
-      newUserData.interests = "";
+    if (updatedInterests.length === 0) {
+      updatedInterests = "";
     }
 
-    // Update user data
-    setUserData(newUserData);
+    // Update new interests state
+    setInterests(updatedInterests);
   };
 
   // Profile image file
@@ -119,12 +117,9 @@ const UpdateProfile = () => {
     setProfileImageFile(event.target.files[0]);
   };
 
-
   async function handleSubmit(e) {
     // Prevent page from refreshing
     e.preventDefault();
-
-    
 
     // New form values
     const newUsername = usernameRef.current.value;
@@ -145,8 +140,9 @@ const UpdateProfile = () => {
     // Promises list that will be executed
     const promises = [];
 
-    // await handleFirebaseImageUpload();
     if (profileImageFile) {
+      // Update user data when new image has been uploaded to Firebase Storage
+      console.log("Update with image");
       // Handle profile image file upload to Firebase Storage
       const uploadTask = storage
         .ref(
@@ -154,7 +150,7 @@ const UpdateProfile = () => {
         )
         .put(profileImageFile);
 
-        // Push upload of image to promises list
+      // Push upload of image to promises list
       // promises.push(uploadTask)
 
       uploadTask.on(
@@ -174,32 +170,52 @@ const UpdateProfile = () => {
             .getDownloadURL()
             .then((url) => {
               // Set new data with image URL which is going to be uploaded to Firebase Reatime Database
-              let newUserProfileData = {...userData}
-              newUserProfileData.photoURL = url
+              let newUserProfileData = { ...userData };
 
-              promises.push(axios.put(`users/${currentUser.uid}.json`, newUserProfileData))
+              // Add new values to object
+              newUserProfileData.photoURL = url;
+              newUserProfileData.username = newUsername;
+              newUserProfileData.nationality = newNationality;
+              newUserProfileData.city = newCity;
+              newUserProfileData.studyProgram = newStudyProgram;
+              newUserProfileData.interests = interests;
 
+              // Add user data update to promises that will be executed
+              promises.push(
+                axios.put(`users/${currentUser.uid}.json`, newUserProfileData)
+              );
             });
 
           console.log("Uploaded image");
         }
       );
+    } else {
+      // Update user data without updating photoURL field
+      console.log("Update without image");
+
+      // Duplicate userData
+      let newUserData = { ...userData };
+
+      // Add new values to object
+      newUserData.username = newUsername;
+      newUserData.nationality = newNationality;
+      newUserData.city = newCity;
+      newUserData.studyProgram = newStudyProgram;
+      newUserData.interests = interests;
+
+      // newUserData.photoURL = profileImageURL;
+      // Don't need to add interests because they are added and
+      // removed to userData on form change
+      console.log(userData, newUserData)
+      // Validate if any field been changed
+      if (objectsAreTheSame(userData, newUserData)) {
+        // exit function and don't push to promises list
+        console.log("Objects are the same ")
+      } else {
+        // Update other user data
+        promises.push(axios.put(`users/${currentUser.uid}.json`, newUserData));
+      }
     }
-
-    
-    // Duplicate userData
-    let newUserData = { ...userData };
-
-    // Add new values to object
-    newUserData.username = newUsername;
-    newUserData.nationality = newNationality;
-    newUserData.city = newCity;
-    newUserData.studyProgram = newStudyProgram;
-    // newUserData.photoURL = profileImageURL;
-    // Don't need to add interests because they are added and
-    // removed to userData on form change
-    
-    
 
     // Update email
     // if (emailRef.current.value !== currentUser.email) {
@@ -210,8 +226,7 @@ const UpdateProfile = () => {
       promises.push(updatePassword(passwordRef.current.value));
     }
 
-    // Update other user data
-    promises.push(axios.put(`users/${currentUser.uid}.json`, newUserData));
+    console.log("promises", promises);
 
     if (promises.length > 0) {
       Promise.all(promises)
@@ -246,7 +261,13 @@ const UpdateProfile = () => {
           <div className="my-3 text-center">
             <img
               className={accountImageClasses.join(" ")}
-              src={profileImagePreview ? profileImagePreview : userData ? userData.photoURL : account_image}
+              src={
+                profileImagePreview
+                  ? profileImagePreview
+                  : userData
+                  ? userData.photoURL
+                  : account_image
+              }
               alt="account image"
             ></img>
             <input
@@ -332,8 +353,8 @@ const UpdateProfile = () => {
                 </InputGroup.Append>
               </InputGroup>
               <div className="w-100 mx-auto row text-center">
-                {userData && userData.interests !== ""
-                  ? userData.interests.map((interest, index) => {
+                {interests && interests !== ""
+                  ? interests.map((interest, index) => {
                       return (
                         <div
                           key={interest}
