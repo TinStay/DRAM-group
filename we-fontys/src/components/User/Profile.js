@@ -20,7 +20,7 @@ const Profile = () => {
 
   const history = useHistory();
 
-  // Request user data from Firebase Realtime Database
+  // Update user data from Firebase Realtime Database
   useEffect(() => {
     axios
       .get(`/users/${currentUser.uid}.json`)
@@ -31,7 +31,7 @@ const Profile = () => {
       .catch((err) => {
         console.log("err", err);
       });
-  }, []);
+  });
 
   async function handleLogout() {
     // Clear existing error
@@ -47,6 +47,8 @@ const Profile = () => {
     }
   }
 
+  let accountImageClasses = ["rounded-circle", classes.account_image_main];
+
   return (
     <div className={classes.profile_container}>
       <Card>
@@ -57,7 +59,7 @@ const Profile = () => {
 
           <div className="w-100">
             <div className="my-3 text-center">
-              <img className={classes.account_image_main} src={userData ? userData.photoURL : account_icon}></img>
+              <img className={accountImageClasses.join(" ")} src={userData ? userData.photoURL : account_icon}></img>
             </div>
             <div className="my-3">
               <strong>Email: </strong>

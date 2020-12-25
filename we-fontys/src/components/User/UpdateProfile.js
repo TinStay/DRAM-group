@@ -246,7 +246,7 @@ const UpdateProfile = () => {
           <div className="my-3 text-center">
             <img
               className={accountImageClasses.join(" ")}
-              src={profileImagePreview ? profileImagePreview : userData.photoURL !== "" ? userData.photoURL : account_image}
+              src={profileImagePreview ? profileImagePreview : userData ? userData.photoURL : account_image}
               alt="account image"
             ></img>
             <input
