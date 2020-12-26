@@ -92,7 +92,7 @@ const Profile = () => {
                   ? userData.interests.map((interest) => (
                       <div
                         key={interest}
-                        className="interest-container col-3 px-1"
+                        className="interest-container col-4 px-1"
                       >
                         <p key={interest} className={classes.interest_box}>
                           {interest}

@@ -12,6 +12,7 @@ import {
   Alert,
   InputGroup,
   FormControl,
+  Spinner,
 } from "react-bootstrap";
 import classes from "./Profile.module.scss";
 
@@ -30,11 +31,13 @@ const UpdateProfile = () => {
   const [interests, setInterests] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isImageUploading, setIsImageUploading] = useState(false);
 
   // React router history
   const history = useHistory();
 
   // Form fields references
+  const nameRef = useRef();
   const usernameRef = useRef();
   // const emailRef = useRef();
   const nationalityRef = useRef();
@@ -122,6 +125,8 @@ const UpdateProfile = () => {
     e.preventDefault();
 
     // New form values
+    const newFirstName = nameRef.current.value.split(" ")[0];
+    const newLastName = nameRef.current.value.split(" ")[1];
     const newUsername = usernameRef.current.value;
     const newNationality = nationalityRef.current.value;
     const newCity = cityRef.current.value;
@@ -141,6 +146,8 @@ const UpdateProfile = () => {
     const promises = [];
 
     if (profileImageFile) {
+      
+
       // Update user data when new image has been uploaded to Firebase Storage
       console.log("Update with image");
       // Handle profile image file upload to Firebase Storage
@@ -153,7 +160,7 @@ const UpdateProfile = () => {
       // Push upload of image to promises list
       // promises.push(uploadTask)
 
-      uploadTask.on(
+      await uploadTask.on(
         "state_changed",
         (snapshot) => {
           console.log("Uploading image...");
@@ -170,19 +177,21 @@ const UpdateProfile = () => {
             .getDownloadURL()
             .then((url) => {
               // Set new data with image URL which is going to be uploaded to Firebase Reatime Database
-              let newUserProfileData = { ...userData };
+              let newUserData = { ...userData };
 
               // Add new values to object
-              newUserProfileData.photoURL = url;
-              newUserProfileData.username = newUsername;
-              newUserProfileData.nationality = newNationality;
-              newUserProfileData.city = newCity;
-              newUserProfileData.studyProgram = newStudyProgram;
-              newUserProfileData.interests = interests;
+              newUserData.firstName = newFirstName;
+              newUserData.lastName = newLastName;
+              newUserData.photoURL = url;
+              newUserData.username = newUsername;
+              newUserData.nationality = newNationality;
+              newUserData.city = newCity;
+              newUserData.studyProgram = newStudyProgram;
+              newUserData.interests = interests;
 
               // Add user data update to promises that will be executed
               promises.push(
-                axios.put(`users/${currentUser.uid}.json`, newUserProfileData)
+                axios.put(`users/${currentUser.uid}.json`, newUserData)
               );
             });
 
@@ -197,6 +206,8 @@ const UpdateProfile = () => {
       let newUserData = { ...userData };
 
       // Add new values to object
+      newUserData.firstName = newFirstName;
+      newUserData.lastName = newLastName;
       newUserData.username = newUsername;
       newUserData.nationality = newNationality;
       newUserData.city = newCity;
@@ -206,11 +217,11 @@ const UpdateProfile = () => {
       // newUserData.photoURL = profileImageURL;
       // Don't need to add interests because they are added and
       // removed to userData on form change
-      console.log(userData, newUserData)
+
       // Validate if any field been changed
       if (objectsAreTheSame(userData, newUserData)) {
         // exit function and don't push to promises list
-        console.log("Objects are the same ")
+        console.log("Objects are the same ");
       } else {
         // Update other user data
         promises.push(axios.put(`users/${currentUser.uid}.json`, newUserData));
@@ -222,11 +233,10 @@ const UpdateProfile = () => {
     //   promises.push(updateEmail(emailRef.current.value));
     // }
 
+    // Update password
     if (passwordRef.current.value) {
       promises.push(updatePassword(passwordRef.current.value));
     }
-
-    console.log("promises", promises);
 
     if (promises.length > 0) {
       Promise.all(promises)
@@ -279,18 +289,48 @@ const UpdateProfile = () => {
                 fileInput = input;
               }}
             />
-            <Button
-              onClick={() => fileInput.click()}
-              className="my-4"
-              variant="primary"
-            >
-              Select new image
-            </Button>
+
+            {isImageUploading ? (
+              <Button
+                onClick={() => fileInput.click()}
+                className="my-4"
+                variant="primary"
+              >
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />{" "}
+                Loading...
+              </Button>
+            ) : (
+              <Button
+                onClick={() => fileInput.click()}
+                className="my-4"
+                variant="primary"
+              >
+                Select new image
+              </Button>
+            )}
           </div>
           <p className="text-muted">
             Leave blank the fields which you don't want to change
           </p>
+
           <Form onSubmit={(e) => handleSubmit(e)}>
+            <Form.Group id="name">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                defaultValue={
+                  userData && `${userData.firstName} ${userData.lastName}`
+                }
+                ref={nameRef}
+              />
+            </Form.Group>
+
             <Form.Group id="username">
               <Form.Label>Username</Form.Label>
               <Form.Control

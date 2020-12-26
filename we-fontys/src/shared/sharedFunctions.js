@@ -8,17 +8,18 @@ export const objectsAreTheSame = (objectOne, objectTwo) => {
 
   // loop through first object keys
   for (let key of objectOneKeys) {
-    console.log(key, "?=", key);
-    
-    // Check if field if array (interests)
-    if (typeof(objectOne[key]) == "object") {
-      console.log("array");
+    console.log(objectOne[key],  objectTwo[key],   objectOne[key] == objectTwo[key])    
 
+    // Check if field if array (interests) // arrays are objects
+    if (typeof(objectOne[key]) == "object") {
+
+      // Check if arrays are the same
       if(JSON.stringify(objectOne[key]) !== JSON.stringify(objectTwo[key])){
         return false
       }
     }
-    if (objectOneKeys[key] !== objectTwoKeys[key]) {
+    // Check if object values are the same
+    if (objectOne[key] !== objectTwo[key]) {
       return false;
     }
   }
