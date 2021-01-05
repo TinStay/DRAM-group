@@ -50,7 +50,7 @@ const Navigationbar = () => {
         <Link
             onClick={() => setExpanded(false)}
             className="nav-link"
-            to="/"
+            to="/discuss"
           >
             Discuss
           </Link>

@@ -1,6 +1,8 @@
 import "./App.scss";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/User/Profile";
+import Discussions from './components/Discussions/Discussions'
+
 
 // Style
 import { Container } from "react-bootstrap";
@@ -28,6 +30,7 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/forgot-password" component={ForgotPassword} />
             <PrivateRoute path="/update-profile" component={UpdateProfile} />
+            <PrivateRoute path="/discuss" component={Discussions} />
           </Switch>
         </Container>
       </AuthProvider>
