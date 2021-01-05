@@ -31,7 +31,6 @@ const UpdateProfile = () => {
   const [interests, setInterests] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isImageUploading, setIsImageUploading] = useState(false);
 
   // React router history
   const history = useHistory();
@@ -124,6 +123,10 @@ const UpdateProfile = () => {
     // Prevent page from refreshing
     e.preventDefault();
 
+    // Reset error message if it exists before signing up
+    setError("");
+    setIsLoading(true);
+
     // New form values
     const newFirstName = nameRef.current.value.split(" ")[0];
     const newLastName = nameRef.current.value.split(" ")[1];
@@ -138,18 +141,13 @@ const UpdateProfile = () => {
       return setError("Passwords do not match");
     }
 
-    // Reset error message if it exists before signing up
-    setError("");
-    setIsLoading(true);
-
     // Promises list that will be executed
     const promises = [];
 
     if (profileImageFile) {
-      
-
       // Update user data when new image has been uploaded to Firebase Storage
       console.log("Update with image");
+
       // Handle profile image file upload to Firebase Storage
       const uploadTask = storage
         .ref(
@@ -169,9 +167,9 @@ const UpdateProfile = () => {
           // Error function ...
           console.log("Uploading image error: ", error);
         },
-        async function () {
+        function () {
           // Complete function ...
-          await storage
+          storage
             .ref(`users/${currentUser.email}`)
             .child(`/profile-image/${profileImageFile.name}`)
             .getDownloadURL()
@@ -238,23 +236,18 @@ const UpdateProfile = () => {
       promises.push(updatePassword(passwordRef.current.value));
     }
 
-    if (promises.length > 0) {
-      Promise.all(promises)
-        .then(() => {
-          // Redirect to home page if all promises are successful
-          history.push("/profile");
-        })
-        .catch((error) => {
-          console.log("Update profile error: ", error);
-          setError("Failed to update profile");
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    } else {
-      setError("No changes we detected");
-      setIsLoading(false);
-    }
+    Promise.all(promises)
+      .then(() => {
+        // Redirect to home page if all promises are successful
+        history.push("/profile");
+      })
+      .catch((error) => {
+        console.log("Update profile error: ", error);
+        setError("Failed to update profile");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   // console.log("profile image",profileImagePreview)
@@ -289,31 +282,13 @@ const UpdateProfile = () => {
                 fileInput = input;
               }}
             />
-
-            {isImageUploading ? (
-              <Button
-                onClick={() => fileInput.click()}
-                className="my-4"
-                variant="primary"
-              >
-                <Spinner
-                  as="span"
-                  animation="grow"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />{" "}
-                Loading...
-              </Button>
-            ) : (
-              <Button
-                onClick={() => fileInput.click()}
-                className="my-4"
-                variant="primary"
-              >
-                Select new image
-              </Button>
-            )}
+            <Button
+              onClick={() => fileInput.click()}
+              className="my-4"
+              variant="primary"
+            >
+              Select new image
+            </Button>
           </div>
           <p className="text-muted">
             Leave blank the fields which you don't want to change
