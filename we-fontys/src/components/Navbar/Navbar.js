@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from '../../axios'
 
 //React Router
 import { Link } from "react-router-dom";
@@ -21,9 +22,23 @@ import { useAuth } from "../../Context/AuthContext";
 const Navigationbar = () => {
   const { currentUser, logout } = useAuth();
   const [expanded, setExpanded] = useState(false);
+  const [userData, setUserData] = useState();
+  
 
   let togglerClasses = [];
   let collapseClasses = [];
+
+  useEffect(() => {
+    axios
+      .get(`/users/${currentUser.uid}.json`)
+      .then((userData) => {
+        // Set user data state
+        setUserData(userData.data);
+      })
+      .catch((err) => {
+        console.log("Error in fetching data from Firebase", err);
+      });
+  }, [])
 
   let navItems = (
     <Nav className="ml-auto">
@@ -59,8 +74,10 @@ const Navigationbar = () => {
             <div className="d-inline ">
               <img
                 className={classes.account_icon}
-                src={account_icon}
+                src={userData ? userData.photoURL : account_icon}
                 alt="account icon"
+                width="45px"
+                height="45px"
               />
               <span className="mr-1">{currentUser.email}</span>
             </div>
