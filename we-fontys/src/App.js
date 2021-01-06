@@ -2,6 +2,7 @@ import "./App.scss";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/User/Profile";
 import Discussions from './components/Discussions/Discussions'
+import DiscussionForm from './components/Discussions/DiscussionForm'
 
 
 // Style
@@ -31,6 +32,7 @@ function App() {
             <Route path="/forgot-password" component={ForgotPassword} />
             <PrivateRoute path="/update-profile" component={UpdateProfile} />
             <PrivateRoute path="/discuss" component={Discussions} />
+            <PrivateRoute path="/add-discussion" component={DiscussionForm} />
           </Switch>
         </Container>
       </AuthProvider>
