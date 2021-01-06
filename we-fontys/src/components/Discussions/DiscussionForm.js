@@ -40,11 +40,14 @@ const DiscussionForm = () => {
       comments: ["none"],
       author: `${userData.firstName} ${userData.lastName}`,
       authorEmail: userData.email,
+      authorID: currentUser.uid,
+      likes: 0,
+      comments: 0
     };
 
     // Push discussion entry to Firebase Realtime Database
     // db.ref(`/discussions/${currentUser.uid}`).set(newDiscussionEntry);
-    axios.post(`/discussions/${currentUser.uid}.json`, newDiscussionEntry)
+    axios.post(`/discussions/${categoryRef.current.value}.json`, newDiscussionEntry)
       .then((reponse) => {
         // Set user data state
         console.log("reponse", reponse)
