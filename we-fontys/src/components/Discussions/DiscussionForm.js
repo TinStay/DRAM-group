@@ -1,11 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Form } from "react-bootstrap";
 import classes from "./Discussions.module.scss";
+import { Form } from "react-bootstrap";
 import axios from "../../axios";
-import { useHistory } from "react-router-dom";
 
+import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
-import { db } from "../../firebase";
 
 const DiscussionForm = () => {
   const { currentUser } = useAuth();
@@ -66,6 +65,7 @@ const DiscussionForm = () => {
 
   return (
     <div className={classes.discussion_form_container}>
+      <Link className="text-decoration-none" to="discuss"><i class="fas fa-angle-left mr-1"></i>Back</Link>
       <h1 className="mb-3">Add a discussion</h1>
       <form onSubmit={handleFormSubmit} className="">
         <div className="row">
