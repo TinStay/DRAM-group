@@ -3,9 +3,10 @@ import classes from "./Discussions.module.scss";
 import account_image from "../../assets/account/account_icon_purple.png";
 
 const DiscussionBox = (props) => {
+  
+  // Display only 20 words of the initial comment
   let commentToBeDisplayed = props.initialComment.split(" ");
   commentToBeDisplayed.splice(20, commentToBeDisplayed.length - 1)
-  console.log("commentToBeDisplayed",commentToBeDisplayed)
 
   let discussionBoxClasses = ["border rounded px-2 py-3 row", classes.dicussion_box];
 
@@ -20,7 +21,7 @@ const DiscussionBox = (props) => {
           />
         </div>
         <div className="col-6 col-md-12">
-          <span>Username -</span>
+          <span>{props.author}</span>
           <span>Occupation</span>
         </div>
       </div>

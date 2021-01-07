@@ -47,6 +47,7 @@ const Discussions = () => {
           {discussions.length !== 0 ? discussions.map((discussion, idx) => {
             return <DiscussionBox 
             key={idx}
+            author={discussion.author}
             title={discussion.title}
             category={discussion.category}
             initialComment={discussion.initialComment}
