@@ -12,24 +12,24 @@ const DiscussionBox = (props) => {
 
   return (
     <div className={discussionBoxClasses.join(" ")}>
-      <div className="col-md-3 row">
-        <div className="col-6 col-md-12">
+      <div className="col-lg-3 row text-center">
+        <div className="col-4 col-lg-12">
           <img
-            src={account_image}
+            src={props.authorProfileImage}
             className={classes.discussion_box_image}
             alt="img"
           />
         </div>
-        <div className="col-6 col-md-12">
-          <span>{props.author}</span>
-          <span>Occupation</span>
+        <div className="col-8 col-lg-12 ">
+          <p className="my-1 h5">{props.author}</p>
+          <p className="my-1">{props.authorStudyProgram}</p>
         </div>
       </div>
-      <div className="col-md-9 p-0">
-        <div className="d-flex justify-content-between my-2 my-md-0 ">
-          <h3>{props.title}</h3>
-          <p>
-            <span className="badge badge-primary p-2">{props.category}</span>
+      <div className="col-lg-9 p-0">
+        <div className="row my-2 my-md-0 ">
+          <h3 className="col-md-10 pr-md-0">{props.title}</h3>
+          <p className="col-md-2 ">
+            <span className="badge badge-primary ml-1 px-3 py-2">{props.category}</span>
           </p>
         </div>
         <p className="my-2 text-muted">{commentToBeDisplayed.join(" ")}...</p>

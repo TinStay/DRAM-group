@@ -5,11 +5,12 @@ import axios from "../../axios";
 import { db } from '../../firebase'
 
 // React Router
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Discussions = () => {
   const [discussions, setDiscussions] = useState([]);
-  let history = useHistory()
+
+  let sortedDiscussionsByDate = discussions.slice().sort((a, b) => new Date(b.datePosted) - new Date(a.datePosted))
 
   useEffect(() => {
     axios
@@ -44,10 +45,12 @@ const Discussions = () => {
       <div className="col-md-9">
         <h1 className="mb-4">All discussions</h1>
         <div className="discussions-list">
-          {discussions.length !== 0 ? discussions.map((discussion, idx) => {
+          {discussions.length !== 0 ? sortedDiscussionsByDate.map((discussion, idx) => {
             return <DiscussionBox 
             key={idx}
             author={discussion.author}
+            authorProfileImage={discussion.authorProfileImage}
+            authorStudyProgram={discussion.authorStudyProgram}
             title={discussion.title}
             category={discussion.category}
             initialComment={discussion.initialComment}

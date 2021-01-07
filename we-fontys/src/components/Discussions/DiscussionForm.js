@@ -39,12 +39,13 @@ const DiscussionForm = () => {
       initialComment: commentRef.current.value,
       datePosted: new Date,
       comments: ["none"],
-      // author: `${userData.firstName} ${userData.lastName}`,
       author: userData.username,
       authorEmail: userData.email,
       authorID: currentUser.uid,
+      authorProfileImage: userData.photoURL,
+      authorStudyProgram: userData.studyProgram,
       likes: 0,
-      comments: 0
+      comments: 1
     };
 
     // Push discussion entry to Firebase Realtime Database

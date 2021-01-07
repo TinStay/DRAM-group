@@ -82,7 +82,7 @@ const Navigationbar = () => {
                 width="45px"
                 height="45px"
               />
-              <span className="mr-1">{currentUser.email}</span>
+              <span className="mr-1">{userData ? userData.username : "Profile"}</span>
             </div>
           }
           id="basic-nav-dropdown"
