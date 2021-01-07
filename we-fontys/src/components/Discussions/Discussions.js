@@ -9,8 +9,18 @@ import { Link } from "react-router-dom";
 
 const Discussions = () => {
   const [discussions, setDiscussions] = useState([]);
+  const [filter, setFilter] = useState("All");
 
-  let sortedDiscussionsByDate = discussions.slice().sort((a, b) => new Date(b.datePosted) - new Date(a.datePosted))
+  let sortedDiscussionsByDate = discussions.slice().sort((a, b) => new Date(b.datePosted) - new Date(a.datePosted));
+
+  let filteredDiscussions = [...sortedDiscussionsByDate];
+
+  // Filter discussions with filter
+  if(filter !== "All"){
+    filteredDiscussions = discussions.filter(discussion => ( 
+      discussion.category === filter
+    ))
+  }
 
   useEffect(() => {
     axios
@@ -18,10 +28,8 @@ const Discussions = () => {
       .then((response) => {
         const discussionsData = []
         
-
         // Push all discussions from Firebase in an array
         for(const discussion in response.data){
-          
           discussionsData.push(response.data[discussion]);
         }
 
@@ -31,7 +39,7 @@ const Discussions = () => {
       .catch((error) => {
         console.log("Error in fetching discussion data: ", error);
       });
-  }, [db]);
+  }, [filter]);
 
 
   return (
@@ -40,12 +48,12 @@ const Discussions = () => {
         <Link to="/add-discussion" className="btn btn-primary my-3 btn-block">
           Add a discussion
         </Link>
-        <Categories />
+        <Categories filterDiscussions={(e) => setFilter(e.target.value)}/>
       </div>
       <div className="col-md-9">
-        <h1 className="mb-4">All discussions</h1>
+        <h1 className="mb-4">{filter} discussions</h1>
         <div className="discussions-list">
-          {discussions.length !== 0 ? sortedDiscussionsByDate.map((discussion, idx) => {
+          {discussions.length !== 0 ? filteredDiscussions.map((discussion, idx) => {
             return <DiscussionBox 
             key={idx}
             author={discussion.author}
