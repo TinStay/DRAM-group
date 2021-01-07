@@ -29,15 +29,18 @@ const Navigationbar = () => {
   let collapseClasses = [];
 
   useEffect(() => {
-    axios
-      .get(`/users/${currentUser.uid}.json`)
-      .then((userData) => {
-        // Set user data state
-        setUserData(userData.data);
-      })
-      .catch((err) => {
-        console.log("Error in fetching data from Firebase", err);
-      });
+    if(currentUser){
+      axios
+        .get(`/users/${currentUser.uid}.json`)
+        .then((userData) => {
+          // Set user data state
+          setUserData(userData.data);
+        })
+        .catch((err) => {
+          console.log("Error in fetching data from Firebase", err);
+        });
+
+    }
   }, [])
 
   let navItems = (

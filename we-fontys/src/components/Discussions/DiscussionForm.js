@@ -29,7 +29,7 @@ const DiscussionForm = () => {
       });
   }, []);
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     // Discussion entry data that will be saved to Firebase Realtime Database
@@ -37,6 +37,7 @@ const DiscussionForm = () => {
       title: titleRef.current.value,
       category: categoryRef.current.value,
       initialComment: commentRef.current.value,
+      datePosted: new Date,
       comments: ["none"],
       author: `${userData.firstName} ${userData.lastName}`,
       authorEmail: userData.email,
@@ -47,10 +48,9 @@ const DiscussionForm = () => {
 
     // Push discussion entry to Firebase Realtime Database
     // db.ref(`/discussions/${currentUser.uid}`).set(newDiscussionEntry);
-    axios.post(`/discussions/${categoryRef.current.value}.json`, newDiscussionEntry)
-      .then((reponse) => {
-        // Set user data state
-        console.log("reponse", reponse)
+    await axios.post(`/discussions.json`, newDiscussionEntry)
+      .then(() => {
+
       })
       .catch((err) => {
         console.log("Error in post request to Firebase Realtime Databse", err);
