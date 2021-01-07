@@ -12,6 +12,8 @@ const DiscussionForm = () => {
   const [userData, setUserData] = useState();
   const history = useHistory();
 
+  const categoryList = ["COVID-19", "Arts", "Communications", "Business", "Engineering", "Healthcare", "ICT", "Logistics", "International", "Intership", "Other",]
+
   const titleRef = useRef();
   const categoryRef = useRef();
   const commentRef = useRef();
@@ -82,11 +84,9 @@ const DiscussionForm = () => {
             <Form.Group controlId="discussion-form-category">
               <Form.Label>Category</Form.Label>
               <Form.Control as="select" ref={categoryRef}>
-                <option>ICT</option>
-                <option>Business</option>
-                <option>Marketing</option>
-                <option>Arts</option>
-                <option>Lifestyle</option>
+                {categoryList.map(category =>{
+                  return <option>{category}</option>
+                })}
               </Form.Control>
             </Form.Group>
           </div>
