@@ -65,12 +65,12 @@ const DiscussionForm = () => {
 
   return (
     <div className={classes.discussion_form_container}>
-      <Link className="text-decoration-none" to="discuss"><i class="fas fa-angle-left mr-1"></i>Back</Link>
+      <Link className="text-decoration-none" to="discuss"><i className="fas fa-angle-left mr-1"></i>Back</Link>
       <h1 className="mb-3">Add a discussion</h1>
       <form onSubmit={handleFormSubmit} className="">
         <div className="row">
           <div className="col-md-8">
-            <Form.Group id="discussion-form-title">
+            <Form.Group id="discussion-form-title"> 
               <Form.Label>Title</Form.Label>
               <Form.Control
                 ref={titleRef}
@@ -85,7 +85,7 @@ const DiscussionForm = () => {
               <Form.Label>Category</Form.Label>
               <Form.Control as="select" ref={categoryRef}>
                 {categoryList.map(category =>{
-                  return <option>{category}</option>
+                  return <option key={category}>{category}</option>
                 })}
               </Form.Control>
             </Form.Group>

@@ -41,6 +41,12 @@ const Discussions = () => {
       });
   }, [filter]);
 
+  const filterDiscussions = (filter) => {
+    console.log(filter)
+    setFilter(filter)
+  }
+  
+
 
   return (
     <div className="row mt-3">
@@ -48,7 +54,7 @@ const Discussions = () => {
         <Link to="/add-discussion" className="btn btn-primary my-3 btn-block">
           Add a discussion
         </Link>
-        <Categories filterDiscussions={(e) => setFilter(e.target.value)}/>
+        <Categories filterDiscussions={(e) => filterDiscussions(e.target.value)} filter={filter}/>
       </div>
       <div className="col-md-9">
         <h1 className="mb-4">{filter} discussions</h1>

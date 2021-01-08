@@ -1,46 +1,56 @@
 import React from "react";
-import { ListGroup } from 'react-bootstrap'
+import { ListGroup, Form } from "react-bootstrap";
+import { useMediaQuery } from "react-responsive";
 
 const Categories = (props) => {
+  const isMobile = useMediaQuery({ query: `(max-width: 760px)` });
+  const categoryList = [
+    "All",
+    "COVID-19",
+    "Arts",
+    "Communications",
+    "Business",
+    "Engineering",
+    "Healthcare",
+    "ICT",
+    "Logistics",
+    "International",
+    "Intership",
+    "Other",
+  ];
+
   return (
-    <ListGroup defaultActiveKey="#link1">
-      <ListGroup.Item action value="All" onClick={(e) => props.filterDiscussions(e)}>
-        All
-      </ListGroup.Item>
-      <ListGroup.Item action value="COVID-19" onClick={(e) => props.filterDiscussions(e)}>
-        COVID-19
-      </ListGroup.Item>
-      <ListGroup.Item action value="Arts" onClick={(e) => props.filterDiscussions(e)}>
-        Arts
-      </ListGroup.Item>
-      <ListGroup.Item action value="Communications" onClick={(e) => props.filterDiscussions(e)}>
-        Communications
-      </ListGroup.Item>
-      <ListGroup.Item action value="Business" onClick={(e) => props.filterDiscussions(e)}>
-        Business
-      </ListGroup.Item>
-      <ListGroup.Item action value="Engineering" onClick={(e) => props.filterDiscussions(e)}>
-        Engineering
-      </ListGroup.Item>
-      <ListGroup.Item action value="Healthcare" onClick={(e) => props.filterDiscussions(e)}>
-        Healthcare
-      </ListGroup.Item>
-      <ListGroup.Item action value="ICT" onClick={(e) => props.filterDiscussions(e)}>
-        ICT
-      </ListGroup.Item>
-      <ListGroup.Item action value="Logistics" onClick={(e) => props.filterDiscussions(e)}>
-        Logistics
-      </ListGroup.Item>
-      <ListGroup.Item action value="International" onClick={(e) => props.filterDiscussions(e)}>
-        International
-      </ListGroup.Item>
-      <ListGroup.Item action value="Intership" onClick={(e) => props.filterDiscussions(e)}>
-        Intership
-      </ListGroup.Item>
-      <ListGroup.Item action value="Other" onClick={(e) => props.filterDiscussions(e)}>
-        Other
-      </ListGroup.Item>
-    </ListGroup>
+    <div>
+      {isMobile ? (
+        <Form.Group className="w-50" controlId="discussion-form-category">
+          <Form.Control as="select" onChange={(e) => props.filterDiscussions(e)}>
+            {categoryList.map((category, idx) => {
+              return (
+                <option
+                  value={category}
+                  key={idx}>
+                  {category}
+                </option>
+              );
+            })}
+          </Form.Control>
+        </Form.Group>
+      ) : (
+        <ListGroup>
+          {categoryList.map((category, idx) => {
+            return <ListGroup.Item
+            action
+            key={idx}
+            value={category}
+            active={props.filter == category}
+            onClick={(e) => props.filterDiscussions(e)}
+          >
+            {category}
+          </ListGroup.Item>
+          })}
+        </ListGroup>
+      )}
+    </div>
   );
 };
 
