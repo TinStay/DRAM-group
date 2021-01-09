@@ -61,6 +61,7 @@ const Discussions = () => {
         <div className="discussions-list">
           {discussions.length !== 0 ? filteredDiscussions.map((discussion, idx) => {
             return <DiscussionBox 
+            id={discussion}
             key={idx}
             author={discussion.author}
             authorProfileImage={discussion.authorProfileImage}

@@ -1,19 +1,17 @@
 import React from "react";
 import classes from "./Discussions.module.scss";
-import account_image from "../../assets/account/account_icon_purple.png";
-import { Link } from 'react-router-dom'
+// import account_image from "../../assets/account/account_icon_purple.png";
 
-const DiscussionBox = (props) => {
-  // console.log("props.id",props.id)
+const DiscussionDetail = (props) => {
   
   // Display only 20 words of the initial comment
-  let commentToBeDisplayed = props.initialComment.split(" ");
-  commentToBeDisplayed.splice(20, commentToBeDisplayed.length - 1)
+//   let commentToBeDisplayed = props.initialComment.split(" ");
+//   commentToBeDisplayed.splice(20, commentToBeDisplayed.length - 1)
 
-  let discussionBoxClasses = ["border rounded px-2 py-3 row", classes.dicussion_box];
+//   let discussionBoxClasses = ["border rounded px-2 py-3 row", classes.dicussion_box];
 
   return (
-    <div className={discussionBoxClasses.join(" ")}>
+    <div className="">
       <div className="col-lg-3 row text-center">
         <div className="col-4 col-lg-12">
           <img
@@ -34,9 +32,9 @@ const DiscussionBox = (props) => {
             <span className="badge badge-primary ml-1 px-3 py-2">{props.category}</span>
           </p>
         </div>
-        <p className="my-2 text-muted">{commentToBeDisplayed.join(" ")}...</p>
+        {/* <p className="my-2 text-muted">{commentToBeDisplayed.join(" ")}...</p> */}
         <div className="d-flex justify-content-between">
-          <Link to="/discussion/:id" className="btn btn-link p-0 my-0">Read more</Link>
+          <button className="btn btn-link p-0 my-0">Read more</button>
           <div className="icons my-0 text-muted">
             <span className="mx-2">
               <i className="far fa-comment-alt mx-1"></i>
@@ -53,4 +51,4 @@ const DiscussionBox = (props) => {
   );
 };
 
-export default DiscussionBox;
+export default DiscussionDetail;

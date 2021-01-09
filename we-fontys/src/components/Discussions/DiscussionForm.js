@@ -35,6 +35,7 @@ const DiscussionForm = () => {
 
     // Discussion entry data that will be saved to Firebase Realtime Database
     let newDiscussionEntry = {
+      discussionID: "",
       title: titleRef.current.value,
       category: categoryRef.current.value,
       initialComment: commentRef.current.value,
@@ -52,8 +53,18 @@ const DiscussionForm = () => {
     // Push discussion entry to Firebase Realtime Database
     // db.ref(`/discussions/${currentUser.uid}`).set(newDiscussionEntry);
     await axios.post(`/discussions.json`, newDiscussionEntry)
-      .then(() => {
+      .then((response) => {
+        // Get discussion ID from Firebase and make a put request to update it
+        let newDiscussionEntryWithID = {...newDiscussionEntry}
+        newDiscussionEntryWithID.discussionID = response.data.name;
 
+        axios.put(`/discussions/${response.data.name}.json`, newDiscussionEntryWithID).then(
+          (response) => {
+            console.log("Response from put request: ", response)
+          }
+        ).catch((err) => {
+          console.log("Error from put reqeust: ", err)
+        })
       })
       .catch((err) => {
         console.log("Error in post request to Firebase Realtime Databse", err);
