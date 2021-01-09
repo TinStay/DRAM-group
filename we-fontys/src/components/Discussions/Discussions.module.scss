@@ -4,18 +4,14 @@
 
 .discussion_box_image {
   margin: 0 auto;
-  width: 100px;
-  height: 100px;
-  // max-width: 80%;
-  // max-height: 80%;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
 
   @media screen and (min-width: 992px) {
-    // max-width: 90%;
-    // max-height: 90%;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
   }
 }
 
@@ -25,6 +21,11 @@
 }
 
 .discussion_detail_container{
-  width: 80%;
+  width: 94%;
   margin: 1rem auto;
+
+  
+  @media screen and (min-width: 992px) {
+    width: 80%;
+  }
 }

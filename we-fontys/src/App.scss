@@ -50,3 +50,11 @@
     border: 1px solid #f03131;
   }
 }
+
+.like-btn{
+  font-size: 1.4rem;
+  
+  &:hover{
+    cursor: pointer;
+  }
+}
