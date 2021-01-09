@@ -53,13 +53,13 @@ const DiscussionForm = () => {
     // Push discussion entry to Firebase Realtime Database
     // db.ref(`/discussions/${currentUser.uid}`).set(newDiscussionEntry);
     await axios.post(`/discussions.json`, newDiscussionEntry)
-      .then((response) => {
+      .then( async(response) => {
         // Get discussion ID from Firebase and make a put request to update it
         let newDiscussionEntryWithID = {...newDiscussionEntry}
 
         newDiscussionEntryWithID.discussionID = response.data.name;
 
-        axios.put(`/discussions/${response.data.name}.json`, newDiscussionEntryWithID).then(
+        await axios.put(`/discussions/${response.data.name}.json`, newDiscussionEntryWithID).then(
           (response) => {
             // console.log("Response from put request: ", response)
           }

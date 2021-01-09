@@ -13,7 +13,7 @@ const DiscussionDetail = (props) => {
   const { currentUser } = useAuth();
   const [userData, setUserData] = useState();
   const [discussionData, setDiscussionData] = useState({});
-  
+
   // Alert and error
   const [alertMessage, setAlertMessage] = useState("");
   const [show, setShow] = useState(true);
@@ -46,8 +46,10 @@ const DiscussionDetail = (props) => {
   }, []);
 
   const postComment = async () => {
-    // Reset error
+    // Reset error and alert
     setError("");
+    setAlertMessage("")
+    setShow(true)
 
     const comment = commentInputRef.current.value;
 
@@ -56,32 +58,52 @@ const DiscussionDetail = (props) => {
       setError("Comment field must not be empty");
     } else {
       let newDiscussionData = { ...discussionData };
-      let newCommentEntry = {
-        comment: comment,
-        userID: userData.userID,
-        authorProfileImage: userData.photoURL,
-        username: userData.username,
-      };
 
-      // Push comment to comments array
-      newDiscussionData.comments.push(newCommentEntry);
+      // Remove initial "none" comment entry
+      if (newDiscussionData.comments) {
+        if (newDiscussionData.comments[0] === "none") {
+          newDiscussionData.comments.splice(0, 1);
+        }
 
-      // Make a put request to update discussion comments data
-      await axios
-        .put(`/discussions/${props.match.params.id}.json`, newDiscussionData)
-        .then((response) => {
-          //   console.log("Response from put request: ", response.data);
-        })
-        .catch((error) => {
-          console.log("Error in fetching discussion data: ", error);
-        });
+        let newCommentEntry = {
+          comment: comment,
+          userID: userData.userID,
+          authorProfileImage: userData.photoURL,
+          username: userData.username,
+          datePosted: new Date(),
+        };
 
-      setAlertMessage("You successfuly posted your comment");
+        // Push comment to comments array
+        newDiscussionData.comments.push(newCommentEntry);
 
-      // Reset field
-      commentInputRef.current.value = "";
+        // Make a put request to update discussion comments data
+        await axios
+          .put(`/discussions/${props.match.params.id}.json`, newDiscussionData)
+          .then((response) => {
+            //   console.log("Response from put request: ", response.data);
+          })
+          .catch((error) => {
+            console.log("Error in fetching discussion data: ", error);
+          });
+
+        setAlertMessage("You successfuly posted your comment");
+
+        // Reset field
+        commentInputRef.current.value = "";
+      }
     }
   };
+
+  // Sort discussions by date - most recent first
+  let sortedCommentsByDate = [];
+
+//   useEffect(() => {
+    if (discussionData.comments) {
+        sortedCommentsByDate = discussionData.comments.slice().sort((a, b) => new Date(b.datePosted) - new Date(a.datePosted));
+        sortedCommentsByDate.map(a => console.log("a", a))
+        // console.log("discussionData.comments", discussionData.comments)
+    }
+//   }, [sortedCommentsByDate]);
 
   return (
     <div className={classes.discussion_detail_container}>
@@ -128,8 +150,21 @@ const DiscussionDetail = (props) => {
         </div>
 
         <div className="comment-form row w-100 my-4">
-        {(alertMessage !== "" && show) ? <Alert className="col-12" variant="success" onClose={() => setShow(false)} dismissible>{alertMessage}</Alert> : null}
-        {error !== "" && <Alert className="col-12" variant="danger ">{error}</Alert>}
+          {alertMessage !== "" && show ? (
+            <Alert
+              className="col-12"
+              variant="success"
+              onClose={() => setShow(false)}
+              dismissible
+            >
+              {alertMessage}
+            </Alert>
+          ) : null}
+          {error !== "" && (
+            <Alert className="col-12" variant="danger ">
+              {error}
+            </Alert>
+          )}
           <div className="col-md-2 text-center">
             <img
               src={userData && userData.photoURL}
@@ -148,13 +183,38 @@ const DiscussionDetail = (props) => {
           </div>
         </div>
 
-        <div className="comments my-5 pb-2 border-bottom w-100 ">
-          <span className="text-muted ">
-            <i className="far fa-comment-alt mx-1"></i>
-            {discussionData.commentNumber === 1
-              ? discussionData.commentNumber + " comment"
-              : discussionData.commentNumber + " comments"}
-          </span>
+        <div className="comments my-5 w-100">
+          <div className=" pb-2 border-bottom w-100">
+            <span className="text-muted  ">
+              <i className="far fa-comment-alt mx-1"></i>
+              {discussionData.comments ? discussionData.comments.length !== 1
+                ? discussionData.comments.length + " comments"
+                : discussionData.comments.length + " comment" : "0 comments"}
+            </span>
+          </div>
+          <div class="comments">
+            {discussionData.comments !== [] ? (
+              sortedCommentsByDate.map((comment) => {
+                return (
+                  <div className="comment row w-100 my-4">
+                    <div className="col-md-2 text-center">
+                      <img
+                        src={comment.authorProfileImage}
+                        className={classes.discussion_box_image}
+                        alt="img"
+                      />
+                      <p className="text-muted mt-1">{comment.username}</p>
+                    </div>
+                    <div className="col-md-10">
+                      <p className="my-2 text-muted">{comment.comment}</p>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <p>No comments yet</p>
+            )}
+          </div>
         </div>
       </div>
     </div>
