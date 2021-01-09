@@ -47,7 +47,7 @@ const DiscussionForm = () => {
       authorProfileImage: userData.photoURL,
       authorStudyProgram: userData.studyProgram,
       likes: 0,
-      comments: 1
+      commentNumber: 1
     };
 
     // Push discussion entry to Firebase Realtime Database
@@ -56,14 +56,15 @@ const DiscussionForm = () => {
       .then((response) => {
         // Get discussion ID from Firebase and make a put request to update it
         let newDiscussionEntryWithID = {...newDiscussionEntry}
+
         newDiscussionEntryWithID.discussionID = response.data.name;
 
         axios.put(`/discussions/${response.data.name}.json`, newDiscussionEntryWithID).then(
           (response) => {
-            console.log("Response from put request: ", response)
+            // console.log("Response from put request: ", response)
           }
         ).catch((err) => {
-          console.log("Error from put reqeust: ", err)
+          console.log("Error from put request: ", err)
         })
       })
       .catch((err) => {
