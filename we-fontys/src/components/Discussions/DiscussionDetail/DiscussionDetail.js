@@ -14,6 +14,7 @@ const DiscussionDetail = (props) => {
   const { currentUser } = useAuth();
   const [userData, setUserData] = useState();
   const [discussionData, setDiscussionData] = useState({});
+  const [isDiscussionLiked, setIsDiscussionLiked] = useState(false);
 
   // Alert and error
   const [alertMessage, setAlertMessage] = useState("");
@@ -109,6 +110,34 @@ const DiscussionDetail = (props) => {
       .sort((a, b) => new Date(b.datePosted) - new Date(a.datePosted));
   }
 
+  const likeDiscussion = () => {
+    // Get discussion data
+    let newDiscussionData = { ...discussionData };
+
+    // Increment or decrement likes
+    if (isDiscussionLiked === true) {
+      // If user unlikes discussion
+      newDiscussionData.likes -= 1;
+    } else {
+      newDiscussionData.likes += 1;
+    }
+
+    //Update state
+    setIsDiscussionLiked(!isDiscussionLiked);
+    setDiscussionData(newDiscussionData);
+
+    // Push new discussion data to Firebase Realtime Database
+    // Make a put request to update discussion likes
+    axios
+      .put(`/discussions/${props.match.params.id}.json`, newDiscussionData)
+      .then((response) => {
+        //   console.log("Response from put request: ", response.data);
+      })
+      .catch((error) => {
+        console.log("Error in fetching discussion data: ", error);
+      });
+  };
+
   return (
     <div className={classes.discussion_detail_container}>
       <Link className="text-decoration-none " to="/discuss">
@@ -122,7 +151,14 @@ const DiscussionDetail = (props) => {
           <div className="d-flex justify-content-between text-muted">
             <div className="discussion-info">
               <span className="mr-2">
-                <i className="far fa-heart mx-1 like-btn"></i>
+                <i
+                  onClick={() => likeDiscussion()}
+                  className={
+                    isDiscussionLiked
+                      ? "fas fa-heart red like-btn mx-1"
+                      : "far fa-heart like-btn mx-1"
+                  }
+                ></i>
                 {discussionData.likes === 1
                   ? discussionData.likes + " like"
                   : discussionData.likes + " likes"}
@@ -154,26 +190,39 @@ const DiscussionDetail = (props) => {
               {alertMessage}
             </Alert>
           ) : null}
-          {error !== "" && (
-            <Alert className="col-12 mx-auto" variant="danger ">
+          {error !== "" && show ? (
+            <Alert
+              className="col-12 mx-auto"
+              variant="danger"
+              onClose={() => setShow(false)}
+              dismissible
+            >
               {error}
             </Alert>
-          )}
-          <div className="col-2 col-md-2">
-            <img
-              src={userData && userData.photoURL}
-              className={classes.discussion_box_image}
-              alt="img"
-            />
-            <p className="text-muted mt-1">{userData && userData.username}</p>
+          ) : null}
+          <div className="col-md-2 mb-2">
+            <div className="mx-md-auto d-flex d-md-block justify-content-start ">
+              <div className="text-center mr-2 mr-md-0">
+                <img
+                  src={userData && userData.photoURL}
+                  className={classes.discussion_box_image}
+                  alt="img"
+                />
+              </div>
+              <div className="text-center my-auto">
+                <p className="text-muted mt-1">
+                  {userData && userData.username}
+                </p>
+              </div>
+            </div>
           </div>
-          <div className="col-10 col-md-10">
+          <div className=" col-md-10">
             <Form.Group controlId="exampleForm.ControlTextarea1">
               <Form.Label>Comment</Form.Label>
               <Form.Control ref={commentInputRef} as="textarea" rows={3} />
             </Form.Group>
             <Button onClick={postComment} variant="primary">
-              Submit
+              Post
             </Button>
           </div>
         </div>

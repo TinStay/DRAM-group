@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import classes from "../Discussions.module.scss";
 import axios from "../../../axios";
+import dayjs from "dayjs"
 
 const DiscussionComment = (props) => {
   const [authorData, setAuthorData] = useState();
@@ -19,18 +20,27 @@ const DiscussionComment = (props) => {
   }, [props]);
 
   const initialComment = props.commentData.initialComment;
+  const datePostedFormatted = dayjs(props.commentData.datePosted).format("MMM DD, YYYY");
 
   return (
     <div className="comment row border-bottom pb-3 my-4 mx-auto">
-      <div className="col-md-2">
+      <div className="col-md-2 mb-2">
         <div className="mx-md-auto d-flex d-md-block justify-content-start ">
-        <img
-          src={authorData && authorData.photoURL}
-          className={classes.discussion_box_image}
-          alt="profile image"
-        />
-        <p className="text-muted mt-1">{authorData && authorData.username}</p>
-
+          <div className="text-center mr-2 mr-md-0">
+            <img
+              src={authorData && authorData.photoURL}
+              className={classes.discussion_box_image}
+              alt="profile image"
+            />
+          </div>
+          <div className="text-center my-auto">
+            <p className="text-muted mt-1 mb-0 ">
+              {authorData && authorData.username}
+            </p>
+            <span className="mx-auto text-muted ">
+              {datePostedFormatted}
+            </span>
+          </div>
         </div>
       </div>
       <div className="col-md-10">
