@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./Discussions.module.scss";
 import account_image from "../../assets/account/account_icon_purple.png";
+import { Link } from 'react-router-dom'
 
 const DiscussionBox = (props) => {
   
@@ -34,11 +35,11 @@ const DiscussionBox = (props) => {
         </div>
         <p className="my-2 text-muted">{commentToBeDisplayed.join(" ")}...</p>
         <div className="d-flex justify-content-between">
-          <button className="btn btn-link p-0 my-0">Read more</button>
+          <Link to={"/discussion/" + props.id} className="btn btn-link p-0 my-0">Read more</Link>
           <div className="icons my-0 text-muted">
             <span className="mx-2">
               <i className="far fa-comment-alt mx-1"></i>
-              {props.comments}
+              {props.commentNumber}
             </span>
             <span className="mx-2">
               <i className="far fa-heart mx-1"></i>

@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/User/Profile";
 import Discussions from './components/Discussions/Discussions'
 import DiscussionForm from './components/Discussions/DiscussionForm'
+import DiscussionDetail from './components/Discussions/DiscussionDetail/DiscussionDetail'
 
 
 // Style
@@ -33,6 +34,7 @@ function App() {
             <PrivateRoute path="/update-profile" component={UpdateProfile} />
             <PrivateRoute path="/discuss" component={Discussions} />
             <PrivateRoute path="/add-discussion" component={DiscussionForm} />
+            <PrivateRoute path="/discussion/:id" component={DiscussionDetail} />
           </Switch>
         </Container>
       </AuthProvider>
