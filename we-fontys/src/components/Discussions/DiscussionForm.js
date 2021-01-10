@@ -40,18 +40,12 @@ const DiscussionForm = () => {
       category: categoryRef.current.value,
       initialComment: commentRef.current.value,
       datePosted: new Date,
-      comments: ["none"],
-      author: userData.username,
-      authorEmail: userData.email,
+      comments: [],
       authorID: currentUser.uid,
-      authorProfileImage: userData.photoURL,
-      authorStudyProgram: userData.studyProgram,
       likes: 0,
-      commentNumber: 1
     };
 
     // Push discussion entry to Firebase Realtime Database
-    // db.ref(`/discussions/${currentUser.uid}`).set(newDiscussionEntry);
     await axios.post(`/discussions.json`, newDiscussionEntry)
       .then( async(response) => {
         // Get discussion ID from Firebase and make a put request to update it

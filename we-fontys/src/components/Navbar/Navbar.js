@@ -41,7 +41,7 @@ const Navigationbar = () => {
         });
 
     }
-  }, [])
+  }, [currentUser, userData])
 
   let navItems = (
     <Nav className="ml-auto">

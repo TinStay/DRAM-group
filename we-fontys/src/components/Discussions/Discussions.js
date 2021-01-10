@@ -61,15 +61,12 @@ const Discussions = () => {
         <div className="discussions-list">
           {discussions.length !== 0 ? filteredDiscussions.map((discussion, idx) => {
             return <DiscussionBox 
-            id={discussion.discussionID}
             key={idx}
-            author={discussion.author}
-            authorProfileImage={discussion.authorProfileImage}
-            authorStudyProgram={discussion.authorStudyProgram}
+            discussionID={discussion.discussionID}
+            authorID={discussion.authorID}
             title={discussion.title}
             category={discussion.category}
             initialComment={discussion.initialComment}
-            commentNumber={discussion.commentNumber}
             comments={discussion.comments}
             likes={discussion.likes}
             />;

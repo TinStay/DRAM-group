@@ -143,10 +143,10 @@ const DiscussionDetail = (props) => {
         {/* Initial comment */}
         <DiscussionComment commentData={discussionData} />
 
-        <div className="comment-form row w-100 my-4">
+        <div className="comment-form row w-100 mx-auto my-4">
           {alertMessage !== "" && show ? (
             <Alert
-              className="col-12"
+              className="col-12 mx-auto"
               variant="success"
               onClose={() => setShow(false)}
               dismissible
@@ -155,11 +155,11 @@ const DiscussionDetail = (props) => {
             </Alert>
           ) : null}
           {error !== "" && (
-            <Alert className="col-12" variant="danger ">
+            <Alert className="col-12 mx-auto" variant="danger ">
               {error}
             </Alert>
           )}
-          <div className="col-md-2 text-center">
+          <div className="col-2 col-md-2">
             <img
               src={userData && userData.photoURL}
               className={classes.discussion_box_image}
@@ -167,7 +167,7 @@ const DiscussionDetail = (props) => {
             />
             <p className="text-muted mt-1">{userData && userData.username}</p>
           </div>
-          <div className="col-md-10">
+          <div className="col-10 col-md-10">
             <Form.Group controlId="exampleForm.ControlTextarea1">
               <Form.Label>Comment</Form.Label>
               <Form.Control ref={commentInputRef} as="textarea" rows={3} />
