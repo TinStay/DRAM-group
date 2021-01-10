@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/User/Profile";
 import Discussions from './components/Discussions/Discussions'
 import DiscussionForm from './components/Discussions/DiscussionForm'
-import DiscussionDetail from './components/Discussions/DiscussionDetail'
+import DiscussionDetail from './components/Discussions/DiscussionDetail/DiscussionDetail'
 
 
 // Style
