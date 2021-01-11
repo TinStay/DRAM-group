@@ -151,17 +151,9 @@ const DiscussionDetail = (props) => {
           <div className="d-flex justify-content-between text-muted">
             <div className="discussion-info">
               <span className="mr-2">
-                <i
-                  onClick={() => likeDiscussion()}
-                  className={
-                    isDiscussionLiked
-                      ? "fas fa-heart red like-btn mx-1"
-                      : "far fa-heart like-btn mx-1"
-                  }
-                ></i>
-                {discussionData.likes === 1
-                  ? discussionData.likes + " like"
-                  : discussionData.likes + " likes"}
+                <span className="badge badge-primary ml-1 px-3 py-2">
+                  {discussionData.category}
+                </span>
               </span>
               <span className="mx-3">
                 {dayjs(discussionData.datePosted).format("MMM DD, YYYY")}
@@ -169,9 +161,17 @@ const DiscussionDetail = (props) => {
             </div>
 
             <span className="">
-              <span className="badge badge-primary ml-1 px-3 py-2">
-                {discussionData.category}
-              </span>
+              <i
+                onClick={() => likeDiscussion()}
+                className={
+                  isDiscussionLiked
+                    ? "fas fa-heart red like-btn mx-1"
+                    : "far fa-heart like-btn mx-1"
+                }
+              ></i>
+              {discussionData.likes === 1
+                ? discussionData.likes + " like"
+                : discussionData.likes + " likes"}
             </span>
           </div>
         </div>
