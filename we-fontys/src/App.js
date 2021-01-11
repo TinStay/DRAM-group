@@ -27,11 +27,11 @@ function App() {
         <Navbar />
         <Container style={{ minHeight: "100vh" }}>
           <Switch>
-            <PrivateRoute exact path="/profile" component={Profile} />
+            <PrivateRoute exact path="/profile/:id" component={Profile} />
             <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />
             <Route path="/forgot-password" component={ForgotPassword} />
-            <PrivateRoute path="/update-profile" component={UpdateProfile} />
+            <PrivateRoute path="/profile/:id/update-profile" component={UpdateProfile} />
             <PrivateRoute path="/discuss" component={Discussions} />
             <PrivateRoute path="/add-discussion" component={DiscussionForm} />
             <PrivateRoute path="/discussion/:id" component={DiscussionDetail} />

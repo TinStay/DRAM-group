@@ -90,7 +90,7 @@ const Navigationbar = () => {
           <Link
             onClick={() => setExpanded(false)}
             className="dropdown-item"
-            to="/profile"
+            to={`/profile/` + currentUser.uid}
           >
             Profile
           </Link>

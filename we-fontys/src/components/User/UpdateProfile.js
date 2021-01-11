@@ -22,7 +22,7 @@ import { useAuth } from "../../Context/AuthContext";
 // React Router
 import { Link, useHistory } from "react-router-dom";
 
-const UpdateProfile = () => {
+const UpdateProfile = (props) => {
   // State
   const [userData, setUserData] = useState();
   const [profileImageFile, setProfileImageFile] = useState();
@@ -146,7 +146,7 @@ const UpdateProfile = () => {
 
     if (profileImageFile) {
       // Update user data when new image has been uploaded to Firebase Storage
-      console.log("Update with image");
+      // console.log("Update with image");
 
       // Handle profile image file upload to Firebase Storage
       const uploadTask = storage
@@ -193,12 +193,12 @@ const UpdateProfile = () => {
               );
             });
 
-          console.log("Uploaded image");
+          // console.log("Uploaded image");
         }
       );
     } else {
       // Update user data without updating photoURL field
-      console.log("Update without image");
+      // console.log("Update without image");
 
       // Duplicate userData
       let newUserData = { ...userData };
@@ -219,7 +219,7 @@ const UpdateProfile = () => {
       // Validate if any field been changed
       if (objectsAreTheSame(userData, newUserData)) {
         // exit function and don't push to promises list
-        console.log("Objects are the same ");
+        // console.log("Objects are the same ");
       } else {
         // Update other user data
         promises.push(axios.put(`users/${currentUser.uid}.json`, newUserData));
@@ -239,7 +239,7 @@ const UpdateProfile = () => {
     Promise.all(promises)
       .then(() => {
         // Redirect to home page if all promises are successful
-        history.push("/profile");
+        history.push("/profile/" + props.match.params.id);
       })
       .catch((error) => {
         console.log("Update profile error: ", error);
@@ -315,16 +315,6 @@ const UpdateProfile = () => {
               />
             </Form.Group>
 
-            {/* <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                defaultValue={currentUser.email}
-                ref={emailRef}
-                required
-              />
-            </Form.Group> */}
-
             <Form.Group id="nationality">
               <Form.Label>Nationality</Form.Label>
               <Form.Control
@@ -384,15 +374,6 @@ const UpdateProfile = () => {
               </div>
             </Form.Group>
 
-            {/* <Form.Group id="interests">
-              <Form.Label>Interests</Form.Label>
-              <Form.Control
-                type="text"
-
-                // defaultValue={currentUser.email}
-              />
-              
-            </Form.Group> */}
 
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>

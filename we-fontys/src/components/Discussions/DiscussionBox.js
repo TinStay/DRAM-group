@@ -40,7 +40,7 @@ const DiscussionBox = (props) => {
           />
         </div>
         <div className="col-8 col-lg-12 ">
-          <p className="my-1 h5">{authorData && authorData.username}</p>
+          <Link to={`/profile/` + props.authorID} className="my-1 h5 text-decoration-none black">{authorData && authorData.username}</Link>
           <p className="my-1">{authorData && authorData.studyProgram}</p>
         </div>
       </div>

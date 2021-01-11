@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../Context/AuthContext";
 import axios from "../../axios";
-import account_icon from '../../assets/account/account_icon_purple.png';
+import account_icon from "../../assets/account/account_icon_purple.png";
 // Style
 import { Card, Form, Button, Alert } from "react-bootstrap";
 import classes from "./Profile.module.scss";
@@ -9,9 +9,7 @@ import classes from "./Profile.module.scss";
 // React Router
 import { Link, useHistory } from "react-router-dom";
 
-
-
-const Profile = () => {
+const Profile = (props) => {
   //State
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
@@ -23,7 +21,7 @@ const Profile = () => {
   // Update user data from Firebase Realtime Database
   useEffect(() => {
     axios
-      .get(`/users/${currentUser.uid}.json`)
+      .get(`/users/${props.match.params.id}.json`)
       .then((userData) => {
         // Set user data state
         setUserData(userData.data);
@@ -31,7 +29,7 @@ const Profile = () => {
       .catch((err) => {
         console.log("err", err);
       });
-  });
+  }, []);
 
   async function handleLogout() {
     // Clear existing error
@@ -51,6 +49,9 @@ const Profile = () => {
 
   return (
     <div className={classes.profile_container}>
+      <Link className="text-decoration-none " to="/discuss">
+        <i className="fas fa-angle-left mr-1"></i>Back
+      </Link>
       <Card>
         <Card.Body>
           {/* <h2 className="text-center mb-4">Profile</h2> */}
@@ -59,7 +60,10 @@ const Profile = () => {
 
           <div className="w-100">
             <div className="my-3 text-center">
-              <img className={accountImageClasses.join(" ")} src={userData ? userData.photoURL : account_icon}></img>
+              <img
+                className={accountImageClasses.join(" ")}
+                src={userData ? userData.photoURL : account_icon}
+              ></img>
             </div>
             <div className="my-3">
               <strong>Email: </strong>
@@ -88,35 +92,41 @@ const Profile = () => {
             <div className="my-3">
               <strong>Interests: </strong>
               <div className="w-100 mx-auto my-3 row text-center">
-                {(userData && userData.interests )
-                  ? userData.interests.map((interest) => (
-                      <div
-                        key={interest}
-                        className="interest-container col-4 px-1"
-                      >
-                        <p key={interest} className={classes.interest_box}>
-                          {interest}
-                        </p>
-                      </div>
-                    ))
-                  : <p className="text-muted">You haven't selected any interests yet.</p> }
+                {userData && userData.interests ? (
+                  userData.interests.map((interest) => (
+                    <div
+                      key={interest}
+                      className="interest-container col-4 px-1"
+                    >
+                      <p key={interest} className={classes.interest_box}>
+                        {interest}
+                      </p>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-muted">
+                    You haven't selected any interests yet.
+                  </p>
+                )}
               </div>
             </div>
-            <div className="d-flex justify-content-between mt-4">
-              <Link
-                to="update-profile"
-                className="btn-purple-rounded text-decoration-none white mr-5"
-              >
-                Update profile 
-              </Link>
-              <Button
-                variant="danger"
-                onClick={handleLogout}
-                className="btn btn-danger"
-              >
-                Logout
-              </Button>
-            </div>
+            {props.match.params.id === currentUser.uid ? (
+              <div className="d-flex justify-content-between mt-4">
+                <Link
+                  to={`/profile/${props.match.params.id}/update-profile`}
+                  className="btn-purple-rounded text-decoration-none white mr-5"
+                >
+                  Update profile
+                </Link>
+                <Button
+                  variant="danger"
+                  onClick={handleLogout}
+                  className="btn btn-danger"
+                >
+                  Logout
+                </Button>
+              </div>
+            ) : null}
           </div>
         </Card.Body>
       </Card>
