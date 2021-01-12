@@ -109,7 +109,7 @@ const Navigationbar = () => {
   }
 
   return (
-    <Navbar expanded={expanded} className="" bg="light" expand="lg">
+    <Navbar expanded={expanded} className={classes.navbar} expand="lg">
       <Link className={classes.logo} to="/">
         WeFontys
       </Link>

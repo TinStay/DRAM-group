@@ -20,6 +20,38 @@
   }
 }
 
+.list-group {
+  background-color: inherit;
+  font-weight: 500;
+  // color: $fontys-purple;
+  // border: 2px solid $fontys-purple;
+
+  &:focus{
+    outline: none;
+    box-shadow: none;
+
+  }
+  &:active{
+    outline: none;
+    box-shadow: none;
+
+  }
+
+  .active{
+    background-color: $fontys-purple;
+    font-weight: 500;
+    // color: $fontys-purple;
+    border: 2px solid $fontys-purple;
+
+    &:focus{
+      outline: none;
+      box-shadow: none;
+  
+    }
+  
+  }
+}
+
 .btn-purple-rounded {
   padding: 8px 18px;
   border: none;

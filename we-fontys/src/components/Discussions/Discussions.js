@@ -51,13 +51,13 @@ const Discussions = () => {
   return (
     <div className="row mt-3">
       <div className="col-md-3 side-menu ">
-        <Link to="/add-discussion" className="btn btn-primary my-3 btn-block">
+        <Link to="/add-discussion" className="btn btn-purple-rounded text-center my-3 btn-block">
           Add a discussion
         </Link>
         <Categories filterDiscussions={(e) => filterDiscussions(e.target.value)} filter={filter}/>
       </div>
       <div className="col-md-9">
-        <h1 className="mb-4">{filter} discussions</h1>
+        <h1 className="mt-2 mb-3">{filter} discussions</h1>
         <div className="discussions-list">
           {discussions.length !== 0 ? filteredDiscussions.map((discussion, idx) => {
             return <DiscussionBox 

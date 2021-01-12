@@ -25,7 +25,7 @@ const DiscussionBox = (props) => {
   commentToBeDisplayed.splice(20, commentToBeDisplayed.length - 1);
 
   let discussionBoxClasses = [
-    "border rounded px-2 py-3 row",
+    "row px-2 py-3 mb-4 mx-0  rounded ",
     classes.dicussion_box,
   ];
 

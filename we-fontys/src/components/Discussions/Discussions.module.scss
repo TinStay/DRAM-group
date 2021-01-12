@@ -1,5 +1,9 @@
+@import "../../variables";
+
 .dicussion_box {
-  margin: 25px 0;
+  box-sizing: border-box;
+  background-color: $gray-light;
+  border-bottom: 1px solid $gray-light-border;
 }
 
 .discussion_box_image {

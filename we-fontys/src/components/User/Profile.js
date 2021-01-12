@@ -122,9 +122,9 @@ const Profile = (props) => {
                 </div>
               </div>
             </div>
-            <div class="col-12">
+            <div class="col-12 text-center">
               {props.match.params.id === currentUser.uid ? (
-                <div className="d-flex float-right mt-4">
+                <div className=" float-md-right mt-3">
                   <Button
                     variant="danger"
                     onClick={handleLogout}
