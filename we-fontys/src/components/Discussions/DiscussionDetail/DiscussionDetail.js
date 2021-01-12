@@ -28,6 +28,7 @@ const DiscussionDetail = (props) => {
     axios
       .get(`/discussions/${props.match.params.id}.json`)
       .then((response) => {
+        console.log("response", response)
         setDiscussionData(response.data);
       })
       .then(() => {
@@ -143,7 +144,7 @@ const DiscussionDetail = (props) => {
       <Link className="text-decoration-none " to="/discuss">
         <i className="fas fa-angle-left mr-1"></i>Back
       </Link>
-      <div className="rounded my-2 px-2 py-1 row">
+      <div className="rounded mb-2 px-2 py-1 row">
         <div className="w-100 my-2 my-md-0">
           <h1 className="w-100 mb-2 pb-2 pr-md-0 border-bottom">
             {discussionData.title}

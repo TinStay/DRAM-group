@@ -252,7 +252,7 @@ const UpdateProfile = (props) => {
 
   // console.log("profile image",profileImagePreview)
 
-  let accountImageClasses = ["rounded-circle", classes.account_image_main];
+  let accountImageClasses = ["rounded-circle d-block mx-auto", classes.account_image_main];
 
   return (
     <div className={classes.form_container}>
@@ -284,8 +284,7 @@ const UpdateProfile = (props) => {
             />
             <Button
               onClick={() => fileInput.click()}
-              className="my-4"
-              variant="primary"
+              className="my-4 btn-purple-rounded"
             >
               Select new image
             </Button>
