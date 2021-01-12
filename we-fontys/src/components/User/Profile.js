@@ -50,10 +50,10 @@ const Profile = (props) => {
   return (
     <div className={classes.profile_container}>
       <Link className="text-decoration-none " to="/discuss">
-        <i className="fas fa-angle-left mr-1"></i>Back
+        <i className="fas fa-angle-left mr-1 mb-3"></i>Back
       </Link>
-      <Card>
-        <Card.Body>
+      <Card className={classes.profile_card}>
+        <Card.Body >
           {/* <h2 className="text-center mb-4">Profile</h2> */}
 
           {error && <Alert variant="danger">{error}</Alert>}
@@ -70,10 +70,11 @@ const Profile = (props) => {
                 {/* <strong>Email: </strong> */}
                 {userData && userData.email}
               </div>
-              <div className="my-2">
+              <div className="my-2 h6">
                 {/* <strong>Name: </strong> */}
                 {userData && userData.firstName + " " + userData.lastName}
               </div>
+              {props.match.params.id === currentUser.uid ? (
               <div className="my-4 ">
                 <Link
                   to={`/profile/${props.match.params.id}/update-profile`}
@@ -82,8 +83,10 @@ const Profile = (props) => {
                   Update profile
                 </Link>
               </div>
+              ) : null}
             </div>
             <div class="col-md-8 mx-auto">
+              <div class="col-12 px-0 h2 ">Profile info</div>
               <div className="my-4">
                 <strong>Userame: </strong>
                 {userData && userData.username}
@@ -96,7 +99,7 @@ const Profile = (props) => {
                 <strong>City: </strong>
                 {userData && userData.city}
               </div>
-              <div className="my-3">
+              <div className="my-4">
                 <strong>Study program: </strong>
                 {userData && userData.studyProgram}
               </div>
@@ -107,7 +110,7 @@ const Profile = (props) => {
                     userData.interests.map((interest) => (
                       <div
                         key={interest}
-                        className="interest-container col-6 col-xl-4  px-1"
+                        className="interest-container col-6 col-xl-4  px-1 mt-1"
                       >
                         <p key={interest} className={classes.interest_box}>
                           {interest}
@@ -122,7 +125,7 @@ const Profile = (props) => {
                 </div>
               </div>
             </div>
-            <div class="col-12 text-center">
+            <div class="col-12">
               {props.match.params.id === currentUser.uid ? (
                 <div className=" float-md-right mt-3">
                   <Button

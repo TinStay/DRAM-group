@@ -158,7 +158,7 @@ const DiscussionDetail = (props) => {
           <div className="d-flex justify-content-between text-muted">
             <div className="discussion-info">
               <span className="mr-2">
-                <span className="badge badge-primary ml-1 px-3 py-2">
+                <span className="badge badge-primary purple-bgc ml-1 px-3 py-2">
                   {discussionData.category}
                 </span>
               </span>
@@ -230,7 +230,7 @@ const DiscussionDetail = (props) => {
               <Form.Label>Comment</Form.Label>
               <Form.Control ref={commentInputRef} as="textarea" rows={3} />
             </Form.Group>
-            <Button onClick={postComment} variant="primary">
+            <Button onClick={postComment} className="btn-purple-rounded">
               Post
             </Button>
           </div>

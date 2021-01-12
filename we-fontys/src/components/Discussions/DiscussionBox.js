@@ -48,7 +48,7 @@ const DiscussionBox = (props) => {
         <div className="row my-2 my-md-0 ">
           <h3 className="col-md-9 pr-md-0">{props.title}</h3> 
           <p className="col-md-3">
-            <span className="badge badge-primary ml-1 px-3 py-2">
+            <span className="badge badge-primary purple-bgc  ml-1 px-3 py-2">
               {props.category}
             </span>
           </p>

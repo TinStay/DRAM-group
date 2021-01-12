@@ -99,13 +99,13 @@ const DiscussionForm = () => {
 
           <div className="col-md-12">
             <Form.Group controlId="discussion-form-initial-comment">
-              <Form.Label>Initial comment</Form.Label>
+              <Form.Label>Comment</Form.Label>
               <Form.Control ref={commentRef} as="textarea" rows={3} required />
             </Form.Group>
           </div>
         </div>
         <div className="submit-btn">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-purple-rounded">
             Submit
           </button>
         </div>

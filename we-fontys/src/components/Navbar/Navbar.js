@@ -102,7 +102,10 @@ const Navigationbar = () => {
             Help
           </Link>
           <NavDropdown.Divider />
-          <NavDropdown.Item onClick={() => logout()}>Log out</NavDropdown.Item>
+          <div class="ml-2">
+          <Button className="btn-danger btn-cancel" onClick={() => logout()}>Log out</Button>
+
+          </div>
         </NavDropdown>
       </Nav>
     );
