@@ -128,7 +128,7 @@ const Profile = (props) => {
                   <Button
                     variant="danger"
                     onClick={handleLogout}
-                    className="btn btn-danger"
+                    className="btn btn-danger btn-cancel"
                   >
                     Logout
                   </Button>

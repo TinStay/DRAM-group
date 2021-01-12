@@ -21,7 +21,7 @@
 }
 
 .btn-purple-rounded {
-  padding: 8px 15px;
+  padding: 8px 18px;
   border: none;
   border-radius: 50px;
   font-size: 1.1rem;
@@ -32,6 +32,11 @@
     color: white;
     background-color: $fontys-purple-hover;
   }
+}
+
+.btn-cancel{
+  padding: 8px 18px;
+  border-radius: 50px;
 }
 
 .interest-box {

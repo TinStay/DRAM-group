@@ -28,7 +28,7 @@ const DiscussionDetail = (props) => {
     axios
       .get(`/discussions/${props.match.params.id}.json`)
       .then((response) => {
-        console.log("response", response)
+        console.log("response", response);
         setDiscussionData(response.data);
       })
       .then(() => {
@@ -54,15 +54,16 @@ const DiscussionDetail = (props) => {
     setAlertMessage("");
     setShow(true);
 
+    // Get the comment text from from
     const comment = commentInputRef.current.value;
 
-    // Validate form
+    // Validation
     if (comment === "") {
       setError("Comment field must not be empty");
     } else {
       let newDiscussionData = { ...discussionData };
 
-      // Check whether comment field exists
+      // Check whether comments field exists
       if (newDiscussionData.comments) {
         // Remove initial "none" comment entry if it exists
         if (newDiscussionData.comments[0] === "none") {
@@ -76,6 +77,7 @@ const DiscussionDetail = (props) => {
         };
       }
 
+      // Initialize comment object
       let newCommentEntry = {
         comment: comment,
         authorID: userData.userID,
@@ -99,6 +101,10 @@ const DiscussionDetail = (props) => {
 
       // Reset field
       commentInputRef.current.value = "";
+
+      // Update state
+      setDiscussionData(newDiscussionData)
+     
     }
   };
 
@@ -178,7 +184,9 @@ const DiscussionDetail = (props) => {
         </div>
 
         {/* Initial comment */}
-        <DiscussionComment commentData={discussionData} />
+        <div class="w-100">
+          <DiscussionComment commentData={discussionData} />
+        </div>
 
         <div className="comment-form row w-100 mx-auto my-4">
           {alertMessage !== "" && show ? (
