@@ -43,6 +43,8 @@ const DiscussionForm = () => {
       comments: [],
       authorID: currentUser.uid,
       likes: 0,
+      likedBy: []
+
     };
 
     // Push discussion entry to Firebase Realtime Database

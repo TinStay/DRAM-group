@@ -28,8 +28,20 @@ const DiscussionDetail = (props) => {
     axios
       .get(`/discussions/${props.match.params.id}.json`)
       .then((response) => {
-        console.log("response", response);
+        // Update state
         setDiscussionData(response.data);
+
+        let likedBy = response.data.likedBy;
+
+        if (likedBy !== undefined) {
+          if (likedBy.includes(currentUser.uid)) {
+            // console.log(discussionData.likedBy.includes(currentUser.uid))
+            setIsDiscussionLiked(true);
+          } else {
+            // console.log(discussionData.likedBy.includes(currentUser.uid))
+            setIsDiscussionLiked(false);
+          }
+        }
       })
       .then(() => {
         // Fetch user data from Firebase
@@ -103,8 +115,7 @@ const DiscussionDetail = (props) => {
       commentInputRef.current.value = "";
 
       // Update state
-      setDiscussionData(newDiscussionData)
-     
+      setDiscussionData(newDiscussionData);
     }
   };
 
@@ -121,12 +132,38 @@ const DiscussionDetail = (props) => {
     // Get discussion data
     let newDiscussionData = { ...discussionData };
 
-    // Increment or decrement likes
-    if (isDiscussionLiked === true) {
-      // If user unlikes discussion
-      newDiscussionData.likes -= 1;
+    // Update liked by users array
+    if (newDiscussionData.likedBy !== undefined) {
+
+      const idxUserInLikedBy = newDiscussionData.likedBy.indexOf(
+        currentUser.uid
+      );
+      
+      // Remove user ID from likedBy array
+      if (idxUserInLikedBy != -1 && isDiscussionLiked === true) {
+        newDiscussionData.likedBy.splice(idxUserInLikedBy, 1);
+
+        newDiscussionData.likes -= 1;
+      } else if (isDiscussionLiked === false) {
+        // Push user ID to likedBy list
+        newDiscussionData.likedBy.push(currentUser.uid);
+        newDiscussionData.likes += 1;
+      }
     } else {
-      newDiscussionData.likes += 1;
+      // Add a likedBy array to newDiscussionData object
+      if (newDiscussionData.likedBy === undefined) {
+        newDiscussionData = {
+          ...newDiscussionData,
+          likedBy: [],
+        };
+      }
+
+      // Add user ID to likedBy list if this is first like
+      if (isDiscussionLiked === false) {
+        newDiscussionData.likedBy.push(currentUser.uid);
+
+        newDiscussionData.likes += 1;
+      }
     }
 
     //Update state
@@ -213,7 +250,13 @@ const DiscussionDetail = (props) => {
             <div className="mx-md-auto d-flex d-md-block justify-content-start ">
               <div className="text-center mr-2 mr-md-0">
                 <img
-                  src={userData ? userData.photoURL !== "" ? userData.photoURL : account_image : account_image}
+                  src={
+                    userData
+                      ? userData.photoURL !== ""
+                        ? userData.photoURL
+                        : account_image
+                      : account_image
+                  }
                   className={classes.discussion_box_image}
                   alt="img"
                 />

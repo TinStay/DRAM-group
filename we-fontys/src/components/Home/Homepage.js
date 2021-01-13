@@ -10,6 +10,7 @@ const Homepage = () => {
     "w-md-50 mx-auto my-4 line-height",
     classes.jumbotron_paragraph,
   ];
+  
   return (
     <div className="container my-4">
       <div className={classes.jumbotron}>
