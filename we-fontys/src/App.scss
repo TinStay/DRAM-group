@@ -65,6 +65,52 @@
   }
 }
 
+.btn-purple {
+  padding: 8px 20px;
+  border: none;
+  font-size: 1.1rem;
+  background-color: $fontys-purple;
+  color: white;
+
+  &:hover {
+    color: white;
+    background-color: $fontys-purple-hover;
+  }
+}
+
+.no-active-focus-style{
+
+  &:focus{
+    outline: none;
+    box-shadow: none;
+      background-color: $fontys-purple;
+
+  }
+  &:active{
+    outline: none;
+    box-shadow: none;
+      background-color: $fontys-purple;
+
+  }
+
+  &:hover{
+    &:focus{
+      outline: none;
+      box-shadow: none;
+        background-color: $fontys-purple;
+
+  
+    }
+    &:active{
+      outline: none;
+      box-shadow: none;
+        background-color: $fontys-purple;
+
+  
+    }
+  }
+}
+
 .purple-bgc{
   background-color: #2176ff;
 }

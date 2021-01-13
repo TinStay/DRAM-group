@@ -5,7 +5,7 @@ import Profile from "./components/User/Profile";
 import Discussions from './components/Discussions/Discussions'
 import DiscussionForm from './components/Discussions/DiscussionForm'
 import DiscussionDetail from './components/Discussions/DiscussionDetail/DiscussionDetail'
-
+import Footer from './components/Footer/Footer'
 
 // Style
 import { Container } from "react-bootstrap";
@@ -39,6 +39,7 @@ function App() {
             <PrivateRoute path="/discussion/:id" component={DiscussionDetail} />
           </Switch>
         </Container>
+        <Footer />
       </AuthProvider>
     </Router>
   );

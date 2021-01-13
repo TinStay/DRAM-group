@@ -269,149 +269,159 @@ const UpdateProfile = (props) => {
 
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Update profile</h2>
-
-          {error && <Alert variant="danger">{error}</Alert>}
-          <div className="my-3 text-center">
-            <img
-              className={accountImageClasses.join(" ")}
-              src={
-                profileImagePreview
-                  ? profileImagePreview
-                  : userData
-                  ? userData.photoURL !== ""
-                    ? userData.photoURL
-                    : account_image
-                  : account_image
-              }
-              alt="account image"
-            ></img>
-            <input
-              name="image"
-              style={{ display: "none" }}
-              type="file"
-              onChange={uploadNewImage}
-              ref={(input) => {
-                fileInput = input;
-              }}
-            />
-            <Button
-              onClick={() => fileInput.click()}
-              className="my-4 btn-purple-rounded"
-            >
-              Select new image
-            </Button>
-          </div>
-          <p className="text-muted">
-            Leave blank the fields which you don't want to change
-          </p>
-
-          <Form onSubmit={(e) => handleSubmit(e)}>
-            <Form.Group id="name">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                defaultValue={
-                  userData && `${userData.firstName} ${userData.lastName}`
-                }
-                ref={nameRef}
-              />
-            </Form.Group>
-
-            <Form.Group id="username">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                type="text"
-                defaultValue={userData && userData.username}
-                ref={usernameRef}
-              />
-            </Form.Group>
-
-            <Form.Group id="nationality">
-              <Form.Label>Nationality</Form.Label>
-              <Form.Control
-                type="text"
-                defaultValue={userData ? userData.nationality : ""}
-                ref={nationalityRef}
-              />
-            </Form.Group>
-
-            <Form.Group id="city">
-              <Form.Label>City</Form.Label>
-              <Form.Control
-                type="text"
-                defaultValue={userData ? userData.city : ""}
-                ref={cityRef}
-              />
-            </Form.Group>
-
-            <Form.Group id="studyProgram">
-              <Form.Label>Study program</Form.Label>
-              <Form.Control
-                type="text"
-                defaultValue={userData ? userData.studyProgram : ""}
-                ref={studyProgramRef}
-              />
-            </Form.Group>
-
-            <Form.Group id="interests">
-              <Form.Label>Interests</Form.Label>
-              <InputGroup className="mb-3">
-                <FormControl
-                  placeholder="Add interest"
-                  aria-label="interest"
-                  aria-describedby="basic-addon2"
-                  ref={interestRef}
+          <div class="row">
+            <div class="col-md-4 text-center">
+              <div className="my-3 text-center">
+                <img
+                  className={accountImageClasses.join(" ")}
+                  src={
+                    profileImagePreview
+                      ? profileImagePreview
+                      : userData
+                      ? userData.photoURL !== ""
+                        ? userData.photoURL
+                        : account_image
+                      : account_image
+                  }
+                  alt="account image"
+                ></img>
+                <input
+                  name="image"
+                  style={{ display: "none" }}
+                  type="file"
+                  onChange={uploadNewImage}
+                  ref={(input) => {
+                    fileInput = input;
+                  }}
                 />
-                <InputGroup.Append>
-                  <Button onClick={(e) => addInterest(e)} variant="primary">
-                    Add
-                  </Button>
-                </InputGroup.Append>
-              </InputGroup>
-              <div className="w-100 mx-auto row text-center">
-                {interests && interests !== ""
-                  ? interests.map((interest, index) => {
-                      return (
-                        <div
-                          key={interest}
-                          onClick={(e) => removeInterest(e, index)}
-                          className="interest-container col-4 px-1"
-                        >
-                          <p className="interest-box">{interest}</p>
-                        </div>
-                      );
-                    })
-                  : null}
+                <Button
+                  onClick={() => fileInput.click()}
+                  className="my-4 btn-purple-rounded"
+                >
+                  Select new image
+                </Button>
               </div>
-            </Form.Group>
+            </div>
+            <div class="col-md-8 mx-auto">
+              <h2 className=" mb-4">Update profile</h2>
 
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} />
-            </Form.Group>
+              {error && <Alert variant="danger">{error}</Alert>}
 
-            <Form.Group id="password-confirm">
-              <Form.Label>Confirm password</Form.Label>
-              <Form.Control type="password" ref={passwordConfirmRef} />
-            </Form.Group>
+              <p className="text-muted">
+                Leave blank the fields which you don't want to change
+              </p>
 
-            <Button
-              disabled={isLoading}
-              className="btn-purple-rounded w-100 mb-3"
-              type="submit"
-            >
-              Update
-            </Button>
+              <Form onSubmit={(e) => handleSubmit(e)}>
+                <Form.Group id="name">
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    defaultValue={
+                      userData && `${userData.firstName} ${userData.lastName}`
+                    }
+                    ref={nameRef}
+                  />
+                </Form.Group>
 
-            <Link
-              to={`/profile/${currentUser.uid}`}
-              className="btn btn-danger btn-cancel w-100 "
-              type="submit"
-            >
-              Cancel
-            </Link>
-          </Form>
+                <Form.Group id="username">
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control
+                    type="text"
+                    defaultValue={userData && userData.username}
+                    ref={usernameRef}
+                  />
+                </Form.Group>
+
+                <Form.Group id="nationality">
+                  <Form.Label>Nationality</Form.Label>
+                  <Form.Control
+                    type="text"
+                    defaultValue={userData ? userData.nationality : ""}
+                    ref={nationalityRef}
+                  />
+                </Form.Group>
+
+                <Form.Group id="city">
+                  <Form.Label>City</Form.Label>
+                  <Form.Control
+                    type="text"
+                    defaultValue={userData ? userData.city : ""}
+                    ref={cityRef}
+                  />
+                </Form.Group>
+
+                <Form.Group id="studyProgram">
+                  <Form.Label>Study program</Form.Label>
+                  <Form.Control
+                    type="text"
+                    defaultValue={userData ? userData.studyProgram : ""}
+                    ref={studyProgramRef}
+                  />
+                </Form.Group>
+
+                <Form.Group id="interests">
+                  <Form.Label>Interests</Form.Label>
+                  <InputGroup className="mb-3">
+                    <FormControl
+                      placeholder="Add interest"
+                      aria-label="interest"
+                      aria-describedby="basic-addon2"
+                      ref={interestRef}
+                    />
+                    <InputGroup.Append>
+                      <Button
+                        onClick={(e) => addInterest(e)}
+                        className="btn-purple py-1"
+                      >
+                        Add
+                      </Button>
+                    </InputGroup.Append>
+                  </InputGroup>
+                  <div className="w-100 mx-auto row text-center">
+                    {interests && interests !== ""
+                      ? interests.map((interest, index) => {
+                          return (
+                            <div
+                              key={interest}
+                              onClick={(e) => removeInterest(e, index)}
+                              className="interest-container col-4 px-1"
+                            >
+                              <p className="interest-box">{interest}</p>
+                            </div>
+                          );
+                        })
+                      : null}
+                  </div>
+                </Form.Group>
+
+                <Form.Group id="password">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control type="password" ref={passwordRef} />
+                </Form.Group>
+
+                <Form.Group id="password-confirm">
+                  <Form.Label>Confirm password</Form.Label>
+                  <Form.Control type="password" ref={passwordConfirmRef} />
+                </Form.Group>
+
+                <Button
+                  disabled={isLoading}
+                  className="btn-purple-rounded w-100 mb-3 no-active-focus-style"
+                  type="submit"
+                >
+                  Update
+                </Button>
+
+                <Link
+                  to={`/profile/${currentUser.uid}`}
+                  className="btn btn-danger btn-cancel w-100 "
+                  type="submit"
+                >
+                  Cancel
+                </Link>
+              </Form>
+            </div>
+          </div>
         </Card.Body>
       </Card>
     </div>
