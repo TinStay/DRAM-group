@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../../Context/AuthContext";
 import axios from "../../axios";
 import account_icon from "../../assets/account/account_icon_purple.png";
+
 // Style
 import { Card, Form, Button, Alert } from "react-bootstrap";
 import classes from "./Profile.module.scss";
@@ -45,6 +46,8 @@ const Profile = (props) => {
     }
   }
 
+  let defaultImageURL = "gs://wefontys.appspot.com/static/account_icon_purple.png"
+
   let accountImageClasses = ["rounded-circle ", classes.account_image_main];
 
   return (
@@ -63,16 +66,16 @@ const Profile = (props) => {
               <div className="my-3 ">
                 <img
                   className={accountImageClasses.join(" ")}
-                  src={userData ? userData.photoURL : account_icon}
+                  src={userData ? userData.photoURL !== "" ? userData.photoURL : account_icon : account_icon}
                 ></img>
-              </div>
-              <div className="my-2">
-                {/* <strong>Email: </strong> */}
-                {userData && userData.email}
               </div>
               <div className="my-2 h6">
                 {/* <strong>Name: </strong> */}
                 {userData && userData.firstName + " " + userData.lastName}
+              </div>
+              <div className="my-2">
+                {/* <strong>Email: </strong> */}
+                {userData && userData.email}
               </div>
               {props.match.params.id === currentUser.uid ? (
               <div className="my-4 ">

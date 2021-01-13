@@ -137,6 +137,7 @@ const UpdateProfile = (props) => {
 
     // Validate form
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+      setIsLoading(false);
       // Set an error and exit out of function
       return setError("Passwords do not match");
     }
@@ -259,7 +260,10 @@ const UpdateProfile = (props) => {
 
   return (
     <div className={classes.form_container}>
-      <Link className="text-decoration-none " to={`/profile/${currentUser.uid}`}>
+      <Link
+        className="text-decoration-none "
+        to={`/profile/${currentUser.uid}`}
+      >
         <i className="fas fa-angle-left mr-1 mb-3"></i>Back
       </Link>
 
@@ -275,7 +279,9 @@ const UpdateProfile = (props) => {
                 profileImagePreview
                   ? profileImagePreview
                   : userData
-                  ? userData.photoURL
+                  ? userData.photoURL !== ""
+                    ? userData.photoURL
+                    : account_image
                   : account_image
               }
               alt="account image"
@@ -398,7 +404,11 @@ const UpdateProfile = (props) => {
               Update
             </Button>
 
-            <Link to="/profile" className="btn btn-danger w-100 " type="submit">
+            <Link
+              to={`/profile/${currentUser.uid}`}
+              className="btn btn-danger btn-cancel w-100 "
+              type="submit"
+            >
               Cancel
             </Link>
           </Form>

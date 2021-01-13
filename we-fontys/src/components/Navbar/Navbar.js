@@ -77,7 +77,7 @@ const Navigationbar = () => {
             <div className="d-inline ">
               <img
                 className={classes.account_icon}
-                src={userData ? userData.photoURL : account_icon}
+                src={userData ? userData.photoURL !== "" ? userData.photoURL : account_icon : account_icon}
                 alt="account icon"
                 width="45px"
                 height="45px"

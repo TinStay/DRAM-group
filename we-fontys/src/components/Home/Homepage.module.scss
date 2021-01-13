@@ -1,0 +1,20 @@
+.info_image{
+    width: 100%;
+    // margin: 1rem auto;
+}
+
+.jumbotron{
+    margin: 0 0 2rem 0;
+    min-height: 30vh;
+    text-align: center;
+
+}
+
+.jumbotron_paragraph{
+    width: 100%;
+    font-size: 1.2rem;
+
+    @media screen and (min-width: 768px) {
+        width: 50%;
+      }
+}

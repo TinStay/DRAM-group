@@ -5,7 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useAuth } from "../../../Context/AuthContext";
 import DiscussionComment from "./DiscussionComment";
-// import account_image from "../../assets/account/account_icon_purple.png";
+import account_image from "../../../assets/account/account_icon_purple.png";
 
 // DayJS
 import dayjs from "dayjs";
@@ -213,7 +213,7 @@ const DiscussionDetail = (props) => {
             <div className="mx-md-auto d-flex d-md-block justify-content-start ">
               <div className="text-center mr-2 mr-md-0">
                 <img
-                  src={userData && userData.photoURL}
+                  src={userData ? userData.photoURL !== "" ? userData.photoURL : account_image : account_image}
                   className={classes.discussion_box_image}
                   alt="img"
                 />

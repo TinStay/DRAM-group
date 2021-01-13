@@ -1,5 +1,6 @@
 import "./App.scss";
 import Navbar from "./components/Navbar/Navbar";
+import Homepage from './components/Home/Homepage';
 import Profile from "./components/User/Profile";
 import Discussions from './components/Discussions/Discussions'
 import DiscussionForm from './components/Discussions/DiscussionForm'
@@ -27,6 +28,7 @@ function App() {
         <Navbar />
         <Container style={{ minHeight: "100vh" }}>
           <Switch>
+            <Route path="/" exact component={Homepage} />
             <PrivateRoute exact path="/profile/:id" component={Profile} />
             <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />
