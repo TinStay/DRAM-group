@@ -252,10 +252,17 @@ const UpdateProfile = (props) => {
 
   // console.log("profile image",profileImagePreview)
 
-  let accountImageClasses = ["rounded-circle d-block mx-auto", classes.account_image_main];
+  let accountImageClasses = [
+    "rounded-circle d-block mx-auto",
+    classes.account_image_main,
+  ];
 
   return (
     <div className={classes.form_container}>
+      <Link className="text-decoration-none " to={`/profile/${currentUser.uid}`}>
+        <i className="fas fa-angle-left mr-1 mb-3"></i>Back
+      </Link>
+
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Update profile</h2>
@@ -372,7 +379,6 @@ const UpdateProfile = (props) => {
                   : null}
               </div>
             </Form.Group>
-
 
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
