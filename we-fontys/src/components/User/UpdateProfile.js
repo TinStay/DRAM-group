@@ -29,6 +29,7 @@ const UpdateProfile = (props) => {
   const [profileImageURL, setProfileImageURL] = useState("");
   const [profileImagePreview, setProfileImagePreview] = useState();
   const [studyLocation, setStudyLocation] = useState("");
+  const [studyProgram, setStudyProgram] = useState("");
   const [interests, setInterests] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -58,9 +59,10 @@ const UpdateProfile = (props) => {
         // Set user data state
         setUserData(userData.data);
 
-        setStudyLocation(userData.data.city)
+        // Update local state with Firebase data
+        setStudyProgram(userData.data.studyProgram);
+        setStudyLocation(userData.data.city);
         setInterests(userData.data.interests);
-
       })
       .catch((err) => {
         console.log("err", err);
@@ -254,29 +256,46 @@ const UpdateProfile = (props) => {
       });
   }
 
-  console.log("study location", studyLocation);
-
   let accountImageClasses = [
     "rounded-circle d-block mx-auto",
     classes.account_image_main,
   ];
 
-  let studyLocations = ["Eindhoven", "Venlo", "Tilburg"];
-
-  // let defaultStudyLocationValue = "";
-  // if (userData) {
-  //   switch (userData.city) {
-  //     case "Eindhoven":
-  //       defaultStudyLocationValue = studyLocations[0];
-  //       break;
-  //     case "Venlo":
-  //       defaultStudyLocationValue = studyLocations[1];
-  //       break;
-  //     case "Tilburg":
-  //       defaultStudyLocationValue = studyLocations[2];
-  //       break;
-  //   }
-  // }
+  const studyLocations = ["Eindhoven", "Venlo", "Tilburg"];
+  const studyPrograms = [
+    "Finance & Control",
+    "International Business",
+    "Logistics Management",
+    "Marketing Management",
+    "Business Administration",
+    "Business and Management",
+    "International Logistics and Supply Chain Management",
+    "International Procurement and Supply Chain Management",
+    "Communication - International Communications Management",
+    "Operations and Supply Chain Management",
+    "Automotive Engineering",
+    "Electrical and Electronic Engineering",
+    "Industrial Design Engineering",
+    "Industrial Engineering and Management ",
+    "Mechatronics",
+    "ICT & Software Engineering",
+    "ICT & Media Design",
+    "ICT & Technology",
+    "ICT & Business",
+    "ICT & Infrastructure",
+    "Academy of Music and Performing Arts",
+    "Circus and Performance Art",
+    "Dance Academy",
+    "Architecture",
+    "Choreography",
+    "Master of Music",
+    "Performing Public Space",
+    "Urbanism",
+    "Master Care & Technology",
+    "Trend Research & Concept Creation in Lifestyle",
+    "Medical Imaging and Radiation Therapy",
+    "Physiotherapy",
+  ];
 
   return (
     <div className={classes.form_container}>
@@ -361,22 +380,27 @@ const UpdateProfile = (props) => {
                   />
                 </Form.Group>
 
-                {/* <Form.Group id="city">
-                  <Form.Label>City</Form.Label>
-                  <Form.Control
-                    type="text"
-                    defaultValue={userData ? userData.city : ""}
-                    ref={cityRef}
-                  />
-                </Form.Group> */}
-
-                <Form.Group id="studyProgram">
+                {/* <Form.Group id="studyProgram">
                   <Form.Label>Study program</Form.Label>
                   <Form.Control
                     type="text"
                     defaultValue={userData ? userData.studyProgram : ""}
                     ref={studyProgramRef}
                   />
+                </Form.Group> */}
+
+                <Form.Group controlId="studyProgram">
+                  <Form.Label>Study program</Form.Label>
+                  <Form.Control
+                    as="select"
+                    ref={studyProgramRef}
+                    value={studyProgram}
+                    onChange={(e) => setStudyProgram(e.target.value)}
+                  >
+                    {studyPrograms.map((program) => {
+                      return <option value={program}>{program}</option>;
+                    })}
+                  </Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId="city">
@@ -385,12 +409,10 @@ const UpdateProfile = (props) => {
                     as="select"
                     ref={cityRef}
                     value={studyLocation}
-                    onChange={(e) => 
-                      setStudyLocation(e.target.value)
-                      }
+                    onChange={(e) => setStudyLocation(e.target.value)}
                   >
-                    {studyLocations.map( location => {
-                      return <option value={location}>{location}</option>
+                    {studyLocations.map((location) => {
+                      return <option value={location}>{location}</option>;
                     })}
                   </Form.Control>
                 </Form.Group>
