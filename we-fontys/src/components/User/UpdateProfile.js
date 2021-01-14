@@ -271,7 +271,7 @@ const UpdateProfile = (props) => {
     "Business and Management",
     "International Logistics and Supply Chain Management",
     "International Procurement and Supply Chain Management",
-    "Communication - International Communications Management",
+    "International Communications Management",
     "Operations and Supply Chain Management",
     "Automotive Engineering",
     "Electrical and Electronic Engineering",
