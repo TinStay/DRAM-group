@@ -21,15 +21,18 @@ const Profile = (props) => {
 
   // Update user data from Firebase Realtime Database
   useEffect(() => {
-    axios
-      .get(`/users/${props.match.params.id}.json`)
-      .then((userData) => {
-        // Set user data state
-        setUserData(userData.data);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
+    if(currentUser){
+      axios
+        .get(`/users/${props.match.params.id}.json`)
+        .then((userData) => {
+          // Set user data state
+          setUserData(userData.data);
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+
+    }
   }, []);
 
   async function handleLogout() {

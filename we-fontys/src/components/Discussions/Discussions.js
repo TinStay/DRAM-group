@@ -57,7 +57,7 @@ const Discussions = () => {
         <Categories filterDiscussions={(e) => filterDiscussions(e.target.value)} filter={filter}/>
       </div>
       <div className="col-md-9">
-        <h2 className="mt-2 mb-3 ">{filter} discussions</h2>
+        <h1 className="mt-2 mb-3 ">{filter} discussions</h1>
         <div className="discussions-list">
           {discussions.length !== 0 ? filteredDiscussions.map((discussion, idx) => {
             return <DiscussionBox 

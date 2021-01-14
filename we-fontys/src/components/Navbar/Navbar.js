@@ -24,7 +24,6 @@ const Navigationbar = () => {
   const [expanded, setExpanded] = useState(false);
   const [userData, setUserData] = useState();
   
-
   let togglerClasses = [];
   let collapseClasses = [];
 
@@ -93,13 +92,6 @@ const Navigationbar = () => {
             to={`/profile/` + currentUser.uid}
           >
             Profile
-          </Link>
-          <Link
-            onClick={() => setExpanded(false)}
-            className="dropdown-item"
-            to="/"
-          >
-            Help
           </Link>
           <NavDropdown.Divider />
           <div class="ml-2">

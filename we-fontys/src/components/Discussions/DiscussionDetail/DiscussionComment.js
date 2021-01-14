@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import classes from "../Discussions.module.scss";
 import axios from "../../../axios";
 import dayjs from "dayjs"
+import account_image from '../../../assets/account/account_icon_purple.png'
 
 const DiscussionComment = (props) => {
   const [authorData, setAuthorData] = useState();
@@ -28,7 +29,12 @@ const DiscussionComment = (props) => {
         <div className="mx-md-auto d-flex d-md-block justify-content-start ">
           <div className="text-center mr-2 mr-md-0">
             <img
-              src={authorData && authorData.photoURL}
+              src={
+                authorData
+                ? authorData.photoURL !== ""
+                  ? authorData.photoURL
+                  : account_image
+                : account_image}
               className={classes.discussion_box_image}
               alt="profile image"
             />

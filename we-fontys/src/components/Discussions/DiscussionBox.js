@@ -34,7 +34,12 @@ const DiscussionBox = (props) => {
       <div className="col-lg-3 row text-center">
         <div className="col-4 col-lg-12">
           <img
-            src={authorData && authorData.photoURL}
+            src={
+              authorData
+              ? authorData.photoURL !== ""
+                ? authorData.photoURL
+                : account_image
+              : account_image}
             className={classes.discussion_box_image}
             alt="img"
           />
@@ -45,9 +50,9 @@ const DiscussionBox = (props) => {
         </div>
       </div>
       <div className="col-lg-9 p-0">
-        <div className="row my-2 my-md-0 ">
-          <h3 className="col-md-9 pr-md-0">{props.title}</h3> 
-          <p className="col-md-3">
+        <div className="d-md-flex justify-content-between my-2 my-md-0 ">
+          <h3 className=" pr-md-0">{props.title}</h3> 
+          <p className="">
             <span className="badge badge-primary purple-bgc  ml-1 px-3 py-2">
               {props.category}
             </span>
