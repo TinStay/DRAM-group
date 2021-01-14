@@ -7,8 +7,8 @@
 }
 
 .discussion_box_image {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   border: 1px solid rgb(231, 231, 231);
   object-fit: cover;
@@ -21,6 +21,10 @@
   @media screen and (min-width: 992px) {
     width: 90px;
     height: 90px;
+  }
+
+  &:hover{
+    opacity: 0.95;
   }
 }
 

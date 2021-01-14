@@ -1,18 +1,18 @@
 @import "../../variables";
 
 .info_image{
-    width: 100%;
-    // margin: 1rem auto;
+    width: 70%;
+    // align-items: center;
 }
 
 .jumbotron{
     margin: 0 0 2rem 0;
     min-height: 30vh;
     text-align: center;
-}
 
-.main_heading{
-    font-weight: 700;
+    h1{
+        font-weight: 600;
+    }
 }
 
 .jumbotron_paragraph{

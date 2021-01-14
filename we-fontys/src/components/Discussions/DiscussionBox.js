@@ -32,26 +32,39 @@ const DiscussionBox = (props) => {
   return (
     <div className={discussionBoxClasses.join(" ")}>
       <div className="col-lg-3 row text-center">
-        <div className="col-4 col-lg-12">
-          <img
-            src={
-              authorData
-              ? authorData.photoURL !== ""
-                ? authorData.photoURL
-                : account_image
-              : account_image}
-            className={classes.discussion_box_image}
-            alt="img"
-          />
+        <div className="col-3 col-lg-12 ">
+          <Link
+            to={`/profile/` + props.authorID}
+            className="my-1 h5 text-decoration-none black"
+          >
+            <img
+              src={
+                authorData
+                  ? authorData.photoURL !== ""
+                    ? authorData.photoURL
+                    : account_image
+                  : account_image
+              }
+              className={classes.discussion_box_image}
+              alt="img"
+            />
+          </Link>
         </div>
-        <div className="col-8 col-lg-12 ">
-          <Link to={`/profile/` + props.authorID} className="my-1 h5 text-decoration-none black">{authorData && authorData.username}</Link>
-          <p className="my-1">{authorData && authorData.studyProgram}</p>
+        <div className="col-7 col-lg-12 text-center">
+          {/* <div> */}
+            <Link
+              to={`/profile/` + props.authorID}
+              className="my-1 h5 text-decoration-none black "
+            >
+              {authorData && authorData.username}
+            </Link>
+            <p className="my-1 ">{authorData && authorData.studyProgram}</p>
+          {/* </div> */}
         </div>
       </div>
       <div className="col-lg-9 p-0">
         <div className="d-md-flex justify-content-between my-2 my-md-0 ">
-          <h3 className=" pr-md-0">{props.title}</h3> 
+          <h3 className="pr-md-0 h2">{props.title}</h3>
           <p className="">
             <span className="badge badge-primary purple-bgc  ml-1 px-3 py-2">
               {props.category}

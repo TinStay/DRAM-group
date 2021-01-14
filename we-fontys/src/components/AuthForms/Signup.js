@@ -34,6 +34,8 @@ const Signup = () => {
     // Prevent page from refreshing
     e.preventDefault();
 
+    let currentUserID = "";
+
     // Validate form
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       // Set an error and exit out of function
@@ -64,11 +66,13 @@ const Signup = () => {
 
           // Create an user entry in Firebase Realtime Database
           db.ref(`/users/${registeredUser.user.uid}`).set(userData);
+
+          currentUserID = registeredUser.user.uid
         }
       );
 
-      // Redirect to home page
-      history.push("/");
+       // Redirect to home page
+       history.push(`/profile/${currentUserID}/update-profile`);
 
     } catch (error) {
       console.log("Auth error: ", error);
@@ -106,7 +110,6 @@ const Signup = () => {
               <Form.Label>Username</Form.Label>
               <Form.Control type="text" ref={usernameRef} required />
             </Form.Group>
-
 
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>

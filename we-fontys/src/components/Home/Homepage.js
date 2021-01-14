@@ -3,8 +3,9 @@ import classes from "./Homepage.module.scss";
 import { useAuth } from "../../Context/AuthContext";
 import { Link } from "react-router-dom";
 
-import fontysImgOne from "../../assets/images/fontys1.jpg";
-import fontysImgTwo from "../../assets/images/fontys2.jpg";
+import homeImageOne from "../../assets/images/deskImage.svg";
+import homeImageTwo from "../../assets/images/socialImage.png";
+import homeImageThree from "../../assets/images/phoneImage.png";
 
 const Homepage = () => {
   const { currentUser } = useAuth();
@@ -17,47 +18,46 @@ const Homepage = () => {
   return (
     <div className=" my-4">
       <div className={classes.jumbotron}>
-        <h1 className="font-weight-bold">
-          The real information source for Fontys students
-        </h1>
+        <h1 className="">The real information source for Fontys students</h1>
         <p className={jumbotronParagraphClasses.join(" ")}>
-          WeFontys was made as an educational aid for those that attend Fontys
-          University of Applied Sciences by a group of ICT students. Our goal is
-          to provide students and teachers with a platform where they can find
-          information about topics related to their studies and social life.
+          Our goal is to bring Fontys students and teachers together and provide
+          them with a platform where they can find relevant information about
+          topics related to their studies and social life.
         </p>
       </div>
       <div class="row my-4">
-        <div class="col-md-6 my-4">
+        <div class="col-md-6 my-4 text-center">
           <img
-            src={fontysImgOne}
+            src={homeImageOne}
             className={classes.info_image}
-            alt="eindhoven image"
+            alt="working man image"
           />
         </div>
-        <div class="col-md-6 my-4 text-center">
-          <h2 className="font-weight-bold text-center mb-3">
+        <div class="col-md-6 my-4 text-center my-auto">
+          <h2 className="font-weight-semibold text-center mb-3 ">
             Set Up your Profile
           </h2>
           <p className="line-height">
-            Hey! Are you a current attendee at Fonty’s? If this is the case, we
-            would highly recommend you join our growing community. If you
-            decided to do the right thing and sign-up, don’t forget to set up
-            your profile. Setting up your profile will give others the
-            opportunity to get to know you better.
+            Hey! Are you a current attendee at Fontys? If this is the case, we
+            would highly recommend you join our growing community. Sign up and
+            set up your profile with information about your studies and
+            interests. By doing so you will give others the opportunity to get
+            to know you better.
           </p>
         </div>
       </div>
       <div class="row my-4">
-        <div class="col-md-6 order-md-2 my-4">
+        <div class="col-md-6 order-md-2 my-4 text-center">
           <img
-            src={fontysImgTwo}
+            src={homeImageTwo}
             className={classes.info_image}
-            alt="eindhoven image"
+            alt="computer image"
           />
         </div>
-        <div class="col-md-6 order-md-1 my-4 text-center">
-          <h2 className="font-weight-bold text-center mb-3">Browse around</h2>
+        <div class="col-md-6 order-md-1 my-4 text-center my-auto">
+          <h2 className="font-weight-semibold text-center mb-3">
+            Browse around
+          </h2>
           <p className="line-height">
             Once you’ve set up your profile, why don’t you take some time to
             navigate the website? See what discussions have been recently
@@ -66,32 +66,30 @@ const Homepage = () => {
         </div>
       </div>
       <div class="row my-4">
-        {/* <div class="col-md-12 my-4">
+        <div class="col-md-6 my-4 text-center">
           <img
-            src={fontysImgOne}
+            src={homeImageThree}
             className={classes.info_image}
-            alt="eindhoven image"
+            alt="phone image"
           />
-        </div> */}
-        <div class="col-md-6 offset-md-3 text-center my-4">
-          <h2 className="font-weight-bold mb-3">Join the Discussion</h2>
-          <p className="line-height">
-            Hopefully, you’re confident in navigating your new source for all
-            Fontys related information. Why don’t you post your first
-            discussion? Any and all questions you may have can be posted.
-          </p>
         </div>
-      </div>
-      <div class="col-md-6 offset-md-3 text-center">
-        {currentUser ? (
-          <Link to="/discuss" class="btn btn-purple-rounded w-100">
-            Go to discussions
-          </Link>
-        ) : (
-          <Link to="/signup" class="btn btn-purple-rounded w-100">
-            Sign up
-          </Link>
-        )}
+        <div class="col-md-6  text-center my-auto">
+          <h2 className="font-weight-semibold mb-3">Join the Discussion</h2>
+          <p className="line-height mb-5">
+            Do you want to ask somebody about something regarding your studies?
+            Why don’t you post your first discussion? All questions you may have
+            are welcomed by our community.
+          </p>
+          {currentUser ? (
+            <Link to="/discuss" class="btn btn-purple-rounded w-100">
+              Go to discussions
+            </Link>
+          ) : (
+            <Link to="/signup" class="btn btn-purple-rounded w-100">
+              Sign up
+            </Link>
+          )}
+        </div>
       </div>
     </div>
   );

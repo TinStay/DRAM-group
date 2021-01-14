@@ -72,7 +72,7 @@ const Profile = (props) => {
                   src={userData ? userData.photoURL !== "" ? userData.photoURL : account_icon : account_icon}
                 ></img>
               </div>
-              <div className="my-2 h6">
+              <div className="my-3 h5 font-weight-bold">
                 {/* <strong>Name: </strong> */}
                 {userData && userData.firstName + " " + userData.lastName}
               </div>
@@ -92,7 +92,7 @@ const Profile = (props) => {
               ) : null}
             </div>
             <div class="col-md-8 mx-auto">
-              <div class="col-12 px-0 h2 ">Profile info</div>
+              <div class="col-12 px-0 h3 mt-5 my-md-0 text-md-left text-center font-weight-bold">Profile info</div>
               <div className="my-4">
                 <strong>Userame: </strong>
                 {userData && userData.username}

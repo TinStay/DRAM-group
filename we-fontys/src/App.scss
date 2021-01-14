@@ -8,6 +8,10 @@
   color: rgb(39, 39, 39);
 }
 
+.font-weight-semibold{
+  font-weight: 600;
+}
+
 .text-decoration-none {
   text-decoration: none;
 }
@@ -49,6 +53,10 @@
     }
   
   }
+}
+
+.nav-link{
+  font-size: 1.1rem;
 }
 
 .btn-purple-rounded {
