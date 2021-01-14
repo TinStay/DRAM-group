@@ -28,6 +28,7 @@ const UpdateProfile = (props) => {
   const [profileImageFile, setProfileImageFile] = useState();
   const [profileImageURL, setProfileImageURL] = useState("");
   const [profileImagePreview, setProfileImagePreview] = useState();
+  const [studyLocation, setStudyLocation] = useState("");
   const [interests, setInterests] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -57,7 +58,9 @@ const UpdateProfile = (props) => {
         // Set user data state
         setUserData(userData.data);
 
+        setStudyLocation(userData.data.city)
         setInterests(userData.data.interests);
+
       })
       .catch((err) => {
         console.log("err", err);
@@ -251,12 +254,29 @@ const UpdateProfile = (props) => {
       });
   }
 
-  // console.log("profile image",profileImagePreview)
+  console.log("study location", studyLocation);
 
   let accountImageClasses = [
     "rounded-circle d-block mx-auto",
     classes.account_image_main,
   ];
+
+  let studyLocations = ["Eindhoven", "Venlo", "Tilburg"];
+
+  // let defaultStudyLocationValue = "";
+  // if (userData) {
+  //   switch (userData.city) {
+  //     case "Eindhoven":
+  //       defaultStudyLocationValue = studyLocations[0];
+  //       break;
+  //     case "Venlo":
+  //       defaultStudyLocationValue = studyLocations[1];
+  //       break;
+  //     case "Tilburg":
+  //       defaultStudyLocationValue = studyLocations[2];
+  //       break;
+  //   }
+  // }
 
   return (
     <div className={classes.form_container}>
@@ -341,14 +361,14 @@ const UpdateProfile = (props) => {
                   />
                 </Form.Group>
 
-                <Form.Group id="city">
+                {/* <Form.Group id="city">
                   <Form.Label>City</Form.Label>
                   <Form.Control
                     type="text"
                     defaultValue={userData ? userData.city : ""}
                     ref={cityRef}
                   />
-                </Form.Group>
+                </Form.Group> */}
 
                 <Form.Group id="studyProgram">
                   <Form.Label>Study program</Form.Label>
@@ -357,6 +377,22 @@ const UpdateProfile = (props) => {
                     defaultValue={userData ? userData.studyProgram : ""}
                     ref={studyProgramRef}
                   />
+                </Form.Group>
+
+                <Form.Group controlId="city">
+                  <Form.Label>Study location</Form.Label>
+                  <Form.Control
+                    as="select"
+                    ref={cityRef}
+                    value={studyLocation}
+                    onChange={(e) => 
+                      setStudyLocation(e.target.value)
+                      }
+                  >
+                    {studyLocations.map( location => {
+                      return <option value={location}>{location}</option>
+                    })}
+                  </Form.Control>
                 </Form.Group>
 
                 <Form.Group id="interests">

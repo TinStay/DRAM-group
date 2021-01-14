@@ -102,7 +102,7 @@ const Profile = (props) => {
                 {userData && userData.nationality}
               </div>
               <div className="my-4">
-                <strong>City: </strong>
+                <strong>Study location: </strong>
                 {userData && userData.city}
               </div>
               <div className="my-4">

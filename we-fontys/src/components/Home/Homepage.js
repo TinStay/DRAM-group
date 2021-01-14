@@ -1,16 +1,19 @@
 import React from "react";
 import classes from "./Homepage.module.scss";
-import { Link } from 'react-router-dom'
+import { useAuth } from "../../Context/AuthContext";
+import { Link } from "react-router-dom";
 
 import fontysImgOne from "../../assets/images/fontys1.jpg";
 import fontysImgTwo from "../../assets/images/fontys2.jpg";
 
 const Homepage = () => {
+  const { currentUser } = useAuth();
+
   let jumbotronParagraphClasses = [
     "w-md-50 mx-auto my-4 line-height",
     classes.jumbotron_paragraph,
   ];
-  
+
   return (
     <div className="container my-4">
       <div className={classes.jumbotron}>
@@ -20,7 +23,6 @@ const Homepage = () => {
           mollitia numquam optio aliquid similique magnam reiciendis
           exercitationem!
         </p>
-        <Link to="/signup" class="btn btn-purple-rounded">Sign up</Link>
       </div>
       <div class="row my-4">
         <div class="col-md-6 my-4">
@@ -59,6 +61,14 @@ const Homepage = () => {
             alt="eindhoven image"
           />
         </div>
+      </div>
+      <div class="col-12 text-center">
+      {!currentUser && (
+          <Link to="/signup" class="btn btn-purple-rounded w-50">
+            Sign up
+          </Link>
+        )}
+
       </div>
     </div>
   );
