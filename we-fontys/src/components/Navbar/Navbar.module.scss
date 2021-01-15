@@ -1,6 +1,8 @@
 @import "../../variables";
 
 .navbar{
+  display: flex;
+  justify-content: space-between;
   background-color: $gray-light;
   border-bottom: 1px solid $gray-light-border;
 }
@@ -54,6 +56,43 @@
   border-radius: 50px;
   border: 1px solid rgb(231, 231, 231);
   object-fit: cover;
+}
+
+.account_icon_searchbar {
+  margin: 0 9px;
+
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  border: 1px solid rgb(231, 231, 231);
+  object-fit: cover;
+}
+
+.searchbar_container{
+  min-width: 200px;
+
+  @media screen and (min-width: 992px) {
+    min-width: 400px;
+  }
+}
+
+.options_container{
+  min-width: 80%;
+
+  @media screen and (min-width: 768px) {
+    //  min-width: 700px;
+     min-width: 90%;
+
+  }
+
+  @media screen and (min-width: 992px) {
+    min-width: 370px;
+  }
+}
+
+.option_item{
+  width: 100%;
+  padding: 7px 20px;
 }
 
 .dropdown_item {

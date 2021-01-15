@@ -19,6 +19,7 @@
     "react-bootstrap": "^1.4.0",
     "react-dom": "^17.0.1",
     "react-image-file": "^0.3.0",
+    "react-onclickoutside": "^6.9.1",
     "react-responsive": "^8.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",

@@ -4,9 +4,6 @@
   color: white;
 }
 
-.white-bgc{
-  // background-color: rgb(235, 235, 235);
-}
 
 .black-bgc {
   background-color: rgb(36, 36, 36);
@@ -14,6 +11,19 @@
 
 .black-text {
   color: rgb(56, 56, 56);
+}
+
+.line-height{
+  font-size: 1.1rem;
+  line-height: 2rem;
+}
+
+.red{
+  color: red;
+}
+
+.black{
+  color: black;
 }
 
 .font-weight-semibold{
@@ -30,6 +40,10 @@
   @media screen and (min-width: 992px) {
     padding: 0px;
   }
+}
+
+.width-inherit{
+  width: inherit;
 }
 
 .list-group {
@@ -161,16 +175,8 @@
   }
 }
 
-.line-height{
-  font-size: 1.1rem;
-  line-height: 2rem;
+.z-index-10{
+  z-index: 10;
 }
 
-.red{
-  color: red;
-}
-
-.black{
-  color: black;
-}
 

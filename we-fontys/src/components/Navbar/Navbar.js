@@ -18,6 +18,7 @@ import account_icon from "../../assets/account/account_icon_purple.png";
 
 // Auth
 import { useAuth } from "../../Context/AuthContext";
+import Searchbar from "./Searchbar";
 
 const Navigationbar = () => {
   const { currentUser, logout } = useAuth();
@@ -62,7 +63,11 @@ const Navigationbar = () => {
 
   if (currentUser) {
     navItems = (
-      <Nav className="ml-auto ">
+      <Nav className="d-flex justify-content-end w-100">
+        <div className="my-auto">
+          <Searchbar />
+        </div>
+
         <Link
           onClick={() => setExpanded(false)}
           className="nav-link"
@@ -101,7 +106,7 @@ const Navigationbar = () => {
             Profile
           </Link>
           <NavDropdown.Divider />
-          <div class="ml-2">
+          <div className="ml-2">
             <Button className="btn-danger btn-cancel" onClick={() => logout()}>
               Log out
             </Button>
@@ -113,22 +118,26 @@ const Navigationbar = () => {
 
   return (
     <Navbar expanded={expanded} className={classes.navbar} expand="lg">
-      <div className="mx-auto d-flex" style={{width: "88vw"}}>
-        <Link className={classes.logo} to="/">
-          WeFontys
-        </Link>
-        <Navbar.Toggle
-          onClick={() => setExpanded(expanded ? false : "expanded")}
-          className={togglerClasses.join(" ")}
-          aria-controls="basic-navbar-nav"
-        />
-        <Navbar.Collapse
-          className={collapseClasses.join(" ")}
-          id="basic-navbar-nav"
-        >
-          {navItems}
-        </Navbar.Collapse>
-      </div>
+      {/* <div
+        className="mx-auto d-md-flex justify-content-between"
+        style={{ width: "88vw" }}
+      > */}
+      <Link className={classes.logo} to="/">
+        WeFontys
+      </Link>
+
+      <Navbar.Toggle
+        className="text-right"
+        onClick={() => setExpanded(expanded ? false : "expanded")}
+        className={togglerClasses.join(" ")}
+        aria-controls="basic-navbar-nav"
+      />
+
+      <Navbar.Collapse className="mx-2 " id="basic-navbar-nav">
+        {navItems}
+      </Navbar.Collapse>
+
+      {/* </div> */}
     </Navbar>
   );
 };
