@@ -51,15 +51,13 @@ const DiscussionBox = (props) => {
           </Link>
         </div>
         <div className="col-7 col-lg-12 text-center">
-          {/* <div> */}
-            <Link
-              to={`/profile/` + props.authorID}
-              className="my-1 h5 text-decoration-none black "
-            >
-              {authorData && authorData.username}
-            </Link>
-            <p className="my-1 ">{authorData && authorData.studyProgram}</p>
-          {/* </div> */}
+          <Link
+            to={`/profile/` + props.authorID}
+            className="my-1 h5 text-decoration-none black "
+          >
+            {authorData && authorData.username}
+          </Link>
+          <p className="my-1 ">{authorData && authorData.studyProgram}</p>
         </div>
       </div>
       <div className="col-lg-9 p-0">

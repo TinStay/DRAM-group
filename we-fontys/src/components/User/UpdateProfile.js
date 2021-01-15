@@ -249,11 +249,13 @@ const UpdateProfile = (props) => {
       })
       .catch((error) => {
         console.log("Update profile error: ", error);
-        setError("Failed to update profile");
+        setError(error.message);
       })
       .finally(() => {
         setIsLoading(false);
       });
+
+    setIsLoading(false);
   }
 
   let accountImageClasses = [
@@ -305,7 +307,6 @@ const UpdateProfile = (props) => {
       >
         <i className="fas fa-angle-left mr-1 mb-3"></i>Back
       </Link>
-
       <Card>
         <Card.Body>
           <div class="row">
@@ -341,14 +342,10 @@ const UpdateProfile = (props) => {
                 </Button>
               </div>
             </div>
-            <div class="col-md-8 mx-auto">
+            <div class="col-md-8 ">
               <h2 className=" mb-4">Update profile</h2>
 
               {error && <Alert variant="danger">{error}</Alert>}
-
-              <p className="text-muted">
-                Leave blank the fields which you don't want to change
-              </p>
 
               <Form onSubmit={(e) => handleSubmit(e)}>
                 <Form.Group id="name">
@@ -452,14 +449,18 @@ const UpdateProfile = (props) => {
                   </div>
                 </Form.Group>
 
+                <p className="text-muted ">
+                  Leave blank if you don't want to change your password
+                </p>
+
                 <Form.Group id="password">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" ref={passwordRef} />
+                  <Form.Control type="password" ref={passwordRef}  placeholder="Your new password"/>
                 </Form.Group>
 
                 <Form.Group id="password-confirm">
                   <Form.Label>Confirm password</Form.Label>
-                  <Form.Control type="password" ref={passwordConfirmRef} />
+                  <Form.Control type="password" ref={passwordConfirmRef}  placeholder="Your new password"/>
                 </Form.Group>
 
                 <Button

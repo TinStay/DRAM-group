@@ -3,7 +3,7 @@
 .dicussion_box {
   box-sizing: border-box;
   background-color: $gray-light;
-  border-bottom: 1px solid $gray-light-border;
+  border: 1px solid $gray-light-border;
 }
 
 .discussion_box_image {
@@ -23,21 +23,20 @@
     height: 90px;
   }
 
-  &:hover{
+  &:hover {
     opacity: 0.95;
   }
 }
 
 .discussion_form_container {
-  width: 80%;
+  width: 65%;
   margin: 1.5rem auto;
 }
 
-.discussion_detail_container{
+.discussion_detail_container {
   width: 94%;
   margin: 1rem auto;
 
-  
   @media screen and (min-width: 992px) {
     width: 80%;
   }

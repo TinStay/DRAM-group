@@ -11,21 +11,21 @@ const Homepage = () => {
   const { currentUser } = useAuth();
 
   let jumbotronParagraphClasses = [
-    " mx-auto my-4 line-height",
+    " mx-auto my-5 line-height",
     classes.jumbotron_paragraph,
   ];
 
   return (
-    <div className=" my-4">
+    <div className="my-4">
       <div className={classes.jumbotron}>
-        <h1 className="">The real information source for Fontys students</h1>
+        <h1 className="mt-5">The real information source for Fontys students</h1>
         <p className={jumbotronParagraphClasses.join(" ")}>
           Our goal is to bring Fontys students and teachers together and provide
           them with a platform where they can find relevant information about
           topics related to their studies and social life.
         </p>
       </div>
-      <div class="row my-4">
+      <div class="row my-4 white-bgc">
         <div class="col-md-6 my-4 text-center">
           <img
             src={homeImageOne}
@@ -35,7 +35,7 @@ const Homepage = () => {
         </div>
         <div class="col-md-6 my-4 text-center my-auto">
           <h2 className="font-weight-semibold text-center mb-3 ">
-            Set Up your Profile
+            Set Up Your Profile
           </h2>
           <p className="line-height">
             Hey! Are you a current attendee at Fontys? If this is the case, we
@@ -56,7 +56,7 @@ const Homepage = () => {
         </div>
         <div class="col-md-6 order-md-1 my-4 text-center my-auto">
           <h2 className="font-weight-semibold text-center mb-3">
-            Browse around
+            Browse Around
           </h2>
           <p className="line-height">
             Once you’ve set up your profile, why don’t you take some time to

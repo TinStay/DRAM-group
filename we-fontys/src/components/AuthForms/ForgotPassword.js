@@ -37,7 +37,7 @@ const ForgotPassword = () => {
 
     } catch (error) {
       console.log("Reset password error: ", error);
-      setError("Failed to reset password");
+      setError(error.message);
     }
 
     setIsLoading(false);

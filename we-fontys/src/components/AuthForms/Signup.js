@@ -72,11 +72,11 @@ const Signup = () => {
       );
 
        // Redirect to home page
-       history.push(`/profile/${currentUserID}/update-profile`);
+       history.push(`/discuss`);
 
     } catch (error) {
       console.log("Auth error: ", error);
-      setError("Failed to sign up");
+      setError(error.message);
     }
 
     setIsLoading(false);

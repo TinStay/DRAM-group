@@ -134,11 +134,10 @@ const DiscussionDetail = (props) => {
 
     // Update liked by users array
     if (newDiscussionData.likedBy !== undefined) {
-
       const idxUserInLikedBy = newDiscussionData.likedBy.indexOf(
         currentUser.uid
       );
-      
+
       // Remove user ID from likedBy array
       if (idxUserInLikedBy != -1 && isDiscussionLiked === true) {
         newDiscussionData.likedBy.splice(idxUserInLikedBy, 1);
@@ -248,24 +247,33 @@ const DiscussionDetail = (props) => {
           ) : null}
           <div className="col-md-2 mb-2">
             <div className="mx-md-auto d-flex d-md-block justify-content-start ">
-              <div className="text-center mr-2 mr-md-0">
-                <img
-                  src={
-                    userData
-                      ? userData.photoURL !== ""
-                        ? userData.photoURL
+              <Link
+                to={`/profile/` + currentUser.uid}
+                className="  text-decoration-none black-text d-block"
+              >
+                <div className="text-center mr-2 mr-md-0 ">
+                  <img
+                    src={
+                      userData
+                        ? userData.photoURL !== ""
+                          ? userData.photoURL
+                          : account_image
                         : account_image
-                      : account_image
-                  }
-                  className={classes.discussion_box_image}
-                  alt="img"
-                />
-              </div>
-              <div className="text-center my-auto">
-                <p className="text-muted mt-1">
-                  {userData && userData.username}
-                </p>
-              </div>
+                    }
+                    className={classes.discussion_box_image}
+                    alt="img"
+                  />
+                </div>
+                <div className="text-center my-auto">
+                  <p className="text-muted mt-1 h5 black-text">
+                    {userData && userData.username}
+                  </p>
+                </div>
+              </Link>
+              <Link
+                to={`/profile/` + currentUser.uid}
+                className="  text-decoration-none black-text d-block"
+              ></Link>
             </div>
           </div>
           <div className=" col-md-10">

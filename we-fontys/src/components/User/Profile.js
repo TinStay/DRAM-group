@@ -33,7 +33,7 @@ const Profile = (props) => {
         });
 
     }
-  }, []);
+  }, [userData]);
 
   async function handleLogout() {
     // Clear existing error

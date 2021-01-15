@@ -39,7 +39,7 @@ const Login = () => {
       history.push("/");
     } catch (error) {
       console.log("Login error: ", error);
-      setError("Failed to log in");
+      setError(error.message);
     }
 
     setIsLoading(false);
