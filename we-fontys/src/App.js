@@ -26,7 +26,7 @@ function App() {
     <Router>
       <AuthProvider>
         <Navbar />
-        <Container style={{ minHeight: "100vh", minWidth: "90vw"}}>
+        <Container style={{ minHeight: "100vh", minWidth: "80vw "}}>
           <Switch>
             <Route path="/" exact component={Homepage} />
             <PrivateRoute exact path="/profile/:id" component={Profile} />

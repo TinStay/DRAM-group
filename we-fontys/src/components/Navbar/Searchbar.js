@@ -65,11 +65,12 @@ function Searchbar() {
       >
         <Form.Control
           onChange={(e) => setInputText(e.target.value)}
+          className="border-rounded"
           value={inputText}
           onFocus={() => setShowOptions(true)}
           onBlur={() => setShowOptions(false)}
           type="text"
-          placeholder="Search"
+          placeholder="Search users"
         />
       </Form.Group>
       {showOptions && (
