@@ -11,7 +11,7 @@ const Homepage = () => {
   const { currentUser } = useAuth();
 
   let jumbotronParagraphClasses = [
-    " mx-auto my-5 line-height",
+    "col-md-6 mx-auto my-5 line-height",
     classes.jumbotron_paragraph,
   ];
 
@@ -25,7 +25,7 @@ const Homepage = () => {
           topics related to their studies and social life.
         </p>
       </div>
-      <div class="row my-4 white-bgc">
+      <div class="row my-5 white-bgc">
         <div class="col-md-6 my-4 text-center">
           <img
             src={homeImageOne}
@@ -37,7 +37,7 @@ const Homepage = () => {
           <h2 className="font-weight-semibold text-center mb-3 ">
             Set Up Your Profile
           </h2>
-          <p className="line-height">
+          <p className="col-md-10 offset-md-1 line-height">
             Hey! Are you a current attendee at Fontys? If this is the case, we
             would highly recommend you join our growing community. Sign up and
             set up your profile with information about your studies and
@@ -46,7 +46,7 @@ const Homepage = () => {
           </p>
         </div>
       </div>
-      <div class="row my-4">
+      <div class="row my-5">
         <div class="col-md-6 order-md-2 my-4 text-center">
           <img
             src={homeImageTwo}
@@ -58,14 +58,14 @@ const Homepage = () => {
           <h2 className="font-weight-semibold text-center mb-3">
             Browse Around
           </h2>
-          <p className="line-height">
+          <p className="col-md-10 offset-md-1 line-height">
             Once you’ve set up your profile, why don’t you take some time to
             navigate the website? See what discussions have been recently
             published. Who knows, maybe you’ll find something to your liking!
           </p>
         </div>
       </div>
-      <div class="row my-4">
+      <div class="row my-5">
         <div class="col-md-6 my-4 text-center">
           <img
             src={homeImageThree}
@@ -75,13 +75,13 @@ const Homepage = () => {
         </div>
         <div class="col-md-6  text-center my-auto">
           <h2 className="font-weight-semibold mb-3">Join the Discussion</h2>
-          <p className="line-height mb-5">
+          <p className="col-md-10 offset-md-1 line-height mb-5">
             Do you want to ask somebody about something regarding your studies?
             Why don’t you post your first discussion? All questions you may have
             are welcomed by our community.
           </p>
           {currentUser ? (
-            <Link to="/discuss" class="btn btn-purple-rounded w-100">
+            <Link to="/discuss" class="col-md-10 btn btn-purple-rounded w-100">
               Go to discussions
             </Link>
           ) : (

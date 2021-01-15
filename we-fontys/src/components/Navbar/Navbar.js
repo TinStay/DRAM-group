@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from '../../axios'
+import axios from "../../axios";
 
 //React Router
 import { Link } from "react-router-dom";
@@ -23,12 +23,12 @@ const Navigationbar = () => {
   const { currentUser, logout } = useAuth();
   const [expanded, setExpanded] = useState(false);
   const [userData, setUserData] = useState();
-  
+
   let togglerClasses = [];
   let collapseClasses = [];
 
   useEffect(() => {
-    if(currentUser){
+    if (currentUser) {
       axios
         .get(`/users/${currentUser.uid}.json`)
         .then((userData) => {
@@ -38,9 +38,8 @@ const Navigationbar = () => {
         .catch((err) => {
           console.log("Error in fetching data from Firebase", err);
         });
-
     }
-  }, [currentUser, userData])
+  }, [currentUser, userData]);
 
   let navItems = (
     <Nav className="ml-auto">
@@ -65,23 +64,31 @@ const Navigationbar = () => {
     navItems = (
       <Nav className="ml-auto ">
         <Link
-            onClick={() => setExpanded(false)}
-            className="nav-link"
-            to="/discuss"
-          >
-            Discuss
-          </Link>
+          onClick={() => setExpanded(false)}
+          className="nav-link"
+          to="/discuss"
+        >
+          Discuss
+        </Link>
         <NavDropdown
           title={
             <div className="d-inline ">
               <img
                 className={classes.account_icon}
-                src={userData ? userData.photoURL !== "" ? userData.photoURL : account_icon : account_icon}
+                src={
+                  userData
+                    ? userData.photoURL !== ""
+                      ? userData.photoURL
+                      : account_icon
+                    : account_icon
+                }
                 alt="account icon"
                 width="45px"
                 height="45px"
               />
-              <span className="mr-1">{userData ? userData.username : "Profile"}</span>
+              <span className="mr-1">
+                {userData ? userData.username : "Profile"}
+              </span>
             </div>
           }
           id="basic-nav-dropdown"
@@ -95,8 +102,9 @@ const Navigationbar = () => {
           </Link>
           <NavDropdown.Divider />
           <div class="ml-2">
-          <Button className="btn-danger btn-cancel" onClick={() => logout()}>Log out</Button>
-
+            <Button className="btn-danger btn-cancel" onClick={() => logout()}>
+              Log out
+            </Button>
           </div>
         </NavDropdown>
       </Nav>
@@ -105,20 +113,22 @@ const Navigationbar = () => {
 
   return (
     <Navbar expanded={expanded} className={classes.navbar} expand="lg">
-      <Link className={classes.logo} to="/">
-        WeFontys
-      </Link>
-      <Navbar.Toggle
-        onClick={() => setExpanded(expanded ? false : "expanded")}
-        className={togglerClasses.join(" ")}
-        aria-controls="basic-navbar-nav"
-      />
-      <Navbar.Collapse
-        className={collapseClasses.join(" ")}
-        id="basic-navbar-nav"
-      >
-        {navItems}
-      </Navbar.Collapse>
+      <div className="mx-auto d-flex" style={{width: "88vw"}}>
+        <Link className={classes.logo} to="/">
+          WeFontys
+        </Link>
+        <Navbar.Toggle
+          onClick={() => setExpanded(expanded ? false : "expanded")}
+          className={togglerClasses.join(" ")}
+          aria-controls="basic-navbar-nav"
+        />
+        <Navbar.Collapse
+          className={collapseClasses.join(" ")}
+          id="basic-navbar-nav"
+        >
+          {navItems}
+        </Navbar.Collapse>
+      </div>
     </Navbar>
   );
 };

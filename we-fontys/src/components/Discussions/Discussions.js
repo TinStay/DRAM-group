@@ -42,7 +42,6 @@ const Discussions = () => {
   }, [filter]);
 
   const filterDiscussions = (filter) => {
-    console.log(filter)
     setFilter(filter)
   }
   
