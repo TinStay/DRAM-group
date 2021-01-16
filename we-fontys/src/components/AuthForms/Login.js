@@ -36,7 +36,7 @@ const Login = () => {
       await login(emailRef.current.value, passwordRef.current.value);
 
       // Redirect to home page
-      history.push("/");
+      history.push("/discuss");
     } catch (error) {
       console.log("Login error: ", error);
       setError(error.message);

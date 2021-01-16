@@ -28,7 +28,7 @@ function App() {
         <Navbar />
         <Switch>
           <Route path="/" exact component={Homepage} />
-          <Container style={{ minHeight: "100vh", minWidth: "80vw" }}>
+          <Container style={{  minWidth: "80vw" }}>
             <PrivateRoute exact path="/profile/:id" component={Profile} />
             <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />

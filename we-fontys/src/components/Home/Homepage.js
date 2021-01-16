@@ -28,7 +28,7 @@ const Homepage = () => {
           life.
         </p>
       </div>
-      <div className="w-80 w-80 mx-auto">
+      <div className="w-80 mx-auto">
         <div class="row my-5  ">
           <div class="col-md-6 my-4 text-center">
             <img
