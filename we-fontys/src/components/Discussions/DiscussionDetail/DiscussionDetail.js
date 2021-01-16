@@ -224,7 +224,7 @@ const DiscussionDetail = (props) => {
           <DiscussionComment commentData={discussionData} />
         </div>
 
-        <div className="comment-form row w-100 mx-auto my-4">
+        <div className="comment-form row w-100 mx-auto my-1">
           {alertMessage !== "" && show ? (
             <Alert
               className="col-12 mx-auto"
@@ -245,7 +245,7 @@ const DiscussionDetail = (props) => {
               {error}
             </Alert>
           ) : null}
-          <div className="col-md-2 mb-2">
+          <div className="col-md-2 mb-1">
             <div className="mx-md-auto d-flex d-md-block justify-content-start ">
               <Link
                 to={`/profile/` + currentUser.uid}
@@ -289,7 +289,7 @@ const DiscussionDetail = (props) => {
 
         <div className="comments my-5 w-100">
           <div className=" pb-2 border-bottom w-100">
-            <span className="text-muted  ">
+            <span className="text-muted text-middle">
               <i className="far fa-comment-alt mx-1"></i>
               {discussionData.comments
                 ? discussionData.comments.length !== 1
