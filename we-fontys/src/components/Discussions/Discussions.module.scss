@@ -1,9 +1,17 @@
 @import "../../variables";
 
 .dicussion_box {
+  margin: 0 0 2rem 0;
   box-sizing: border-box;
-  background-color: $gray-light;
+  background-color: rgb(253, 253, 253);
   border: 1px solid $gray-light-border;
+
+  -webkit-box-shadow: 4px 8px 7px 4px #f3f3f3; 
+  box-shadow: 4px 8px 7px 4px #f3f3f3;
+  
+  h3{
+    word-break: break-all;
+  }
 }
 
 .discussion_box_image {
@@ -29,7 +37,7 @@
 }
 
 .discussion_form_container {
-  width: 65%;
+  width: 70%;
   margin: 1.5rem auto;
 }
 

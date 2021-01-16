@@ -8,7 +8,7 @@
 
 .jumbotron{
     margin: 0 0 2rem 0;
-    min-height: 30vh;
+    min-height: 32vh;
     text-align: center;
 
     h1{
@@ -18,7 +18,7 @@
 
 .jumbotron_paragraph{
     width: 100%;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 
     @media screen and (min-width: 768px) {
         width: 60%;

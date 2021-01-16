@@ -25,7 +25,7 @@ const DiscussionBox = (props) => {
   commentToBeDisplayed.splice(20, commentToBeDisplayed.length - 1);
 
   let discussionBoxClasses = [
-    "row px-2 py-3 mb-4 mx-0  rounded ",
+    "row px-2 py-3 mx-0  rounded ",
     classes.dicussion_box,
   ];
 
@@ -50,7 +50,7 @@ const DiscussionBox = (props) => {
             />
           </Link>
         </div>
-        <div className="col-7 col-lg-12 text-center">
+        <div className="col-7 col-lg-12 text-center mb-auto">
           <Link
             to={`/profile/` + props.authorID}
             className="my-1 h5 text-decoration-none black "
