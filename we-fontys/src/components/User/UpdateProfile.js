@@ -370,7 +370,7 @@ const UpdateProfile = (props) => {
               </div>
             </div>
             <div class="col-md-8 ">
-              <h2 className=" mb-4">Update profile</h2>
+              <h2 className="mb-4">Update profile</h2>
 
               {error && <Alert variant="danger">{error}</Alert>}
 

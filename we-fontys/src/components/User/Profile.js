@@ -21,7 +21,7 @@ const Profile = (props) => {
 
   // Update user data from Firebase Realtime Database
   useEffect(() => {
-    if(currentUser){
+    if (currentUser) {
       axios
         .get(`/users/${props.match.params.id}.json`)
         .then((userData) => {
@@ -31,7 +31,6 @@ const Profile = (props) => {
         .catch((err) => {
           console.log("err", err);
         });
-
     }
   }, [userData]);
 
@@ -49,7 +48,8 @@ const Profile = (props) => {
     }
   }
 
-  let defaultImageURL = "gs://wefontys.appspot.com/static/account_icon_purple.png"
+  let defaultImageURL =
+    "gs://wefontys.appspot.com/static/account_icon_purple.png";
 
   let accountImageClasses = ["rounded-circle ", classes.account_image_main];
 
@@ -59,7 +59,7 @@ const Profile = (props) => {
         <i className="fas fa-angle-left mr-1 mb-3"></i>Back
       </Link>
       <Card className={classes.profile_card}>
-        <Card.Body >
+        <Card.Body>
           {/* <h2 className="text-center mb-4">Profile</h2> */}
 
           {error && <Alert variant="danger">{error}</Alert>}
@@ -69,7 +69,13 @@ const Profile = (props) => {
               <div className="my-3 ">
                 <img
                   className={accountImageClasses.join(" ")}
-                  src={userData ? userData.photoURL !== "" ? userData.photoURL : account_icon : account_icon}
+                  src={
+                    userData
+                      ? userData.photoURL !== ""
+                        ? userData.photoURL
+                        : account_icon
+                      : account_icon
+                  }
                 ></img>
               </div>
               <div className="my-3 h5 font-weight-bold">
@@ -81,18 +87,20 @@ const Profile = (props) => {
                 {userData && userData.email}
               </div>
               {props.match.params.id === currentUser.uid ? (
-              <div className="my-4 ">
-                <Link
-                  to={`/profile/${props.match.params.id}/update-profile`}
-                  className="btn-purple-rounded text-decoration-none white"
-                >
-                  Update profile
-                </Link>
-              </div>
+                <div className="my-4 ">
+                  <Link
+                    to={`/profile/${props.match.params.id}/update-profile`}
+                    className="btn-purple-rounded text-decoration-none white"
+                  >
+                    Update profile
+                  </Link>
+                </div>
               ) : null}
             </div>
             <div class="col-md-8 mx-auto">
-              <div class="col-12 px-0 h3 mt-5 my-md-0 text-md-left text-center font-weight-bold">Profile info</div>
+              <div class="col-12 px-0 h2 mt-5 my-md-0 text-md-left text-center ">
+                Profile info
+              </div>
               <div className="my-4">
                 <strong>Userame: </strong>
                 {userData && userData.username}
