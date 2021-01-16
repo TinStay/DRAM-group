@@ -39,7 +39,14 @@ const Discussions = () => {
       .catch((error) => {
         console.log("Error in fetching discussion data: ", error);
       });
+
+      
   }, [filter]);
+
+  useEffect(() => {
+    // Scroll to top of the page
+      window.scrollTo(0, 0)
+  }, [])
 
   const filterDiscussions = (filter) => {
     setFilter(filter)

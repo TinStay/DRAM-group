@@ -18,7 +18,7 @@ const Homepage = () => {
   return (
     <div className="my-4">
       <div className={classes.jumbotron}>
-        <h1 className="mt-5">The real information source for Fontys students</h1>
+        <h1 className="mt-5">The real information source for <span className="purple">Fontys</span> students</h1>
         <p className={jumbotronParagraphClasses.join(" ")}>
           Our goal is to bring Fontys students and teachers together and provide
           them with a platform where they can find relevant information about
@@ -59,8 +59,7 @@ const Homepage = () => {
             Browse Around
           </h2>
           <p className="col-md-10 offset-md-1 line-height">
-            Once you’ve set up your profile, why don’t you take some time to
-            navigate the website? See what discussions have been recently
+            Once you’ve set up your profile, why don’t you take a look around? See what discussions have been recently
             published. Who knows, maybe you’ll find something to your liking!
           </p>
         </div>
