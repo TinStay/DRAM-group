@@ -4,6 +4,8 @@ import account_image from "../../assets/account/account_icon_purple.png";
 import { objectsAreTheSame } from "../../shared/sharedFunctions";
 import { storage } from "../../firebase";
 
+import Select from "react-select";
+
 // Style
 import {
   Card,
@@ -26,13 +28,13 @@ const UpdateProfile = (props) => {
   // State
   const [userData, setUserData] = useState();
   const [profileImageFile, setProfileImageFile] = useState();
-  const [profileImageURL, setProfileImageURL] = useState("");
   const [profileImagePreview, setProfileImagePreview] = useState();
   const [studyLocation, setStudyLocation] = useState("");
   const [studyProgram, setStudyProgram] = useState("");
   const [interests, setInterests] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [interestInputValue, setInterestInputValue] = useState("");
 
   // React router history
   const history = useHistory();
@@ -69,8 +71,14 @@ const UpdateProfile = (props) => {
       });
   }, []);
 
+  console.log("input",interestInputValue)
+
   const addInterest = (e) => {
-    const newInterest = interestRef.current.value;
+    const newInterest = interestRef.current.state.value !== null ? interestRef.current.state.value.value : interestInputValue;
+    
+    
+    console.log(newInterest)
+
     // Copy array from firebase or create an empty one if there isnt one in firebase
     let newInterestsArray = interests !== "" ? [...interests] : [];
 
@@ -299,6 +307,25 @@ const UpdateProfile = (props) => {
     "Physiotherapy",
   ];
 
+  const interestList = [
+    "COVID-19",
+    "Arts",
+    "Communications",
+    "Business",
+    "Engineering",
+    "Healthcare",
+    "ICT",
+    "Logistics",
+    "International",
+    "Intership",
+  ];
+
+  let interestsArray = interestList.map((interest) => {
+    // return {...interest, label: interest}
+    return { value: interest, label: interest };
+  });
+
+
   return (
     <div className={classes.form_container}>
       <Link
@@ -416,7 +443,8 @@ const UpdateProfile = (props) => {
 
                 <Form.Group id="interests">
                   <Form.Label>Interests</Form.Label>
-                  <InputGroup className="mb-3">
+
+                  {/* <InputGroup className="mb-3">
                     <FormControl
                       placeholder="Add interest"
                       aria-label="interest"
@@ -431,6 +459,30 @@ const UpdateProfile = (props) => {
                         Add
                       </Button>
                     </InputGroup.Append>
+                  </InputGroup> */}
+
+                  <InputGroup className="mb-3 w-100">
+                    <div className="w-100 d-flex justify-content-between">
+                    <Select
+                      className="w-85 "
+                      classNamePrefix="select"
+                      isClearable={true}
+                      isSearchable={true}
+                      name="color"
+                      options={interestsArray}
+                      placeholder="Add interest"
+                      ref={interestRef}
+                      onInputChange={(value) => {
+                        setInterestInputValue(value)}}
+                    />
+                      <Button
+                        onMouseDown={(e) => addInterest(e)}
+                        className="btn-purple py-1 px-4"
+                      >
+                        Add
+                      </Button>
+                    </div>
+                   
                   </InputGroup>
                   <div className="w-100 mx-auto row text-center">
                     {interests && interests !== ""
@@ -455,12 +507,20 @@ const UpdateProfile = (props) => {
 
                 <Form.Group id="password">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" ref={passwordRef}  placeholder="Your new password"/>
+                  <Form.Control
+                    type="password"
+                    ref={passwordRef}
+                    placeholder="Your new password"
+                  />
                 </Form.Group>
 
                 <Form.Group id="password-confirm">
                   <Form.Label>Confirm password</Form.Label>
-                  <Form.Control type="password" ref={passwordConfirmRef}  placeholder="Your new password"/>
+                  <Form.Control
+                    type="password"
+                    ref={passwordConfirmRef}
+                    placeholder="Your new password"
+                  />
                 </Form.Group>
 
                 <Button
