@@ -1,7 +1,7 @@
 @import "../../variables";
 
 .dicussion_box {
-  margin: 0 0 2rem 0;
+  margin: 0 0 2.5rem 0;
   box-sizing: border-box;
   background-color: rgb(253, 253, 253);
   border: 1px solid $gray-light-border;
@@ -11,6 +11,17 @@
   
   h3{
     word-break: break-all;
+    width: 96%;
+    margin: 0px auto 15px auto;
+    
+    p{
+      word-break: break-all;
+    }
+    
+    @media screen and (min-width: 992px) {
+      margin: 0px auto 10px auto;
+      width: 100%;
+    }
   }
 }
 

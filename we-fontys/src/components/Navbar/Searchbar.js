@@ -60,7 +60,7 @@ function Searchbar() {
     <div className={classes.searchbar_container}>
       <Form.Group
         onClick={() => setShowOptions(true)}
-        className="mx-3 my-2 my-md-auto "
+        className="mx-0 my-3 my-lg-auto "
         controlId="searchbar"
       >
         <Form.Control

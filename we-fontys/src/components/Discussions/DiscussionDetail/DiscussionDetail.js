@@ -194,7 +194,7 @@ const DiscussionDetail = (props) => {
           <div className="d-flex justify-content-between text-muted">
             <div className="discussion-info">
               <span className="mr-2">
-                <span className="badge badge-primary purple-bgc ml-1 px-3 py-2">
+                <span className="badge badge-primary purple-badge ml-1 px-3 py-2">
                   {discussionData.category}
                 </span>
               </span>

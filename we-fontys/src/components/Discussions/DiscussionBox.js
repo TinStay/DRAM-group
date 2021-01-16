@@ -60,11 +60,11 @@ const DiscussionBox = (props) => {
           <p className="my-1 ">{authorData && authorData.studyProgram}</p>
         </div>
       </div>
-      <div className="col-lg-9 p-0">
+      <div className="col-lg-9 p-0 h-100">
         <div className="d-md-flex justify-content-between my-2 my-md-0 ">
-          <h3 className="pr-md-0 h2">{props.title}</h3>
+          <h3 className="pr-md-0 h3">{props.title}</h3>
           <p className="">
-            <span className="badge badge-primary purple-bgc  ml-1 px-3 py-2">
+            <span className="badge badge-primary purple-badge  ml-1 px-3 py-2">
               {props.category}
             </span>
           </p>
@@ -73,7 +73,7 @@ const DiscussionBox = (props) => {
         <div className="d-flex justify-content-between">
           <Link
             to={"/discussion/" + props.discussionID}
-            className="btn btn-link p-0 my-0"
+            className="btn btn-link purple p-0 my-0"
           >
             Read more
           </Link>

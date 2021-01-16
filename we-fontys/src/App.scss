@@ -10,6 +10,10 @@
 
 .gray-font {
   color: #6d6d6d;
+
+  &:hover{
+    color: #666666;
+  }
 }
 
 .white {
@@ -161,8 +165,8 @@
   }
 }
 
-.purple-bgc {
-  background-color: #2176ff;
+.purple-badge {
+  background-color: #7b35fd;
 }
 
 .btn-cancel {

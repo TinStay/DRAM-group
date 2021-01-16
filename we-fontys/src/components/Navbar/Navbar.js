@@ -63,18 +63,18 @@ const Navigationbar = () => {
 
   if (currentUser) {
     navItems = (
-      <Nav className="d-flex justify-content-end w-100">
+      <Nav className="d-flex justify-content-end w-100 ">
         <div className="my-auto">
           <Searchbar />
         </div>
-
         <Link
           onClick={() => setExpanded(false)}
-          className="nav-link"
+          className="text-decoration-none gray-font h5 my-2  ml-3"
           to="/discuss"
         >
           Discuss
         </Link>
+
         <NavDropdown
           title={
             <div className="d-inline ">
