@@ -9,14 +9,17 @@
   -webkit-box-shadow: 4px 8px 7px 4px #f3f3f3; 
   box-shadow: 4px 8px 7px 4px #f3f3f3;
   
+
+  p{
+    word-break: break-all;
+  }
+  
   h3{
     word-break: break-all;
     width: 96%;
     margin: 0px auto 15px auto;
     
-    p{
-      word-break: break-all;
-    }
+    
     
     @media screen and (min-width: 992px) {
       margin: 0px auto 10px auto;

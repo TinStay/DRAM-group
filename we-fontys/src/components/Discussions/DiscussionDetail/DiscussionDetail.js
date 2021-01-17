@@ -281,9 +281,9 @@ const DiscussionDetail = (props) => {
               <Form.Label>Comment</Form.Label>
               <Form.Control ref={commentInputRef} as="textarea" readonly rows={3} />
             </Form.Group>
-            <Button onClick={postComment} className="btn-purple-rounded">
+            <button onClick={postComment} className="btn-purple-rounded no-focus-shadow ">
               Post
-            </Button>
+            </button>
           </div>
         </div>
 

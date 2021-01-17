@@ -28,27 +28,19 @@ const Discussions = () => {
       break;
     case "Most comments":
       sortedDiscussions = discussions.slice().sort((a, b) => {
-        
-
-        if(a["comments"] === undefined || b["comments"] === undefined){
-          // console.log("a", a["comments"], b["comments"])
-          if(a["comments"] !== undefined){
-            return -10000
-          }else{
-            return 0
+        // Check if comments field exist in discussionData / Firebase removed field if empty
+        if (a["comments"] === undefined || b["comments"] === undefined) {
+          if (a["comments"] !== undefined) {
+            // Return a big number as these discussions have 0 comments
+            // and they should be at the end of the array
+            return -9999;
+          } else {
+            return 0;
           }
-          // return -2
-        }else{
-          console.log(a["comments"].length, b["comments"].length, b["comments"].length - a["comments"].length)
+        } else {
+          // Sort by most commented first
           return b["comments"].length - a["comments"].length;
         }
-
-        // if (b.comments !== undefined && a.comments !== undefined) {
-        //   return 
-        // }else {
-        //   return 
-        // }
-
       });
       break;
     case "Most likes":
@@ -102,7 +94,7 @@ const Discussions = () => {
       <div className="col-md-3 side-menu ">
         <Link
           to="/add-discussion"
-          className="btn btn-purple-rounded text-center my-3 btn-block"
+          className="btn btn-purple-rounded text-center my-3 btn-block no-focus-shadow"
         >
           Add a discussion
         </Link>
@@ -115,12 +107,13 @@ const Discussions = () => {
         <div class="d-sm-flex  justify-content-between">
           <h1 className="mt-2 mb-3 ">{filter} discussions</h1>
           <Form.Group
-            className=" w-md-25 my-md-auto my-3"
+            className="w-md-25 my-md-auto my-3"
             controlId="sortDiscussions"
           >
             {/* <Form.Label>Sort by</Form.Label> */}
             <Form.Control
               onChange={(e) => setSortingOn(e.target.value)}
+              className="border-rounded no-focus-shadow purple-border-focus "
               as="select"
             >
               <option>Most recent</option>

@@ -106,9 +106,9 @@ const DiscussionForm = () => {
             </Form.Group>
           </div>
         </div>
-        <div className="submit-btn">
-          <button type="submit" className="btn btn-purple-rounded">
-            Submit
+        <div className="submit-btn ">
+          <button type="submit" className="btn btn-purple-rounded no-focus-shadow px-4">
+            Post 
           </button>
         </div>
       </form>

@@ -81,6 +81,27 @@
   border-radius: 50px;
 }
 
+.no-focus-shadow{
+  box-shadow: none;
+
+  &:focus{
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+
+.purple-border{
+  border: 1px solid $fontys-purple;
+}
+
+.purple-border-focus{
+
+  &:focus{
+    border: 1px solid $fontys-purple;
+  }
+}
+
 .list-group {
   background-color: inherit;
   font-weight: 500;

@@ -73,7 +73,7 @@ const DiscussionBox = (props) => {
         <div className="d-flex justify-content-between">
           <Link
             to={"/discussion/" + props.discussionID}
-            className="btn btn-link purple p-0 my-0"
+            className="btn btn-link purple p-0 my-0 no-focus-shadow"
           >
             Read more
           </Link>

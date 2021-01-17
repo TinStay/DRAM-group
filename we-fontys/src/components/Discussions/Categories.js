@@ -22,8 +22,8 @@ const Categories = (props) => {
   return (
     <div>
       {isMobile ? (
-        <Form.Group className="w-50  my-4" controlId="discussion-form-category">
-          <Form.Control as="select" onChange={(e) => props.filterDiscussions(e)}>
+        <Form.Group className="  my-4" controlId="discussion-form-category">
+          <Form.Control className="no-focus-shadow border-rounded" as="select" onChange={(e) => props.filterDiscussions(e)}>
             {categoryList.map((category, idx) => {
               return (
                 <option
@@ -40,6 +40,7 @@ const Categories = (props) => {
           {categoryList.map((category, idx) => {
             return <ListGroup.Item
             action
+            className="no-focus-shadow"
             key={idx}
             value={category}
             active={props.filter == category}
