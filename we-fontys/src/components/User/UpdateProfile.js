@@ -5,6 +5,7 @@ import { objectsAreTheSame } from "../../shared/sharedFunctions";
 import { storage } from "../../firebase";
 
 import Select from "react-select";
+import {interestsData} from './interests'
 
 // Style
 import {
@@ -35,6 +36,7 @@ const UpdateProfile = (props) => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [interestInputValue, setInterestInputValue] = useState("");
+
 
   // React router history
   const history = useHistory();
@@ -320,9 +322,11 @@ const UpdateProfile = (props) => {
     "Intership",
   ];
 
-  let interestsArray = interestList.map((interest) => {
+  console.log("interestsData",interestsData)
+
+  let interestsArray = interestsData.map((interest) => {
     // return {...interest, label: interest}
-    return { value: interest, label: interest };
+    return { value: interest.title, label: interest.title };
   });
 
 
@@ -404,15 +408,6 @@ const UpdateProfile = (props) => {
                   />
                 </Form.Group>
 
-                {/* <Form.Group id="studyProgram">
-                  <Form.Label>Study program</Form.Label>
-                  <Form.Control
-                    type="text"
-                    defaultValue={userData ? userData.studyProgram : ""}
-                    ref={studyProgramRef}
-                  />
-                </Form.Group> */}
-
                 <Form.Group controlId="studyProgram">
                   <Form.Label>Study program</Form.Label>
                   <Form.Control
@@ -443,23 +438,6 @@ const UpdateProfile = (props) => {
 
                 <Form.Group id="interests">
                   <Form.Label>Interests</Form.Label>
-
-                  {/* <InputGroup className="mb-3">
-                    <FormControl
-                      placeholder="Add interest"
-                      aria-label="interest"
-                      aria-describedby="basic-addon2"
-                      ref={interestRef}
-                    />
-                    <InputGroup.Append>
-                      <Button
-                        onClick={(e) => addInterest(e)}
-                        className="btn-purple py-1"
-                      >
-                        Add
-                      </Button>
-                    </InputGroup.Append>
-                  </InputGroup> */}
 
                   <InputGroup className="mb-3 w-100">
                     <div className="w-100 d-flex justify-content-between">

@@ -60,7 +60,7 @@ const DiscussionComment = (props) => {
         </div>
       </div>
       <div className="col-md-10">
-        <p className="my-2 gray-font">
+        <p className="my-2 gray-font" >
           {initialComment ? initialComment : props.commentData.comment}
         </p>
       </div>

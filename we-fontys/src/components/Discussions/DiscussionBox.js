@@ -69,7 +69,7 @@ const DiscussionBox = (props) => {
             </span>
           </p>
         </div>
-        <p className="my-2 gray-font">{commentToBeDisplayed.join(" ")}...</p>
+        <p className="my-2 gray-font" >{commentToBeDisplayed.join(" ")}...</p>
         <div className="d-flex justify-content-between">
           <Link
             to={"/discussion/" + props.discussionID}
