@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import axios from "../../axios";
+import { db } from "../../firebase";
 
 //React Router
 import { Link } from "react-router-dom";
@@ -25,11 +26,25 @@ const Navigationbar = () => {
   const [expanded, setExpanded] = useState(false);
   const [userData, setUserData] = useState();
 
-  let togglerClasses = [];
-  let collapseClasses = [];
-
   useEffect(() => {
     if (currentUser) {
+      // let userDataRef = db.ref(`/users/${currentUser.uid}`);
+
+      // let newUserData = [];
+      // userDataRef.on("value", function (data) {
+      //   data.forEach(function (childSnapshot) {
+      //     var key = childSnapshot.key;
+      //     var userData = childSnapshot.val();
+
+      //     newUserData.push({ [key]: userData });
+      //   });
+
+      //   // console.log("newUserData",newUserData)
+
+      //   // data.key, data.val().title, data.val().description
+      // });
+      // setUserData(newUserData);
+
       axios
         .get(`/users/${currentUser.uid}.json`)
         .then((userData) => {
@@ -40,7 +55,9 @@ const Navigationbar = () => {
           console.log("Error in fetching data from Firebase", err);
         });
     }
-  }, [currentUser, userData]);
+  }, [currentUser]);
+
+  // console.log("userData", userData);
 
   let navItems = (
     <Nav className="ml-auto">
@@ -64,16 +81,16 @@ const Navigationbar = () => {
   if (currentUser) {
     navItems = (
       <Nav className="d-flex justify-content-end w-100 ">
-        <div className="my-auto">
-          <Searchbar />
-        </div>
         <Link
           onClick={() => setExpanded(false)}
-          className="text-decoration-none gray-font h5 my-2  ml-3"
+          className="text-decoration-none gray-font h5 my-2 mr-3"
           to="/discuss"
         >
           Discuss
         </Link>
+        <div className="my-auto">
+          <Searchbar />
+        </div>
 
         <NavDropdown
           title={
@@ -129,7 +146,7 @@ const Navigationbar = () => {
       <Navbar.Toggle
         className="text-right"
         onClick={() => setExpanded(expanded ? false : "expanded")}
-        className={togglerClasses.join(" ")}
+        className={""}
         aria-controls="basic-navbar-nav"
       />
 
@@ -142,4 +159,4 @@ const Navigationbar = () => {
   );
 };
 
-export default Navigationbar;
+export default React.memo(Navigationbar);

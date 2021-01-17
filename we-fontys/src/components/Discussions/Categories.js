@@ -22,7 +22,7 @@ const Categories = (props) => {
   return (
     <div>
       {isMobile ? (
-        <Form.Group className="w-75 mx-auto my-4" controlId="discussion-form-category">
+        <Form.Group className="w-50  my-4" controlId="discussion-form-category">
           <Form.Control as="select" onChange={(e) => props.filterDiscussions(e)}>
             {categoryList.map((category, idx) => {
               return (

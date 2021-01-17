@@ -32,7 +32,7 @@ const Profile = (props) => {
           console.log("err", err);
         });
     }
-  }, [userData]);
+  }, []);
 
   async function handleLogout() {
     // Clear existing error

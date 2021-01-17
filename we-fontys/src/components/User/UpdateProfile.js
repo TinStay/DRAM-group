@@ -73,8 +73,6 @@ const UpdateProfile = (props) => {
       });
   }, []);
 
-  console.log("input",interestInputValue)
-
   const addInterest = (e) => {
     const newInterest = interestRef.current.state.value !== null ? interestRef.current.state.value.value : interestInputValue;
     
@@ -252,7 +250,7 @@ const UpdateProfile = (props) => {
       promises.push(updatePassword(passwordRef.current.value));
     }
 
-    Promise.all(promises)
+    await Promise.all(promises)
       .then(() => {
         // Redirect to home page if all promises are successful
         history.push("/profile/" + props.match.params.id);
@@ -321,8 +319,6 @@ const UpdateProfile = (props) => {
     "International",
     "Intership",
   ];
-
-  console.log("interestsData",interestsData)
 
   let interestsArray = interestsData.map((interest) => {
     // return {...interest, label: interest}
