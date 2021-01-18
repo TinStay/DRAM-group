@@ -1,5 +1,5 @@
 # WeFontys
-* DRAMS-group
+### DRAMS-group
 
 WeFontys is intended to be a web platform where students and teachers from Fontys can view, create, and discuss questions and topics. All discussions listed on the website have a category assigned to them and the users can filter them by selecting the category of their choice in a side menu. Each discussion is based on a main question (or just a title), the initial comment of the author, and other comments posted by users. The option to like as well, as information about the author and how many people have posted comments will be present on each discussion page. A profile page will be created for each user on signing up where they will be able to alter their picture, username, topics of interest, and other credentials like email and password.
 
