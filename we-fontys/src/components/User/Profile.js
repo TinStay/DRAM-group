@@ -21,6 +21,8 @@ const Profile = (props) => {
 
   // Update user data from Firebase Realtime Database
   useEffect(() => {
+    // console.log("Data update")
+
     if (currentUser) {
       axios
         .get(`/users/${props.match.params.id}.json`)
@@ -32,7 +34,7 @@ const Profile = (props) => {
           console.log("err", err);
         });
     }
-  }, []);
+  }, [currentUser]);
 
   async function handleLogout() {
     // Clear existing error
@@ -132,9 +134,7 @@ const Profile = (props) => {
                       </div>
                     ))
                   ) : (
-                    <p className="text-muted">
-                      You haven't selected any interests yet.
-                    </p>
+                    <p className="text-muted">No interests yet.</p>
                   )}
                 </div>
               </div>

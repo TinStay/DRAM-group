@@ -125,7 +125,7 @@ const DiscussionDetail = (props) => {
   if (discussionData.comments) {
     sortedCommentsByDate = discussionData.comments
       .slice()
-      .sort((a, b) => new Date(b.datePosted) - new Date(a.datePosted));
+      .sort((a, b) => new Date(a.datePosted) - new Date(b.datePosted));
   }
 
   const likeDiscussion = () => {
